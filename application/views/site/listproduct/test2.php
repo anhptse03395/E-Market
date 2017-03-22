@@ -28,7 +28,7 @@
 
 				?>
 
-				<form class="form-horizontal" method="post" action="<?php echo user_url('test2/search') ?>">
+				<form class="form-horizontal" method="post" action="<?php echo user_url('listproduct/search') ?>">
 					<fieldset>
 
 						<!-- Form Name -->
@@ -51,13 +51,13 @@
 
 									<?php foreach ($catalogs as $row):?>
 										<?php if(count($row->subs) > 1):?>
-											<optgroup label="<?php echo $row->name?>">
+											<optgroup label="<?php echo $row->category_name?>">
 												<?php foreach ($row->subs as $sub):?>
-													<option value="<?php echo $sub->id?>" <?php echo ($this->input->post('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->name?> </option>
+													<option value="<?php echo $sub->id?>" <?php echo ($this->input->post('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->category_name?> </option>
 												<?php endforeach;?>
 											</optgroup>
 										<?php else:?>
-											<option value="<?php echo $row->id?>" <?php echo ($this->input->post('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->name?></option>
+											<option value="<?php echo $row->id?>" <?php echo ($this->input->post('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->category_name?></option>
 										<?php endif;?>
 									<?php endforeach;?>
 								</select>
@@ -99,7 +99,7 @@
 								<tr>
 									<td class="cart_product">
 										<a href="<?php echo user_url('listproduct/product_detail/'.$row->product_id)?>"><img  height="70" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
-										<p> <?php echo $row->username.' ' ;
+										<p> <?php echo $row->shop_name.' ' ;
 											echo '</br>'.'<h6>'.'ngày đăng'.' :'. mdate('%d-%m-%Y',$row->product_created).'</h6>' ;
 
 											?></p>	

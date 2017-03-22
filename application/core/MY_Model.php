@@ -5,7 +5,7 @@ class MY_Model extends CI_Model {
   var $table = '';
   
     // Key chinh cua table
-  var $key = 'id';
+  var $key  = 'id';
   var $key_imp = 'impression';
   
     // Order mac dinh (VD: $order = array('id', 'desc))

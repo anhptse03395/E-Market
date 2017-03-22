@@ -6,7 +6,7 @@ Class Login extends MY_controller{
 
 
   parent::__construct();
-  $this->load->model('user_model');
+  $this->load->model('account_model');
 }
 
 function index()
@@ -21,7 +21,7 @@ function index()
     if($this->form_validation->run())
     {
       $this->session->set_userdata('user_login', true);
-      redirect(user_url('profile/listpost'));
+      redirect(base_url('home'));
     }
   }
 
@@ -40,19 +40,25 @@ function index()
     	$password = md5($password);
 
 
-    	$this->load->model('user_model');
-    	$where = array('email' => $email , 'password' => $password);
-    	if($this->user_model->check_exists($where))
+    	$this->load->model('account_model');
+    	$where = array('username' => $email , 'password' => $password);
+    	if($this->account_model->check_exists($where))
     	{
 
-        $data_user =  array('email' => $email);
-        $object = new StdClass;
-        $object = $this->user_model->get_info_rule($data_user) ;
-        $arraylist  = (array) $object ;
-        $user_id= $arraylist['id'];
+        $data_user =  array('username' => $email);
+      
+        $row = $this->account_model->get_info_rule($data_user) ;
+       
+                if(intval($row->role_id)==2){
 
-        $this ->session ->set_userdata('user_id',$user_id) ;
-        $this ->session ->set_userdata('userInfo',$email) ;
+                  $this ->session ->set_userdata('buyer_id',$row->buyer_id) ;
+                }
+                  if(intval($row->role_id)==3){
+
+                  $this ->session ->set_userdata('shop_id',$row->shop_id) ;
+                }
+
+        
 
 
         return true;

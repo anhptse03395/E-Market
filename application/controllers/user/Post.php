@@ -12,26 +12,34 @@ Class Post extends MY_controller{
 
 	{
 
-		$this->load->model('catalog_model');
+		$this->load->model('categories_model');
 		$input_catalog['where'] = array('parent_id' => 0);
-		$catalogs = $this->catalog_model->get_list($input_catalog);
+		$catalogs = $this->categories_model->get_list($input_catalog);
 		foreach ($catalogs as $row) {
 			$input_catalog['where'] = array('parent_id' => $row->id);
-			$subs = $this->catalog_model->get_list($input_catalog);
+			$subs = $this->categories_model->get_list($input_catalog);
 			$row->subs = $subs;
 		}
 		$this->data['catalogs'] = $catalogs;
 
 
+		$this->load->model('supplier_model'); 
 
 		$this->load->library('form_validation');
 		$this->load->helper('form');
-		$this->load->model('user_model');
-		$user_id = $this->session->userdata('user_id');
-		$input['where'] =  array('id' => $user_id );
-		$info= $this->user_model->get_list($input);
-		$this ->data['info']=$info;
+		$this->load->model('shop_model');
 
+			if($this->session->userdata('shop_id')){
+
+				$shop_id = $this->session->userdata('shop_id');
+				$input['where'] =  array('id' => $shop_id );
+				$info= $this->shop_model->get_list($input);
+			
+
+				$this ->data['info']=$info;
+			}
+
+	
 
 
         //neu ma co du lieu post len thi kiem tra
@@ -40,7 +48,6 @@ Class Post extends MY_controller{
 		{
 
 			$this->form_validation->set_rules('p_name', 'Tên', 'required|min_length[8]');
-			$this->form_validation->set_rules('p_email', 'Email đăng nhập', 'required|min_length[8]');
 			$this->form_validation->set_rules('p_phone', 'Số điện thoại', 'required|min_length[8]|numeric');
 			$this->form_validation->set_rules('p_number', 'Số lượng', 'required|numeric');
 			$this->form_validation->set_rules('catalog', 'Danh Mục', 'required');
@@ -54,7 +61,6 @@ Class Post extends MY_controller{
                 //them vao csdl
                
 				$name     = $this->input->post('p_name');
-				$email    = $this->input->post('p_email');
 				$address = $this->input->post('p_address');
 				$phone = $this->input->post('p_phone');
 				$number = $this->input->post('p_number');
@@ -62,7 +68,7 @@ Class Post extends MY_controller{
 				$content =$this->input->post('p_content');
 				$catalog_id = $this->input->post('catalog');
 
-				$user_id = $this->session->userdata('user_id');
+				$shop_id = $this->session->userdata('shop_id');
 			
 
 
@@ -81,17 +87,15 @@ Class Post extends MY_controller{
 				$image_list = json_encode($image_list);
 				
 				$data = array(
-					'user_name'  =>  $name,
-					'email' =>  $email,
-					'catalog_id'=>$catalog_id,
+					
+					'product_name' =>  $product_name,
+					'supplier_id' =>1,
+					'category_id'=>$catalog_id,
+					'shop_id'=>	$shop_id,
 					'image_link' => $image_link,
 					'image_list' => $image_list,
-					'address'=> $address,
-					'phone' =>  $phone,
 					'number'=> $number,
-					'product_name' =>  $product_name,
 					'content'=> $content,
-					'user_id'=>	$user_id,
 					'impression' => 1,
 					'created' => now(),
 					);

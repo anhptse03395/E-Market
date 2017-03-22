@@ -41,7 +41,7 @@
 						?>
 						<?php if(isset($message) && $message):?>
 							<div class="alert alert-success">
-								<p style="text-align: center;"><strong> </strong><?php echo $message?></p>
+								<h3 style="text-align: center;"><strong> </strong><?php echo $message?></h3>
 							</div>
 						<?php endif;?>
 <div class="container">
@@ -58,25 +58,29 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span>
                                 </span>
-                                <input type="text" class="form-control" style="text-align: center;" placeholder=" Tên Liên Lạc" name="p_name" value="<?php echo $row->user_name?>" /></div>
+                                <input type="text" class="form-control" style="text-align: center;" placeholder=" Tên Liên Lạc" name="p_name" value="<?php echo $row->shop_name?>"  readonly="readonly"/></div>
                         </div>
                       
-                        <div class="form-group">
-                            <label for="email">
-                                Địa Chỉ Email</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
-                                </span>
-                                <input type="email" class="form-control" placeholder="Enter email" name="p_email" style="text-align: center; " value="<?php echo $row->email?>" /></div>
-                        </div>
+                       
                         <div class="form-group">
                             <label for="email">
                                 Số Điện Thoại</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-earphone"></span>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Enter email" name="p_phone" style="text-align: center; " value="<?php echo $row->phone?>" /></div>
+                                <input type="text" class="form-control" placeholder="Enter email" name="p_phone" style="text-align: center; " value="<?php echo $row->phone?>"  readonly="readonly" /></div>
                         </div>
+                        <div class="form-group">
+                            <label for="email">
+                                Địa Chỉ</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-inbox"></span>
+                                </span>
+                                <input type="text" class="form-control" placeholder="  Địa Chỉ" name="p_address" value="<?php echo $row->address?>" style="text-align: center;"  readonly="readonly" /></div>
+                                <div class="clear error" name="name_error"><?php echo form_error('p_address')?></div>
+
+                        </div>
+
                     <?php endforeach;?>
 							
 							
@@ -90,13 +94,13 @@
                             	<option value="">Danh mục</option>
 					           <?php foreach ($catalogs as $row):?>
 										<?php if(count($row->subs) > 1):?>
-											<optgroup label="<?php echo $row->name?>">
+											<optgroup label="<?php echo $row->category_name?>">
 												<?php foreach ($row->subs as $sub):?>
-													<option value="<?php echo $sub->id?>" <?php echo ($this->input->post('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->name?> </option>
+													<option value="<?php echo $sub->id?>" <?php echo ($this->input->post('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->category_name?> </option>
 												<?php endforeach;?>
 											</optgroup>
 										<?php else:?>
-											<option value="<?php echo $row->id?>" <?php echo ($this->input->post('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->name?></option>
+											<option value="<?php echo $row->id?>" <?php echo ($this->input->post('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->category_name?></option>
 										<?php endif;?>
 								<?php endforeach;?>
                             </select>
@@ -121,16 +125,7 @@
                                 <input type="text" style="width: 50%" class="form-control"  placeholder="Số lượng/kg" name="p_number" value="<?php echo set_value('p_number')?>" required="required" /></div>
                                 <div class="clear error" name="name_error"><?php echo form_error('p_number')?></div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">
-                                Địa Chỉ</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-inbox"></span>
-                                </span>
-                                <input type="text" class="form-control" placeholder=" Địa Chỉ" name="p_address" value="<?php echo set_value('p_address')?>" /></div>
-                                <div class="clear error" name="name_error"><?php echo form_error('p_address')?></div>
-
-                        </div>
+                        
                         <div class="form-group">
                             <label for="email">
                                Hình ảnh</label>

@@ -7,7 +7,7 @@ Class ForgotPassword extends MY_controller{
 
 
 		parent::__construct();
-		$this->load->model('user_model');
+		$this->load->model('account_model');
 		
 	}
 
@@ -54,14 +54,14 @@ Class ForgotPassword extends MY_controller{
 
 
 				$object = new StdClass;
-				$object=$this->user_model->get_info_rule($data) ;
+				$object=$this->account_model->get_info_rule($data) ;
 				$arraylist	= (array) $object ;
 				$id=	$arraylist['id'];
 
 				$new_password=  rand(100000,999999);
 				$this->sendmail($email,$new_password);
 				$new_input['password'] = md5($new_password);            
-				$this->user_model->update($id,$new_input);
+				$this->account_model->update($id,$new_input);
 				$this->session->set_flashdata('message', 'Chúng tôi đã gửi password vào hòm thư bạn vừa nhập!');
 
 				redirect(user_url('forgotpassword'));
