@@ -20,8 +20,9 @@ function index()
     $this->form_validation->set_rules('login' ,'login', 'callback_check_login');
     if($this->form_validation->run())
     {
-      $this->session->set_userdata('user_login', true);
-      redirect(base_url('home'));
+      $this->session->set_userdata('account_login', true);
+      redirect(user_url('profile/listpost'));
+      
     }
   }
 
@@ -41,25 +42,31 @@ function index()
 
 
     	$this->load->model('account_model');
-    	$where = array('username' => $email , 'password' => $password);
+    	$where = array('email' => $email , 'password' => $password);
+
     	if($this->account_model->check_exists($where))
     	{
 
-        $data_user =  array('username' => $email);
-      
-        $row = $this->account_model->get_info_rule($data_user) ;
-       
-                if(intval($row->role_id)==2){
+        $row = $this->account_model->join_permission($email);
 
-                  $this ->session ->set_userdata('buyer_id',$row->buyer_id) ;
-                }
-                  if(intval($row->role_id)==3){
+        if(intval($row->role_id)==2){
 
-                  $this ->session ->set_userdata('shop_id',$row->shop_id) ;
-                }
+          $this ->session ->set_userdata('account_id',$row->account_id) ;
+          $this ->session ->set_userdata('permissions',json_decode($row->permissions)) ;
 
-        
+          $this ->session ->set_userdata('buyer_id',$row->buyer_id) ;
+          redirect(user_url('home'));
 
+        }
+        if(intval($row->role_id)==3){
+          $this ->session ->set_userdata('account_id',$row->account_id) ;
+         
+          $this ->session ->set_userdata('permissions',json_decode($row->permissions)) ;
+
+          $this ->session ->set_userdata('shop_id',$row->shop_id) ;
+            redirect(user_url('profile/listpost'));
+
+        }
 
         return true;
       }

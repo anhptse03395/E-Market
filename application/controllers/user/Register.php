@@ -14,7 +14,7 @@ Class Register extends MY_controller{
 	function check_email()
 	{
 		$email = $this->input->post('r_email');
-		$where = array('username' => $email);
+		$where = array('email' => $email);
         //kiêm tra xem username đã tồn tại chưa
 		if($this->account_model->check_exists($where))
 		{
@@ -116,7 +116,7 @@ Class Register extends MY_controller{
 	    				$shop_id = $this->db->insert_id(); 
 
 	    				$data_account = array(
-	    					'username' => $email,
+	    					'email' => $email,
 	    					'shop_id' =>$shop_id,
 	    					'password' => md5($password),
 	    					'role_id' =>3,
@@ -146,7 +146,7 @@ Class Register extends MY_controller{
 	    				$buyer_id = $this->db->insert_id(); 
 
 	    				$data_account = array(
-	    					'username' => $email,
+	    					'email' => $email,
 	    					'buyer_id' =>$buyer_id,
 	    					'password' => md5($password),
 	    					'role_id' =>2,

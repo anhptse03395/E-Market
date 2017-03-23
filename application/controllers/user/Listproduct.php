@@ -16,14 +16,15 @@ Class Listproduct extends MY_Controller
     {
 
        $strTitle=trim($strTitle);
-        $strTitle= preg_replace("/ {2,}/", " ", $strTitle);
+       $strTitle= preg_replace("/ {2,}/", " ", $strTitle);
        return $strTitle;
    }
 
-  
+
 
    function index()
    {
+  
 
     $input = array() ;
     $input['join'] =  array('shop');
@@ -76,7 +77,7 @@ Class Listproduct extends MY_Controller
         $message = $this->session->flashdata('message');
         $this->data['message'] = $message;
 
-        $this->load->view('site/listproduct/test2',$this->data);
+        $this->load->view('site/listproduct/index',$this->data);
 
         
     }
@@ -108,9 +109,14 @@ Class Listproduct extends MY_Controller
         if ($this->session->userdata('name')) {
             $input['like'] = array('product_name', $this->session->userdata('name'));
             $product= $this->product_model->get_list($input);
+
             foreach ($product as $row) {
+
               $data['impression'] = $row->impression + 1;
-              $this->product_model->update($row->id,$data);    
+
+              $this->product_model->update($row->id,$data);  
+
+              echo $this->db->last_query();    
           }
 
       }
@@ -123,66 +129,66 @@ Class Listproduct extends MY_Controller
           $this->product_model->update($row->id,$data);    
       }
 
-  }
-}
+    }
+    }
         // cu tim theo session da gui trc do
-if (($this->session->userdata('id') || $this->session->userdata('name') || $this->session->userdata('catalog'))) {
-    $input['where'] = array();
-    if ($this->session->userdata('id')) {
-        $input['where']['id'] = $this->session->userdata('id');
+        if (($this->session->userdata('id') || $this->session->userdata('name') || $this->session->userdata('catalog'))) {
+            $input['where'] = array();
+            if ($this->session->userdata('id')) {
+                $input['where']['id'] = $this->session->userdata('id');
 
-    }
-    $name=$this->session->userdata('name');
-    if ($this->session->userdata('name')) {
-        $input['like'] = array('product_name', $this->removeURL($name));
+            }
+            $name=$this->session->userdata('name');
+            if ($this->session->userdata('name')) {
+                $input['like'] = array('product_name', $this->removeURL($name));
 
 
-    }
-    if ($this->session->userdata('catalog')) {
-        $input['where']['category_id'] = $this->session->userdata('catalog');
-    }
-}
+            }
+            if ($this->session->userdata('catalog')) {
+                $input['where']['category_id'] = $this->session->userdata('catalog');
+            }
+        }
 
 
 ////////////////////////////////
-    $input['join'] =  array('shop');
-        $input['select']= "product.id as product_id,product_name,shop_name,product.created as product_created, number,image_link,image_list";
+            $input['join'] =  array('shop');
+            $input['select']= "product.id as product_id,product_name,shop_name,product.created as product_created, number,image_link,image_list";
 
-    $total_rows = count($this->product_model->join_shop($input));
+            $total_rows = count($this->product_model->join_shop($input));
 
-        // thu vien phan trang
-        $this->load->library('pagination');
-        $config = array();
-        $config['total_rows'] = $total_rows;
+                    // thu vien phan trang
+            $this->load->library('pagination');
+            $config = array();
+            $config['total_rows'] = $total_rows;
         // neu ko search thi de link phan trang nhu binh thuong
         // if(!isset($id) || !isset($name) || !isset($catalog_id) )
         //{
-        $config['base_url'] = user_url('test2/search'); // link hien thi du lieu
-        // }
-        $config['per_page'] = 5;
-        $config['uri_segment'] = 4;
-       // $config['use_page_numbers'] = TRUE;
-        $config['next_link']   = 'Trang kế tiếp';
-        $config['prev_link']   = 'Trang trước';
-        //khoi tao cac cau hinh phan trang
-        $this->pagination->initialize($config);
+            $config['base_url'] = user_url('test2/search'); // link hien thi du lieu
+            // }
+            $config['per_page'] = 5;
+            $config['uri_segment'] = 4;
+           // $config['use_page_numbers'] = TRUE;
+            $config['next_link']   = 'Trang kế tiếp';
+            $config['prev_link']   = 'Trang trước';
+                //khoi tao cac cau hinh phan trang
+            $this->pagination->initialize($config);
 
-        $segment = intval($this->uri->segment(4));
+            $segment = intval($this->uri->segment(4));
 
-        $input['limit'] = array($config['per_page'], $segment);
+            $input['limit'] = array($config['per_page'], $segment);
 
-        $info = $this->product_model->join_shop($input);
-        $this->data['info'] =$info;
+            $info = $this->product_model->join_shop($input);
+            $this->data['info'] =$info;
 
 
-        $this->data['list'] = $this->product_model->get_list_imp($input);
+            $this->data['list'] = $this->product_model->get_list_imp($input);
 
         // load filter list
-        $this->load->model('categories_model');
-        // dat la input_catalog de tranh bi trung voi input cua product
-        $input_catalog['where'] = array('parent_id' => 0);
-        $catalogs = $this->categories_model->get_list($input_catalog);
-        foreach ($catalogs as $row) {
+            $this->load->model('categories_model');
+            // dat la input_catalog de tranh bi trung voi input cua product
+            $input_catalog['where'] = array('parent_id' => 0);
+            $catalogs = $this->categories_model->get_list($input_catalog);
+            foreach ($catalogs as $row) {
             $input_catalog['where'] = array('parent_id' => $row->id);
             $subs = $this->categories_model->get_list($input_catalog);
             $row->subs = $subs;
@@ -191,7 +197,7 @@ if (($this->session->userdata('id') || $this->session->userdata('name') || $this
         // gan thong bao loi de truyen vao view
         $this->data['message'] = $this->session->flashdata('message');
 
-        $this->load->view('site/listproduct/test2',$this->data);
+        $this->load->view('site/listproduct/index',$this->data);
     }
 
 
@@ -204,7 +210,7 @@ if (($this->session->userdata('id') || $this->session->userdata('name') || $this
         //lay id san pham muon xem
         $id = $this->uri->rsegment(3);
 
-    
+
 /*
         $this->product_model->join_shop($input);
 
@@ -213,12 +219,10 @@ if (($this->session->userdata('id') || $this->session->userdata('name') || $this
         $this->data['product'] = $product;
 */
 
-           $product= $this->product_model->join_detail($id);
+        $product= $this->product_model->join_detail($id);
+      
+        $this->data['product'] = $product;
 
-
-           $this->data['product'] = $product;
-
-          
         //lấy danh sách ảnh sản phẩm kèm theo
         $image_list = @json_decode($product->image_list);
         $this->data['image_list'] = $image_list;

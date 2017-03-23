@@ -28,7 +28,21 @@ Class MY_Controller extends CI_Controller
                 }
             default:
                 {
-                    //xu ly du lieu o trang ngoai
+                   
+
+
+                   /* $this->load->model('categories_model');
+                    // dat la input_catalog de tranh bi trung voi input cua product
+                    $input_catalog['where'] = array('parent_id' => 0);
+                    $catalogs = $this->categories_model->get_list($input_catalog);
+                    foreach ($catalogs as $row) {
+                        $input_catalog['where'] = array('parent_id' => $row->id);
+                        $subs = $this->categories_model->get_list($input_catalog);
+                        $row->subs = $subs;
+                    }
+                        $this->data['catalogs'] = $catalogs;
+                        $this->load->view('site/header',$this->data);*/
+
                 }
             
         }
@@ -57,6 +71,8 @@ Class MY_Controller extends CI_Controller
             
             redirect(admin_url('home'));
         }
+
+        
         elseif (!in_array($controller, array('login', 'home'))) {
             $admin_id = $this->session->userdata('admin_id');
             $admin_root = $this->config->item('root_admin');
@@ -88,7 +104,7 @@ Class MY_Controller extends CI_Controller
         $controller = $this->uri->rsegment('1');
         $controller = strtolower($controller);
         
-        $login = $this->session->userdata('user_login');
+        $login = $this->session->userdata('account_id');
         //neu ma chua dang nhap,ma truy cap 1 controller khac login
         if(!$login && $controller == 'post')
         {

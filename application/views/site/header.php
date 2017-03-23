@@ -38,7 +38,7 @@
 				<div class="shop-menu pull-right">
 					<ul class="nav navbar-nav">
 
-						<?php $mes = $this->session->userdata('user_login');?>
+						<?php $mes = $this->session->userdata('account_id');?>
 
 						<?php if(isset($mes)) {?>
 						<li style="display: block;" ><a href="<?php echo user_url('profile')?>"><i class="fa fa-user" ></i> Tài khoản</a></li>

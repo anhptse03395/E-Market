@@ -32,11 +32,11 @@
 					<fieldset>
 
 						<!-- Form Name -->
-						<legend>Các Bài Đăng</legend>
+						<legend>Các bài đăng</legend>
 
 						<!-- Text input-->
 						<div class="form-group">
-							<label class="col-md-4 control-label" >Tên Sản Phẩm</label>  
+							<label class="col-md-4 control-label" >Tên sản phẩm</label>  
 							<div class="col-md-4">
 								<input  type="text"  name="name" placeholder="Tên sản phẩm" value=" <?php echo set_value('name');?>" class="form-control input-md"/>
 
@@ -44,20 +44,20 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Danh Mục Sản Phẩm</label>
+							<label class="col-md-4 control-label">Danh mục sản phẩm</label>
 							<div class="col-md-2">
 								<select id="selectbasic" name="catalog" class="form-control">
 									<option value="">Danh mục</option>
 
 									<?php foreach ($catalogs as $row):?>
 										<?php if(count($row->subs) > 1):?>
-											<optgroup label="<?php echo $row->name?>">
+											<optgroup label="<?php echo $row->category_name?>">
 												<?php foreach ($row->subs as $sub):?>
-													<option value="<?php echo $sub->id?>" <?php echo ($this->input->post('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->name?> </option>
+													<option value="<?php echo $sub->id?>" <?php echo ($this->input->post('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->category_name?> </option>
 												<?php endforeach;?>
 											</optgroup>
 										<?php else:?>
-											<option value="<?php echo $row->id?>" <?php echo ($this->input->post('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->name?></option>
+											<option value="<?php echo $row->id?>" <?php echo ($this->input->post('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->category_name?></option>
 										<?php endif;?>
 									<?php endforeach;?>
 								</select>
@@ -95,18 +95,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($list as $row):?>
+							<?php foreach ($info as $row):?>
 								<tr>
 									<td class="cart_product">
-										<a href="<?php echo user_url('listproduct/product_detail/'.$row->id)?>"><img  height="70" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
-										<p> <?php echo $row->user_name.' ' ;
-											echo '</br>'.'<h6>'.'ngày đăng'.' :'. mdate('%d-%m-%Y',$row->created).'</h6>' ;
+										<a href="<?php echo user_url('listproduct/product_detail/'.$row->product_id)?>"><img  height="70" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
+										<p> <?php echo $row->shop_name.' ' ;
+											echo '</br>'.'<h6>'.'ngày đăng'.' :'. mdate('%d-%m-%Y',$row->product_created).'</h6>' ;
 
 											?></p>	
 										</td>
 
 										<td class="cart_description">
-											<a href="<?php echo user_url('listproduct/product_detail/'.$row->id)?>"> <?php echo $row->product_name?>
+											<a href="<?php echo user_url('listproduct/product_detail/'.$row->product_id)?>"> <?php echo $row->product_name?>
 											</td>
 											<td class="cart_description">
 												<p> <?php echo $row->number?>Kg</p>

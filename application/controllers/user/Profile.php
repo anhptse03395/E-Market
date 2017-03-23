@@ -12,9 +12,9 @@ Class Profile extends MY_controller{
 
 
         //lay id cua quan tri vien can chinh sua
-        $this->load->model('user_model');
+     /*   $this->load->model('user_model');
 
-        $user_id = $this->session->userdata('user_id');
+        $user_id = $this->session->userdata('user_id');*/
 
         $input['where'] = array('id'=>$user_id);
 
@@ -77,26 +77,43 @@ Class Profile extends MY_controller{
 
 
             //kiem tra co thuc hien loc du lieu hay khong
-       
-        $id = $this->session->userdata('user_id');
 
-        $input = array();
-        if($id > 0)
-        {
-            $input['where']['user_id'] = $id;
-        }
-        $name = $this->input->get('name');
-        if($name)
-        {
-            $input['like'] = array('name', $name);
-        }
 
-  
+        /*
+                đầu tiền đang nhập láy see
 
-     $total_rows= $this->product_model->get_total($input);
+        */
+
+                $id = $this->session->userdata('account_id');
+                $this->load->model('account_model');
+                $info= $this->account_model->get_info($id);
+                
+                if(intval($info->role_id)==3){
+
+                $shop_id= $info->shop_id;
+                $input = array();
+                if($id > 0)
+                   {
+                    $input['where']['shop_id'] = $shop_id;
+                }
+                $name = $this->input->get('name');
+                if($name)
+                {
+                    $input['like'] = array('name', $name);
+                }
+
+
+            }
+
+
+
+
+
+
+            $total_rows= $this->product_model->get_total($input);
 
             //load ra thu vien phan trang
-        $this->load->library('pagination');
+            $this->load->library('pagination');
             $config = array();
             $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
             $config['base_url']   = user_url('profile/listpost'); //link hien thi ra danh sach san pham
@@ -109,19 +126,30 @@ Class Profile extends MY_controller{
 
             $segment = $this->uri->segment(4);
             $segment = intval($segment);
-        
+
 
             $input['limit'] = array($config['per_page'], $segment);
           //lay danh sach san pha
             $list = $this->product_model->get_list($input);
             $this->data['list'] = $list;
-         
+
             $message = $this->session->flashdata('message');
             $this->data['message'] = $message;
 
 
             $this->data['temp'] = 'site/profile/listpost/index';
             $this->load->view('site/profile/main', $this->data);
+
+        }
+
+
+
+        function edit_post(){
+
+
+            $this->data['temp'] = 'site/profile/edit_post/index';
+            $this->load->view('site/profile/main', $this->data);
+
 
         }
 

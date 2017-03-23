@@ -56,7 +56,7 @@ Class Order extends MY_Controller
             if($this->form_validation->run())
             {
                 $payment = $this->input->post('payment');
-                $this->load->model('transaction_model');
+                $this->load->model('order_de');
                 //them vao csdl
                 foreach ($carts as $row){
 
