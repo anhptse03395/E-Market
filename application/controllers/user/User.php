@@ -9,7 +9,6 @@ Class User extends MY_Controller
         $this->load->model('account_model');
     }
     
- 
     
     function logout()
     {

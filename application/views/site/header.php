@@ -39,16 +39,17 @@
 					<ul class="nav navbar-nav">
 
 						<?php $mes = $this->session->userdata('account_id');?>
+						<li><a href="<?php echo user_url('listproduct') ?>"><i class="glyphicon glyphicon-zoom-out"></i> Tìm kiếm sản phẩm</a></li>
 
 						<?php if(isset($mes)) {?>
-						<li style="display: block;" ><a href="<?php echo user_url('profile')?>"><i class="fa fa-user" ></i> Tài khoản</a></li>
+						<li style="display: block;" ><a href="<?php echo user_url('profile')?>"><i class="fa fa-user " ></i> Tài khoản</a></li>
 						<?php }else{ ?>
 						<li style="display: none;" ><a href=" "><i class="fa fa-user" ></i> Tài khoản</a></li>
 						<?php } ?>	
 
-						<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-						<li><a href="<?php echo user_url('post') ?>"><i class="glyphicon glyphicon-pencil"></i> Đăng tin</a></li>
-						<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+						
+						<li><a href="<?php echo user_url('post') ?>"><i class="glyphicon glyphicon-pencil icon-success"></i> Đăng tin</a></li>
+						<li><a href="cart.html"><i class="fa fa-shopping-cart"> </i> Sản phẩm</a></li>
 						<?php if(isset($mes)) { ?>
 						<li><a href="<?php echo user_url('user/logout') ?>"><i class="glyphicon glyphicon-log-out"></i> Đăng xuất</a></li>
 						<?php }else{ ?>

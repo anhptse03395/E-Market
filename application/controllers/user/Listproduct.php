@@ -27,8 +27,8 @@ Class Listproduct extends MY_Controller
   
 
     $input = array() ;
-    $input['join'] =  array('shop');
-    $input['select']= "product.id as product_id,product_name,shop_name,product.created as product_created, number,image_link,image_list";
+    $input['join'] =  array('shops');
+    $input['select']= "products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list";
 
        // pre($info);
 
@@ -151,8 +151,8 @@ Class Listproduct extends MY_Controller
 
 
 ////////////////////////////////
-            $input['join'] =  array('shop');
-            $input['select']= "product.id as product_id,product_name,shop_name,product.created as product_created, number,image_link,image_list";
+            $input['join'] =  array('shops');
+            $input['select']= "products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list";
 
             $total_rows = count($this->product_model->join_shop($input));
 

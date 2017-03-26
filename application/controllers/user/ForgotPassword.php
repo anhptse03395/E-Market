@@ -17,7 +17,7 @@ Class ForgotPassword extends MY_controller{
 		$email = $this->input->post('forgot_email');
 		$where = array('email' => $email);
         //kiêm tra xem username đã tồn tại chưa
-		if($this->user_model->check_exists($where))
+		if($this->account_model->check_exists($where))
 		{
             //trả về thông báo lỗi
 			return true;

@@ -4,8 +4,10 @@ Class Order extends MY_Controller
     function __construct()
     {
         parent::__construct();
+         $this->load->library('cart');
     }
     
+
     /*
      * Lấy thông tin của khách hàng
      */
@@ -13,8 +15,11 @@ Class Order extends MY_Controller
     {
         //thong gio hang
         $carts = $this->cart->contents();
+    
+
         //tong so san pham co trong gio hang
         $total_items = $this->cart->total_items();
+
 
         if($total_items <= 0)
         {
@@ -29,70 +34,59 @@ Class Order extends MY_Controller
         $this->data['total_amount'] = $total_amount;
         
         //neu thanh vien da dang nhap thì lay thong tin cua thanh vien
-        $user_id = 0;
-        $user = '';
-        if($this->session->userdata('user_id'))
+        $account = 0;
+        $buyer = '';
+        if($this->session->userdata('account_id'))
         {
             //lay thong tin cua thanh vien
-            $user_id = $this->session->userdata('user_id');
-            $user = $this->user_model->get_info($user_id);
+            $account = $this->session->userdata('account_id');
+            $this->load->model('account_model');
+            $buyer=$this->account_model->join_buyer($account);
+          
         }
-        $this->data['user']  = $user;
+        $this->data['buyer']  = $buyer;
         
 
         $this->load->library('form_validation');
         $this->load->helper('form');
         
         //neu ma co du lieu post len thi kiem tra
+        $buyer_id= $this->session->userdata('account_id');
         if($this->input->post())
         {
-            $this->form_validation->set_rules('email', 'Email nhận hàng', 'required|valid_email');
-            $this->form_validation->set_rules('name', 'Tên', 'required|min_length[8]');
-            $this->form_validation->set_rules('phone', 'Số điện thoại', 'required');
+          
             $this->form_validation->set_rules('message', 'Ghi chú', 'required');
-            $this->form_validation->set_rules('payment', 'Cổng thanh toán', 'required');
+          //  $this->form_validation->set_rules('payment', 'Cổng thanh toán', 'required');
             
             //nhập liệu chính xác
             if($this->form_validation->run())
             {
-                $payment = $this->input->post('payment');
-                $this->load->model('order_de');
-                //them vao csdl
-                foreach ($carts as $row){
-
-                 $data = array(
-                    'status'   => 0, //trang thai chua thanh toan
-                    'user_id'  => $user_id, //id thanh vien mua hang neu da dang nhap
-                    'user_email'    => $this->input->post('email'),
-                    'user_name'     => $this->input->post('name'),
-                    'user_phone'    => $this->input->post('phone'),
-                    'message'       => $this->input->post('message'), //ghi chú khi mua hàng
-                    'amount'        => $total_amount,//tong so tien can thanh toan
-                    'payment'       => $payment, //cổng thanh toán,
-                    'created'       => now(),
-                    'seller_id'     => $row['seller_id'],
-                    );
-
-                 $this->transaction_model->create($data);
-
-             }
-                 //them du lieu vao bang transaction
-             
-             
-                $transaction_id = $this->db->insert_id();  //lấy ra id của giao dịch vừa thêm vào
-                
-                //them vao bảng order (chi tiết đơn hàng)
-                $this->load->model('order_model');
+               
+               
                 foreach ($carts as $row)
                 {
-                    $data = array(
-                        'transaction_id' => $transaction_id,
+                    $this->load->model('order_details_model');
+                        $data_order = array(
+                    'status'   => 0, //trang thai chua thanh toan
+                   // 'user_id'  => $user_id, //id thanh vien mua hang neu da dang nhap
+                    'shop_id'    => $row['shop_id'],
+                    'buyer_id'     => $buyer_id,
+                    'address'       => $this->input->post('message'), //ghi chú khi mua hàn
+                    //'payment'       => $payment, //cổng thanh toán,
+                    'date_order'       => now(),
+                );
+                     $this->load->model('orders_model');
+                    $this->orders_model->create($data_order);
+                    $order_id = $this->db->insert_id();  
+
+                    $data_detail = array(
+                        'order_id' => $order_id,
                         'product_id'     => $row['id'],
-                        'qty'            => $row['qty'],
-                        'amount'         => $row['subtotal'],
+                        'quantity'            => $row['qty'],
+                        'price'         => $row['subtotal'],
                         'status'         => '0',
                         );
-                    $this->order_model->create($data);
+                    $this->order_details_model->create($data_detail);
                 }
                 //xóa toàn bô giỏ hang
                 $this->cart->destroy();
@@ -106,7 +100,7 @@ Class Order extends MY_Controller
         
         
         //hiển thị ra view
-        $this->data['temp'] = 'site/order/checkout';
-        $this->load->view('site/layout', $this->data);
+     
+        $this->load->view('site/order/index',$this->data);
     }
 }

@@ -19,16 +19,16 @@ Class MY_Controller extends CI_Controller
                     $this->admin_check_login();
                     break;
                 }
-                 case 'user' :
+                
+            default:
                 {
+                  
                     //xu ly cac du lieu khi truy cap vao trang admin
                    $this->load->helper('user');
                     $this->user_check_login();
-                    break;
-                }
-            default:
-                {
-                   
+                
+                   $this->load->library('cart');
+                    $this->data['total_items']  = $this->cart->total_items();
 
 
                    /* $this->load->model('categories_model');

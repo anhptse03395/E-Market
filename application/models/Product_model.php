@@ -1,7 +1,7 @@
 <?php
 Class Product_model extends MY_Model
 {
-    var $table = 'product';
+    var $table = 'products';
 
 
     function join_shop($input = array())
@@ -28,10 +28,10 @@ Class Product_model extends MY_Model
     function join_detail ($id){
 
 
-    $this->db->select('product.id as product_id,product_name,shop_name,product.created as product_created, number,image_link,image_list,address,phone,content');
-    $this->db->from('product');
-    $this->db->join('shop', 'product.shop_id = shop.id');
-    $this->db->where('product.id', $id);
+    $this->db->select('products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list,address,phone,description');
+    $this->db->from('products');
+    $this->db->join('shops', 'products.shop_id = shops.id');
+    $this->db->where('products.id', $id);
 
       $query = $this->db->get();
       return $query->row();

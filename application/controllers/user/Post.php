@@ -35,7 +35,6 @@ Class Post extends MY_controller{
 				$input['where'] =  array('id' => $shop_id );
 				$info= $this->shop_model->get_list($input);
 			
-
 				$this ->data['info']=$info;
 			}
 

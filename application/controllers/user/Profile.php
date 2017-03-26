@@ -76,17 +76,11 @@ Class Profile extends MY_controller{
 
 
 
-            //kiem tra co thuc hien loc du lieu hay khong
-
-
-        /*
-                đầu tiền đang nhập láy see
-
-        */
+                
 
                 $id = $this->session->userdata('account_id');
                 $this->load->model('account_model');
-                $info= $this->account_model->get_info($id);
+                $info= $this->account_model->join_shops($id);
                 
                 if(intval($info->role_id)==3){
 

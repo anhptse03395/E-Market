@@ -96,7 +96,7 @@
 										<?php if(count($row->subs) > 1):?>
 											<optgroup label="<?php echo $row->category_name?>">
 												<?php foreach ($row->subs as $sub):?>
-													<option value="<?php echo $sub->id?>" <?php echo ($this->input->post('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->category_name?> </option>
+													<option  value="<?php echo $sub->id?>" <?php echo ($this->input->post('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->category_name?> </option>
 												<?php endforeach;?>
 											</optgroup>
 										<?php else:?>

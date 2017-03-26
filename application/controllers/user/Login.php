@@ -20,13 +20,13 @@ function index()
     $this->form_validation->set_rules('login' ,'login', 'callback_check_login');
     if($this->form_validation->run())
     {
-      $this->session->set_userdata('account_login', true);
-      redirect(user_url('profile/listpost'));
+
+      return true;
       
     }
   }
 
-  $this->load->view('site/login/index1');
+  $this->load->view('site/login/index');
 }
 
     /*
@@ -48,6 +48,7 @@ function index()
     	{
 
         $row = $this->account_model->join_permission($email);
+    
 
         if(intval($row->role_id)==2){
 
@@ -55,7 +56,7 @@ function index()
           $this ->session ->set_userdata('permissions',json_decode($row->permissions)) ;
 
           $this ->session ->set_userdata('buyer_id',$row->buyer_id) ;
-          redirect(user_url('home'));
+          redirect(base_url('home'));
 
         }
         if(intval($row->role_id)==3){

@@ -34,6 +34,7 @@ Class Cart extends MY_Controller
         $data['name'] = url_title($product->product_name);
         $data['image_link']  = $product->image_link;
         $data['price'] = $price;
+        $data['shop_id']= $product->shop_id;
         $this->cart->insert($data);
 
         //chuyen sang trang danh sach san pham trong gio hang

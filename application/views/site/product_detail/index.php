@@ -83,7 +83,7 @@
 						<p>
 							
 							<blockquote>
-								<p><em><?php echo $product->content?></em>
+								<p><em><?php echo $product->description?></em>
 								</p>
 							</blockquote>
 

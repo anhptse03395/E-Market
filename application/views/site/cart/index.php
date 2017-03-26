@@ -37,7 +37,7 @@
 
                         <form method="post" action="<?php echo user_url('cart/update')?>">
 
-                            <h1>Shopping cart</h1>
+                            <h1>Đặt Hàng</h1>
                             <p class="text-muted">Đơn hàng của bạn</p>
                             <div class="table-responsive">
                                 <table class="table">
@@ -97,11 +97,11 @@
 
                             <div class="box-footer">
                                 <div class="pull-left">
-                                    <a href="<?php echo user_url('listproduct')?>" class="btn btn-default"><i class="fa fa-chevron-left"></i> Continue shopping</a>
+                                    <a href="<?php echo user_url('listproduct')?>" class="btn btn-default"><i class="fa fa-chevron-left"></i> Trở lại đặt hàng</a>
                                 </div>
                                 <div class="pull-right">
                                     <button class="btn btn-default" type="submit"><i class="fa fa-refresh"></i> Tính Tiền</button>
-                                    <button type="submit" class="btn btn-default" style="background: #FFCC00;">Proceed to checkout <i class="fa fa-chevron-right"></i>
+                                    <button type="submit" class="btn btn-default" style="background: #FFCC00;">Thanh Toán <i class="fa fa-chevron-right"></i>
                                     </button>
                                 </div>
                             </div>
@@ -120,9 +120,9 @@
                 <div class="col-md-3">
                     <div class="box" id="order-summary">
                         <div class="box-header">
-                            <h3>Order summary</h3>
+                            <h3>Quy định mua hàng</h3>
                         </div>
-                        <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
+                        <p class="text-muted">Nội dụng đăt hàng.</p>
 
                         <div class="table-responsive">
                             <table class="table">

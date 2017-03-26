@@ -109,7 +109,7 @@
 											<a href="<?php echo user_url('listproduct/product_detail/'.$row->product_id)?>"> <?php echo $row->product_name?>
 											</td>
 											<td class="cart_description">
-												<p> <?php echo $row->number?>Kg</p>
+												<p> <?php echo $row->quantity?>Kg</p>
 											</td>
 										</tr>
 									<?php endforeach;?>

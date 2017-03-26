@@ -8,10 +8,9 @@ class Home extends MY_Controller {
 	{
 
 
-
-		$data =array();
-	 	$data ['temp']='site/home/index';
-		$this->load->view('site/layout',$data);
+		
+	
+		$this->load->view('site/layout');
 
 		
 	}
