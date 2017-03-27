@@ -343,6 +343,7 @@ th {
 }
 .glyphicon-zoom-out:before {
   content: "\e016";
+  size: 75px;
 }
 .glyphicon-off:before {
   content: "\e017";

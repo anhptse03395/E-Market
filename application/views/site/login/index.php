@@ -15,7 +15,13 @@
 
 
     <div class="container">
-
+            <?php  $message = $this->session->flashdata('message');
+                        ?>
+                        <?php if(isset($message) && $message):?>
+                            <div class="alert alert-success">
+                                <h3 style="text-align: center;"><strong> </strong><?php echo $message?></h3>
+                            </div>
+                        <?php endif;?>
 
         <div class="omb_login">
             <h3 class="omb_authTitle">Đăng Nhập <a href="<?php echo user_url('register/kind_account') ?>">Đăng ký</a></h3>

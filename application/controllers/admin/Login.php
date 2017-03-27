@@ -13,7 +13,7 @@ Class Login extends MY_controller{
 			if($this->form_validation->run())
 			{
 				$this->session->set_userdata('login', true);
-             
+
 
 				redirect(admin_url('home'));
 			}
@@ -25,26 +25,40 @@ Class Login extends MY_controller{
     /*
      * Kiem tra username va password co chinh xac khong
      */
-   function check_login()
+    function check_login()
     {
-        $username = $this->input->post('username');
+        $email = $this->input->post('username');
         
         $password = $this->input->post('password');
+
+
 
         $password = md5($password);
 
 
-        $this->load->model('admin_model');
-        $where = array('username' => $username , 'password' => $password);
-        $admin = $this->admin_model->get_info_rule($where);
-        if($admin)
+        $this->load->model('account_model');
+        $where = array('email' => $email , 'password' => $password);
+        if($this->account_model->check_exists($where))
         {
-         $this ->session ->set_userdata('permissions',json_decode($admin->permissions)) ;
-         $this ->session ->set_userdata('admin_id',$admin->id) ;
-         
-         return true;
-     }
-     $this->form_validation->set_message(__FUNCTION__, 'Không đăng nhập thành công');
-     return false;
- }
+
+        $row = $this->account_model->join_permission($email);
+
+            if(intval($row->role_id)!=2||intval($row->role_id)!=3){
+                $this ->session ->set_userdata('account_role',$row->role_id);
+              $this ->session ->set_userdata('admin_id',$row->account_id) ;
+              $this ->session ->set_userdata('permissions',json_decode($row->permissions)) ;
+          }
+          if(intval($row->role_id)==2||intval($row->role_id)==3){
+            $this->form_validation->set_message(__FUNCTION__,'Sai tên tài khoản hoặc mật khẩu');
+            return false;
+
+        }
+
+
+        return true;
+    }
+    $this->form_validation->set_message(__FUNCTION__,'Sai tên tài khoản hoặc mật khẩu');
+    return false;
+}
+
 }

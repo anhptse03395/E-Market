@@ -52,13 +52,13 @@
                 <div class="row">
                     <div class="col-md-6">
                      <?php foreach ($info as $row):?>
-                      <div class="form-group">
-                            <label for="email">
+                      <div class="form-group ">
+                            <label for="">
                                 Tên Liên Lạc</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span>
                                 </span>
-                                <input type="text" class="form-control" style="text-align: center;" placeholder=" Tên Liên Lạc" name="p_name" value="<?php echo $row->shop_name?>"  readonly="readonly"/></div>
+                                <input type="text" class="form-control " style="text-align: center;" placeholder=" Tên Liên Lạc" name="p_name" value="<?php echo $row->shop_name?>"  readonly="readonly"/></div>
                         </div>
                       
                        

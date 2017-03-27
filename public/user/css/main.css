@@ -8,7 +8,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
+  background-color
   position: relative;
   font-weight:400px;
 }
@@ -68,7 +68,7 @@ a#scrollUp i{
 **************************/
 
 .header_top {
-  background: none repeat scroll 0 0 #F0F0E9;
+  background: none repeat scroll 0 0 #79e84c;
 }
 
 .contactinfo ul li:first-child{
@@ -184,7 +184,9 @@ a#scrollUp i{
   font-family: 'Roboto', sans-serif;
   text-decoration: none;
 }
-
+.header-middle{
+  background-color: rgba(241, 231, 4, 0.81);
+}
 
 .shop-menu ul li {
 	display:inline-block;
@@ -198,10 +200,10 @@ a#scrollUp i{
 
 
 .shop-menu ul li a {
-  background: #FFFFFF;
-  color: #696763;
+  background:rgba(241, 231, 4, 0.81);
+  color: #2381d2;
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 300;
   padding:0;
   padding-right: 0;
@@ -216,7 +218,7 @@ a#scrollUp i{
 
 .shop-menu ul li a:hover {
 	color:#fe980f;
-	background:#fff;
+	background:rgba(72, 69, 64, 0.18);
 }
 
 
@@ -1638,7 +1640,7 @@ h2.title {
 
 
 #cart_items .cart_info .cart_menu {
-  background: #FE980F;
+  background: rgba(149, 254, 15, 0.8);
   color: #fff;
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
@@ -2464,7 +2466,7 @@ h2.title {
 }
 
 .btn.btn-primary {
-  background:#FE980F;
+  background:rgba(17, 28, 156, 0.7);
   border: 0 none;
   border-radius: 0;
   margin-top: 16px;

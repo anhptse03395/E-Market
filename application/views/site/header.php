@@ -30,7 +30,7 @@
 		<div class="row">
 			<div class="col-sm-4">
 				<div class="logo pull-left">
-					<a href="index.html"><img src="<?php echo public_url('user')?>/images/home/e-logo.png" alt=""></a>
+					<a href="index.html"><img style="" src="<?php echo public_url('user')?>/images/home/e-logo2.png" alt=""></a>
 				</div>
 
 			</div>
@@ -39,7 +39,7 @@
 					<ul class="nav navbar-nav">
 
 						<?php $mes = $this->session->userdata('account_id');?>
-						<li><a href="<?php echo user_url('listproduct') ?>"><i class="glyphicon glyphicon-zoom-out"></i> Tìm kiếm sản phẩm</a></li>
+						<li><a href="<?php echo user_url('listproduct') ?>"><i class="glyphicon glyphicon-zoom-out"  ></i> Tìm kiếm sản phẩm</a></li>
 
 						<?php if(isset($mes)) {?>
 						<li style="display: block;" ><a href="<?php echo user_url('profile')?>"><i class="fa fa-user " ></i> Tài khoản</a></li>
@@ -48,10 +48,10 @@
 						<?php } ?>	
 
 						
-						<li><a href="<?php echo user_url('post') ?>"><i class="glyphicon glyphicon-pencil icon-success"></i> Đăng tin</a></li>
-						<li><a href="cart.html"><i class="fa fa-shopping-cart"> </i> Sản phẩm</a></li>
+						<li><a href="<?php echo user_url('post') ?>"><i class="glyphicon glyphicon-pencil icon-success"></i> Bán sản phẩm</a></li>
+						<li><a href="<?php echo user_url('cart') ?>"><i class="fa fa-shopping-cart"> </i><?php if(isset($total_items))echo $total_items.'kg'?></a></li>
 						<?php if(isset($mes)) { ?>
-						<li><a href="<?php echo user_url('user/logout') ?>"><i class="glyphicon glyphicon-log-out"></i> Đăng xuất</a></li>
+						<li><a href="<?php echo base_url('home/logout') ?>"><i class="glyphicon glyphicon-log-out"></i> Đăng xuất</a></li>
 						<?php }else{ ?>
 						<li><a href="<?php echo user_url('login') ?>"><i class="glyphicon glyphicon-log-in"></i> Đăng nhập</a></li>
 
@@ -88,12 +88,7 @@
 								<li><a href="login.html">Login</a></li> 
 							</ul>
 						</li> 
-						<li class="dropdown"><a href="#">Bảng Giá<i class="fa fa-angle-down"></i></a>
-							<ul role="menu" class="sub-menu">
-								<li><a href="blog.html">Blog List</a></li>
-								<li><a href="blog-single.html">Blog Single</a></li>
-							</ul>
-						</li> 
+					
 						
 						<li><a href="contact-us.html">Liên Hệ</a></li>
 					</ul>

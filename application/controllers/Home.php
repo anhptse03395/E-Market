@@ -14,4 +14,14 @@ class Home extends MY_Controller {
 
 		
 	}
+	 
+    function logout()
+    {
+        if($this->session->userdata('account_id'))
+        {
+            $this->session->unset_userdata('account_id');
+        }
+        redirect(base_url('home'));
+    }
+
 }

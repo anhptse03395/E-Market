@@ -35,15 +35,15 @@
 						<legend>Các bài đăng</legend>
 
 						<!-- Text input-->
-						<div class="form-group">
-							<label class="col-md-4 control-label" >Tên sản phẩm</label>  
+						<div class="form-group row has-success">
+							<label  class="col-md-4 control-label" >Tên sản phẩm</label>  
 							<div class="col-md-4">
 								<input  type="text"  name="name" placeholder="Tên sản phẩm" value=" <?php echo set_value('name');?>" class="form-control input-md"/>
 
 							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group row has-warning">
 							<label class="col-md-4 control-label">Danh mục sản phẩm</label>
 							<div class="col-md-2">
 								<select id="selectbasic" name="catalog" class="form-control">
@@ -51,9 +51,9 @@
 
 									<?php foreach ($catalogs as $row):?>
 										<?php if(count($row->subs) > 1):?>
-											<optgroup label="<?php echo $row->category_name?>">
+											<optgroup style="color: blue" label="<?php echo $row->category_name?>">
 												<?php foreach ($row->subs as $sub):?>
-													<option value="<?php echo $sub->id?>" <?php echo ($this->input->post('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->category_name?> </option>
+													<option style="color: green" value="<?php echo $sub->id?>" <?php echo ($this->input->post('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->category_name?> </option>
 												<?php endforeach;?>
 											</optgroup>
 										<?php else:?>
@@ -85,9 +85,9 @@
 						</div>
 						<thead>
 							<tr class="cart_menu">
-								<td class="image">Hinh Anh</td>
-								<td class="description">Tên Sản Phẩm</td>
-								<td class="description">Số Lượng</td>
+								<td class="image">Hình ảnh</td>
+								<td class="description">Tên sản phẩm</td>
+								<td class="description">Số lượng</td>
 
 
 
@@ -99,14 +99,14 @@
 								<tr>
 									<td class="cart_product">
 										<a href="<?php echo user_url('listproduct/product_detail/'.$row->product_id)?>"><img  height="70" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
-										<p> <?php echo $row->shop_name.' ' ;
+										<p style="color: green"> <?php echo $row->shop_name.' ' ;
 											echo '</br>'.'<h6>'.'ngày đăng'.' :'. mdate('%d-%m-%Y',$row->product_created).'</h6>' ;
 
 											?></p>	
 										</td>
 
 										<td class="cart_description">
-											<a href="<?php echo user_url('listproduct/product_detail/'.$row->product_id)?>"> <?php echo $row->product_name?>
+											<a style="color: black" href="<?php echo user_url('listproduct/product_detail/'.$row->product_id)?>"> <?php echo $row->product_name?>
 											</td>
 											<td class="cart_description">
 												<p> <?php echo $row->quantity?>Kg</p>
