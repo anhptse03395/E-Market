@@ -55,18 +55,6 @@
 								<div class="clear error" name="name_error"><?php echo form_error('r_name')?></div>
 							</div>
 						</div>
-
-						<div class="form-group">
-							<label for="email" class="cols-sm-2 control-label" style="color:blue;">Email đăng nhập</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="r_email"  placeholder="Email đăng nhập"value="<?php echo set_value('r_email')?>" />
-								</div>
-								<div class="clear error" name="name_error"><?php echo form_error('r_email')?></div>
-
-							</div>
-						</div>
 						<div class="form-group">
 							<label for="email" class="cols-sm-2 control-label" style="color:blue;" >Số điện thoại</label>
 							<div class="cols-sm-10">

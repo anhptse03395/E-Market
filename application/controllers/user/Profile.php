@@ -154,7 +154,6 @@ Class Profile extends MY_controller{
         $this ->data['info']=$info;
 
 
-
         $this->load->model('categories_model');
         $input = array();
         $input['where'] = array('parent_id' => 0);
@@ -178,8 +177,8 @@ Class Profile extends MY_controller{
         //neu ma co du lieu post len thi kiem tra
         if($this->input->post())
         {
-            $this->form_validation->set_rules('p_product_name', 'Tên', 'required');
-            $this->form_validation->set_rules('p_number', 'so luong', 'required');
+            $this->form_validation->set_rules('product_name', 'Tên', 'required');
+            $this->form_validation->set_rules('quantity', 'so luong', 'required');
             $this->form_validation->set_rules('catalog', 'Thể loại', 'required');
             if($this->form_validation->run())
             {
@@ -187,7 +186,7 @@ Class Profile extends MY_controller{
                 $name        = $this->input->post('product_name');
                 $catalog_id  = $this->input->post('catalog');
                 $number = $this->input->post('quantity');
-                //lay ten file anh minh hoa duoc update len
+               
                 $this->load->library('upload_library');
                 $upload_path = './upload/product';
                 $upload_data = $this->upload_library->upload($upload_path, 'image');
@@ -220,7 +219,7 @@ Class Profile extends MY_controller{
                 }
 
                 //them moi vao csdl
-                if($this->product_model->update($product->id, $data))
+                if($this->product_model->update($id, $data))
                 {
                     //tạo ra nội dung thông báo
                     $this->session->set_flashdata('message', 'Cập nhật dữ liệu thành công');

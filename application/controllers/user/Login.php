@@ -34,7 +34,7 @@ function index()
      */
     function check_login()
     {
-    	$email = $this->input->post('email');
+    	$phone = $this->input->post('phone');
     	
     	$password = $this->input->post('password');
 
@@ -42,12 +42,12 @@ function index()
 
 
     	$this->load->model('account_model');
-    	$where = array('email' => $email , 'password' => $password);
+    	$where = array('phone' => $phone , 'password' => $password);
 
     	if($this->account_model->check_exists($where))
     	{
 
-        $row = $this->account_model->join_permission($email);
+        $row = $this->account_model->join_permission($phone);
       
 
         if(intval($row->role_id)==2){

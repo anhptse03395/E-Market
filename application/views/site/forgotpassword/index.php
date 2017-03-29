@@ -27,10 +27,10 @@
 						<?php endif;?>
 						
 
-						<h2>Gửi email đã đăng kí</h2>
+						<h2>Gửi số điện thoại đã đăng kí</h2>
 						<form action="<?php echo user_url('forgotpassword') ?>" method="post">
-							<input placeholder="Email Address" type="text" name="forgot_email">
-							<div class="clear error" name="name_error"><?php echo form_error('forgot_email')?></div>
+							<input placeholder="Số điện thoại" type="text" name="forgot_phone">
+							<div class="clear error" name="name_error"><?php echo form_error('forgot_phone')?></div>
 							<button type="submit"  class="btn btn-default">Gui</button>
 							
 						</form>

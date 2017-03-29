@@ -12,7 +12,7 @@ Class ForgotPassword extends MY_controller{
 	}
 
 
-	function check_email()
+	/*function check_email()
 	{
 		$email = $this->input->post('forgot_email');
 		$where = array('email' => $email);
@@ -27,6 +27,20 @@ Class ForgotPassword extends MY_controller{
 		}
 
 
+	}*/
+
+	function check_phone()
+	{
+		$phone = $this->input->post('r_phone');
+		$where = array('phone' => $phone);
+        //kiêm tra xem username đã tồn tại chưa
+		if($this->account_model->check_exists($where))
+		{
+            //trả về thông báo lỗi
+			$this->form_validation->set_message(__FUNCTION__, 'Số điện thoại đã được đăng kí');
+			return false;
+		}
+		return true;
 	}
 
 
@@ -40,16 +54,16 @@ Class ForgotPassword extends MY_controller{
 		if($this->input->post())
 		{
 
-			$this->form_validation->set_rules('forgot_email', 'Email đăng nhập', 'required|callback_check_email');
+			$this->form_validation->set_rules('forgot_phone', 'Số điện thoại', 'required|callback_check_phone');
             //nhập liệu chính xác
 			if($this->form_validation->run())
 			{
                 //them vao csdl
 
-				$email  = $this->input->post('forgot_email');
+				$phone  = $this->input->post('forgot_phone');
 
 				$data = array(
-					'email' => $email
+					'phone' => $phone
 					);
 
 
@@ -59,10 +73,10 @@ Class ForgotPassword extends MY_controller{
 				$id=	$arraylist['id'];
 
 				$new_password=  rand(100000,999999);
-				$this->sendmail($email,$new_password);
+				$this->send_sms($phone,$new_password);
 				$new_input['password'] = md5($new_password);            
 				$this->account_model->update($id,$new_input);
-				$this->session->set_flashdata('message', 'Chúng tôi đã gửi password vào hòm thư bạn vừa nhập!');
+				$this->session->set_flashdata('message', 'Chúng tôi đã gửi password vào số điện thoại của bạn!');
 
 				redirect(user_url('forgotpassword'));
 			}
@@ -75,6 +89,24 @@ Class ForgotPassword extends MY_controller{
 		$this->load->view('site/forgotpassword/index');
 
 	}
+
+
+	 function send_sms($phone,$sms){
+
+	    $this->load->library('nexmo');
+        // set response format: xml or json, default json
+        $this->nexmo->set_format('json');
+        $phone= intval($phone);
+      
+        $from = '+84982803436';
+        $to = '+84'.$phone;
+        $message = array(
+            'text' =>  $sms,
+        );
+     	 $this->nexmo->send_message($from, $to, $message);
+
+
+	    }
 
 
 

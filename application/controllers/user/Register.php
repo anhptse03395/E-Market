@@ -17,15 +17,15 @@ Class Register extends MY_controller{
 	}
 
 
-	function check_email()
+	function check_phone()
 	{
-		$email = $this->input->post('r_email');
-		$where = array('email' => $email);
+		$phone = $this->input->post('r_phone');
+		$where = array('phone' => $phone);
         //kiêm tra xem username đã tồn tại chưa
 		if($this->account_model->check_exists($where))
 		{
             //trả về thông báo lỗi
-			$this->form_validation->set_message(__FUNCTION__, 'Tài khoản đã tồn tại');
+			$this->form_validation->set_message(__FUNCTION__, 'Số điện thoại đã được đăng kí');
 			return false;
 		}
 		return true;
@@ -33,7 +33,7 @@ Class Register extends MY_controller{
 
 
 
-	function sendmail($email)
+/*	function sendmail($email)
 	{
 
 
@@ -70,6 +70,22 @@ Class Register extends MY_controller{
 	    	{
 	    		show_error($this->email->print_debugger());
 	    	}
+
+	    }*/
+
+	    function send_sms($phone,$sms){
+
+	    $this->load->library('nexmo');
+        // set response format: xml or json, default json
+        $this->nexmo->set_format('json');
+      
+        $from = '+84982803436';
+        $to = '+84'.$phone;
+        $message = array(
+            'text' =>  $sms,
+        );
+     	 $this->nexmo->send_message($from, $to, $message);
+
 
 	    }
 
@@ -205,8 +221,7 @@ Class Register extends MY_controller{
 	    if($this->input->post())
 	    {
 	    	$this->form_validation->set_rules('r_name', 'Tên', 'required|min_length[8]');
-	    	$this->form_validation->set_rules('r_email', 'Email đăng nhập', 'required|callback_check_email');
-	    	$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[8]|numeric');
+	    	$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[8]|numeric|callback_check_phone');
 	    	$this->form_validation->set_rules('r_address', 'Địa chỉ', 'required|min_length[8]');		
 	    	$this->form_validation->set_rules('r_password', 'Mật khẩu', 'required|min_length[6]');
 	    	$this->form_validation->set_rules('r_confirm', 'Nhập lại mật khẩu', 'matches[r_password]');
@@ -220,7 +235,6 @@ Class Register extends MY_controller{
 
 
 	    		$name     = $this->input->post('r_name');
-	    		$email    = $this->input->post('r_email');
 	    		$phone     = $this->input->post('r_phone');
 	    		$address = $this->input->post('r_address');
 	    		$password = $this->input->post('r_password');
@@ -229,7 +243,7 @@ Class Register extends MY_controller{
 
 
 	    			$data_account = array(
-	    				'email' => $email,
+	    				'phone' => $phone,
 	    				'password' => md5($password),
 	    				'role_id' =>2,
 	    				);
@@ -242,7 +256,6 @@ Class Register extends MY_controller{
 	    			$data_buyer = array(
 	    				'buyer_name' => $name,
 	    				'address'=>$address,
-	    				'phone' => $phone,
 	    				'account_id'=>$account_id,
 	    				'created' => now(),
 
@@ -250,7 +263,7 @@ Class Register extends MY_controller{
 
 	    			if($this->buyer_model->create($data_buyer))
 	    			{ 
-	    				$this->sendmail($email);
+	    				//$this->sendmail($email);
                     //tạo ra nội dung thông báo
 	    				$this->session->set_flashdata('message', 'Đăng kí thành viên thành công');
 	    			}else{

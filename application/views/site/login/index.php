@@ -41,7 +41,7 @@
                     <form class="omb_loginForm" action="<?php echo user_url('login') ?>" method="POST">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control" name="email" placeholder="email address">
+                            <input type="text" class="form-control" name="phone" placeholder="Số điện thoại">
                         </div>
                         <span class="help-block"></span>
 

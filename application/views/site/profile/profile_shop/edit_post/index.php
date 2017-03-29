@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="well well-sm">
-                                <form action=""  method="post" enctype="multipart/form-data">
+                                <form action="<?php echo user_url('profile/edit_post') ?>"  method="post" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <?php foreach ($info as $row):?>
@@ -81,14 +81,14 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+                                <div class="form-group">
                                                 <label for="email">
                                                     Tên sản phẩm</label>
                                                 <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-text-height"></span>
                                 </span>
                                                     <input type="text" class="form-control"  placeholder=" Tên sản phẩm" name="product_name" value="<?php echo $product->product_name?>" required="required" /></div>
-                                                <div class="clear error" name="name_error"><?php echo form_error('p_product_name')?></div>
+                                                <div class="clear error" name="name_error"><?php echo form_error('product_name')?></div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">
@@ -97,7 +97,7 @@
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-hdd"></span>
                                 </span>
                                                     <input type="text" style="width: 50%" class="form-control"  placeholder="Số lượng/kg" name="quantity" value="<?php echo $product->quantity ?>" required="required" /></div>
-                                                <div class="clear error" name="name_error"><?php echo form_error('p_number')?></div>
+                                                <div class="clear error" name="name_error"><?php echo form_error('quantity')?></div>
                                             </div>
 
                                             <div class="form-group">
@@ -141,17 +141,12 @@
                                                     <textarea type="text" style="width: 100%" class="form-control" rows="9" cols="25" name="description" required="required" placeholder="Nội Dung Đăng Bài" <?php echo $product->description?>></textarea>
 
                                                 </div>
-                                                <div class="clear error" name="name_error"><?php echo form_error('p_content')?></div>
+                                                <div class="clear error" name="name_error"><?php echo form_error('description')?></div>
                                             </div>
 
 
                                             <div class="col-md-12">
-<!--                                                <button type="submit" class="btn btn-primary pull-right" >-->
-<!--                                                    Edit</button>-->
-<!---->
-<!--                                                <button type="reset" class="btn btn-primary pull-left" >-->
-<!--                                                    Huy bo-->
-<!--                                                </button>-->
+
                                                 <div class="formSubmit">
                                                     <input type="submit" class="btn btn-primary pull-right" value="Cập nhật">
                                                     <input type="reset" class="btn btn-primary pull-left" value="Hủy bỏ">
