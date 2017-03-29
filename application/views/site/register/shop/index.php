@@ -6,11 +6,9 @@
 	<link href="<?php echo public_url('user') ?>/css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Website Font style -->
-	>
 	<link rel="<?php echo public_url('user') ?>/css.register.css" href="style.css">
 	<!-- Google Fonts -->
 
-	<title>Admin</title>
 
 
 
@@ -26,6 +24,16 @@
 	</div>
 	<div class="container" style="width: 40%">
 		<div class="row main">
+
+			 <div class="col-md-12" style="margin-left: -10%">
+                <ul class="breadcrumb">
+                    <li><a href="#">Trang chủ</a>
+                    </li>
+                    <li>Đăng kí cửa hàng</li>
+                </ul>
+            </div>
+
+
 			<div class="main-login main-center">
 				<h5>	<?php  $message = $this->session->flashdata('message');
 					?>

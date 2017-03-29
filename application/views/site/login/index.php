@@ -58,7 +58,7 @@
               
                 <div class="col-xs-12 col-sm-3">
                     <p class="omb_forgotPwd">
-                        <a href="<?php echo user_url('forgotpassword') ?>">Quên mật khẩu?</a>
+                        <a style="font-family: Georgia;" href="<?php echo user_url('forgotpassword') ?>">Quên mật khẩu?</a>
                     </p>
                 </div>
             </div>          

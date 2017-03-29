@@ -161,7 +161,7 @@ Class Listproduct extends MY_Controller
         // neu ko search thi de link phan trang nhu binh thuong
         // if(!isset($id) || !isset($name) || !isset($catalog_id) )
         //{
-            $config['base_url'] = user_url('test2/search'); // link hien thi du lieu
+            $config['base_url'] = user_url('listproduct/search'); // link hien thi du lieu
             // }
             $config['per_page'] = 5;
             $config['uri_segment'] = 4;
@@ -175,11 +175,11 @@ Class Listproduct extends MY_Controller
 
             $input['limit'] = array($config['per_page'], $segment);
 
-            $info = $this->product_model->join_shop($input);
+            $info = $this->product_model->join_shop_imp($input);
             $this->data['info'] =$info;
 
 
-            $this->data['list'] = $this->product_model->get_list_imp($input);
+            //$this->data['list'] = $this->product_model->get_list_imp($input); 
 
         // load filter list
             $this->load->model('categories_model');

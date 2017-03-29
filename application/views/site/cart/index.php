@@ -128,20 +128,20 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <td>Order subtotal</td>
-                                        <th>$446.00</th>
+                                        <td></td>
+                                        <th></th>
                                     </tr>
                                     <tr>
-                                        <td>Shipping and handling</td>
-                                        <th>$10.00</th>
+                                        <td></td>
+                                        <th></th>
                                     </tr>
                                     <tr>
-                                        <td>Tax</td>
-                                        <th>$0.00</th>
+                                        <td></td>
+                                        <th></th>
                                     </tr>
                                     <tr class="total">
-                                        <td>Total</td>
-                                        <th>$456.00</th>
+                                        <td></td>
+                                        <th></th>
                                     </tr>
                                 </tbody>
                             </table>

@@ -32,7 +32,7 @@
               <td class="cart_description">
                 <b> <a href=""> <?php echo $row->product_name?></b>
               </td>
-              <td> <a class="glyphicon glyphicon-wrench" title="Chỉnh sửa" href="<?php echo user_url('profile/edit/'.$row->id)?>">
+              <td> <a class="glyphicon glyphicon-wrench" title="Chỉnh sửa" href="<?php echo user_url('profile/edit_post/'.$row->id)?>">
             
             </a></td>
               <td><a class="glyphicon glyphicon-trash" title="Xóa" href="<?php echo user_url('profile/del/'.$row->id)?>">

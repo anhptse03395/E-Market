@@ -30,18 +30,10 @@ Class MY_Controller extends CI_Controller
              $this->load->library('cart');
              $this->data['total_items']  = $this->cart->total_items();
 
-
-                   /* $this->load->model('categories_model');
-                    // dat la input_catalog de tranh bi trung voi input cua product
-                    $input_catalog['where'] = array('parent_id' => 0);
-                    $catalogs = $this->categories_model->get_list($input_catalog);
-                    foreach ($catalogs as $row) {
-                        $input_catalog['where'] = array('parent_id' => $row->id);
-                        $subs = $this->categories_model->get_list($input_catalog);
-                        $row->subs = $subs;
-                    }
-                        $this->data['catalogs'] = $catalogs;
-                        $this->load->view('site/header',$this->data);*/
+                $this->load->model('account_model');
+                $account_id = $this->session->userdata('account_id');
+                $shop_info= $this->account_model->join_shops($account_id);
+                $this->data['shop_info']=$shop_info;
 
                     }
                     
@@ -137,8 +129,8 @@ Class MY_Controller extends CI_Controller
                 $check = false;
             }
             if(!$check){
-                $this->session->set_flashdata('message', 'Ban khong co quyen truy cap trang nay');
-                redirect(base_url('home'));
+                $this->session->set_flashdata('message', 'Tài khoản của bạn không thể thực hiện chức năng này');
+                redirect(user_url('login'));
             }
         }
             //kiem tra quyen admin

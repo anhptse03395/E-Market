@@ -300,6 +300,9 @@ class MY_Model extends CI_Model {
       }
     }
 
+
+    
+
     /* list product by impression*/
 
    function get_list_imp($input = array())
@@ -313,6 +316,7 @@ class MY_Model extends CI_Model {
       return $query->result();
     }
 
+
        function get_list_set_input_impression($input = array())
     {
       
@@ -321,6 +325,10 @@ class MY_Model extends CI_Model {
       if ((isset($input['where'])) && $input['where'])
       {
         $this->db->where($input['where']);
+      }
+       if ((isset($input['select'])) && $input['select'])
+      {
+        $this->db->select($input['select']); 
       }
       
         //tim kiem like

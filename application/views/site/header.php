@@ -38,11 +38,25 @@
 				<div class="shop-menu pull-right">
 					<ul class="nav navbar-nav">
 
-						<?php $mes = $this->session->userdata('account_id');?>
+						<?php $mes = $this->session->userdata('account_id');
+
+						$shop_id =$this->session->userdata('shop_id');
+
+						$buyer_id= $this->session->userdata('buyer_id');
+
+
+
+						?>
 						<li><a href="<?php echo user_url('listproduct') ?>"><i class="glyphicon glyphicon-zoom-out"  ></i> Tìm kiếm sản phẩm</a></li>
 
 						<?php if(isset($mes)) {?>
-						<li style="display: block;" ><a href="<?php echo user_url('profile')?>"><i class="fa fa-user " ></i> Tài khoản</a></li>
+							<?php if(isset($shop_id)) {?>
+								<li style="display: block;" ><a href="<?php  echo user_url('profile/shop')?>"><i class="fa 	fa-user" ></i> Tài khoản</a></li>
+							<?php }if(isset($buyer_id)) {?>
+								<li style="display: block;" ><a href="<?php  echo user_url('profile/buyer')?>"><i class="fa fa-user" ></i> Tài khoản</a></li>
+							<?php } ?>	
+
+						
 						<?php }else{ ?>
 						<li style="display: none;" ><a href=" "><i class="fa fa-user" ></i> Tài khoản</a></li>
 						<?php } ?>	
@@ -81,14 +95,12 @@
 						<li><a href="index.html" class="active">Trang Chủ</a></li>
 						<li class="dropdown"><a href="#">Tin Tức<i class="fa fa-angle-down"></i></a>
 							<ul role="menu" class="sub-menu">
-								<li><a href="shop.html">Products</a></li>
-								<li><a href="product-details.html">Product Details</a></li> 
-								<li><a href="checkout.html">Checkout</a></li> 
-								<li><a href="cart.html">Cart</a></li> 
-								<li><a href="login.html">Login</a></li> 
+								<li><a href="<?php echo user_url('listproduct') ?>"> Sản phẩm</a></li>
+								<li><a href="product-details.html">Quy định mua hàng</a></li> 
+								
 							</ul>
 						</li> 
-					
+
 						
 						<li><a href="contact-us.html">Liên Hệ</a></li>
 					</ul>

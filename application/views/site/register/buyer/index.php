@@ -6,11 +6,10 @@
 	<link href="<?php echo public_url('user') ?>/css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Website Font style -->
-	>
+
 	<link rel="<?php echo public_url('user') ?>/css.register.css" href="style.css">
 	<!-- Google Fonts -->
 
-	<title>Admin</title>
 
 
 

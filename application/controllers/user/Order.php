@@ -11,12 +11,30 @@ Class Order extends MY_Controller
     /*
      * Lấy thông tin của khách hàng
      */
+
+function unique_multidim_array($array, $key) { 
+    $temp_array = array(); 
+    $i = 0; 
+    $key_array = array(); 
+    
+    foreach($array as $val) { 
+        if (!in_array($val[$key], $key_array)) { 
+            $key_array[$i] = $val[$key]; 
+            $temp_array[$i] = $val; 
+        } 
+        $i++; 
+    } 
+    return $temp_array; 
+} 
+
+
     function checkout()
     {
         //thong gio hang
         $carts = $this->cart->contents();
-    
+        
 
+  
         //tong so san pham co trong gio hang
         $total_items = $this->cart->total_items();
 
@@ -61,30 +79,32 @@ Class Order extends MY_Controller
             //nhập liệu chính xác
             if($this->form_validation->run())
             {
-               
+
                
                 foreach ($carts as $row)
                 {
-                    $this->load->model('order_details_model');
-                        $data_order = array(
-                    'status'   => 0, //trang thai chua thanh toan
-                   // 'user_id'  => $user_id, //id thanh vien mua hang neu da dang nhap
+
+                    $data_order = array(
+                    'status'   => 1, //trang thai chua thanh toan
                     'shop_id'    => $row['shop_id'],
                     'buyer_id'     => $buyer_id,
                     'address'       => $this->input->post('message'), //ghi chú khi mua hàn
                     //'payment'       => $payment, //cổng thanh toán,
                     'date_order'       => now(),
                 );
-                     $this->load->model('orders_model');
+                      
+
+                    $this->load->model('orders_model');
                     $this->orders_model->create($data_order);
                     $order_id = $this->db->insert_id();  
+                    $this->load->model('order_details_model');
+                 
 
                     $data_detail = array(
                         'order_id' => $order_id,
                         'product_id'     => $row['id'],
                         'quantity'            => $row['qty'],
                         'price'         => $row['subtotal'],
-                        'status'         => '0',
                         );
                     $this->order_details_model->create($data_detail);
                 }

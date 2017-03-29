@@ -93,8 +93,8 @@ Class Post extends MY_controller{
 					'shop_id'=>	$shop_id,
 					'image_link' => $image_link,
 					'image_list' => $image_list,
-					'number'=> $number,
-					'content'=> $content,
+					'quantity'=> $number,
+					'description'=> $content,
 					'impression' => 1,
 					'created' => now(),
 					);

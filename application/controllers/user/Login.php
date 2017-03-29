@@ -48,7 +48,7 @@ function index()
     	{
 
         $row = $this->account_model->join_permission($email);
-    
+      
 
         if(intval($row->role_id)==2){
 
