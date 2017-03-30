@@ -51,9 +51,10 @@ Class Product_model extends MY_Model
     function join_detail ($id){
 
 
-    $this->db->select('products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list,address,phone,description');
+    $this->db->select('products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list,address,phone,description,shops.id as shop_id');
     $this->db->from('products');
     $this->db->join('shops', 'products.shop_id = shops.id');
+    $this->db->join('accounts', 'accounts.id = shops.account_id');
     $this->db->where('products.id', $id);
 
       $query = $this->db->get();

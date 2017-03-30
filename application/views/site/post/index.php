@@ -51,14 +51,14 @@
                 <form action="<?php echo user_url('post') ?>"  method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6">
-                     <?php foreach ($info as $row):?>
+                  
                       <div class="form-group ">
                             <label for="">
                                 Tên Liên Lạc</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span>
                                 </span>
-                                <input type="text" class="form-control " style="text-align: center;" placeholder=" Tên Liên Lạc" name="p_name" value="<?php echo $row->shop_name?>"  readonly="readonly"/></div>
+                                <input type="text" class="form-control " style="text-align: center;" placeholder=" Tên Liên Lạc" name="p_name" value="<?php echo $info->shop_name?>"  readonly="readonly"/></div>
                         </div>
                       
                        
@@ -68,7 +68,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-earphone"></span>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Enter email" name="p_phone" style="text-align: center; " value="<?php echo $row->phone?>"  readonly="readonly" /></div>
+                                <input type="text" class="form-control" placeholder="Phone" name="p_phone" style="text-align: center; " value="<?php echo '0'.$info->phone?>"  readonly="readonly" /></div>
                         </div>
                         <div class="form-group">
                             <label for="email">
@@ -76,12 +76,11 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-inbox"></span>
                                 </span>
-                                <input type="text" class="form-control" placeholder="  Địa Chỉ" name="p_address" value="<?php echo $row->address?>" style="text-align: center;"  readonly="readonly" /></div>
+                                <input type="text" class="form-control" placeholder="  Địa Chỉ" name="p_address" value="<?php echo $info->address?>" style="text-align: center;"  readonly="readonly" /></div>
                                 <div class="clear error" name="name_error"><?php echo form_error('p_address')?></div>
 
                         </div>
 
-                    <?php endforeach;?>
 							
 							
                         <div class="form-group">

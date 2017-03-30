@@ -232,6 +232,49 @@ Class Listproduct extends MY_Controller
  $this->load->view('site/product_detail/index',$this->data);
 
 }
+function product_detail_shop()
+    {
+        //lay id san pham muon xem
+        $id = $this->uri->rsegment(3);
+//        pre(intval($id));
+        $this->load->model('shop_model');
+        $input['where'] = array('shop_id'=>$id);
+        $product= $this->product_model->get_list($id);
+        $this->data['product'] = $product;
+
+        //phan trang
+        $total_rows= $this->product_model->get_total($id);
+
+
+        //load ra thu vien phan trang
+        $this->load->library('pagination');
+        $config = array();
+        $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
+        $config['base_url']   = user_url('listproduct/product_detail_shop'); //link hien thi ra danh sach san pham
+        $config['per_page']   = 2;//so luong san pham hien thi tren 1 trang
+        $config['uri_segment'] = 4;//phan doan hien thi ra so trang tren url
+        $config['next_link']   = 'Trang kế tiếp';
+        $config['prev_link']   = 'Trang trước';
+        //khoi tao cac cau hinh phan trang
+        $this->pagination->initialize($config);
+
+        $segment = $this->uri->segment(4);
+        $segment = intval($segment);
+
+
+        $input['limit'] = array($config['per_page'], $segment);
+
+
+
+
+        //lấy danh sách ảnh sản phẩm kèm theo
+        $image_list = @json_decode($product->image_list);
+        $this->data['image_list'] = $image_list;
+
+        $this->load->view('site/product_detail/shop',$this->data);
+
+    }
+
 
 
 }

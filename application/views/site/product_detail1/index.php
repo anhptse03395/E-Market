@@ -46,10 +46,8 @@
 						<div class="col-sm-6">
 							<div class="box">
 								<h3 class="text-center"><?php echo $product->product_name?></h3>
-                                <a href="<?php echo user_url('listproduct/product_detail_shop/'.$product->shop_id)?>"> <?php echo '</br>'.'<p style="margin-left: 33%;margin-top:1px">'.'Người đăng:'. $product->shop_name.'</p>' ?>
-                                </a>
-
-                                <?php  	echo '</br>'.'<h6 style="margin-left: 33%">'.'ngày đăng'.' :'. mdate('%d-%m-%Y',$product->product_created).'</h6>';?>
+								 <?php echo '</br>'.'<p style="margin-left: 33%;margin-top:1px">'.'Người đăng:'. $product->shop_name.'</p>'  ?>
+								<?php  	echo '</br>'.'<h6 style="margin-left: 33%">'.'ngày đăng'.' :'. mdate('%d-%m-%Y',$product->product_created).'</h6>';?>
 								<?php echo '</br>'.'<h3 style="margin-left: 33%;margin-top:">'.'Địa chỉ:'. $product->address.'</h3>'  ?>
 								<p class="price"><?php echo 'SĐT'.':' .$product->phone ?></p>
 

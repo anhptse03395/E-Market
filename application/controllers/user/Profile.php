@@ -19,7 +19,7 @@ Class Profile extends MY_controller{
         $account_id = $this->session->userdata('account_id');
         $info= $this->account_model->join_shops($account_id);
         $this->data['info']=$info;
-        $email = $info->email;
+        $phone = $info->phone;
 
 
 
@@ -42,7 +42,7 @@ Class Profile extends MY_controller{
             if($this->form_validation->run())
             {
 
-                $where = array('password' => md5($old_password),'email'=>$email);
+                $where = array('password' => md5($old_password),'phone'=>$phone);
                 if($this->account_model->check_exists($where)) {
 
 
@@ -147,11 +147,7 @@ Class Profile extends MY_controller{
         }
         $this->data['product'] = $product;
 
-        $this->load->model('shop_model');
-        $shop_id = $this->session->userdata('shop_id');
-        $input['where'] =  array('id' => $shop_id );
-        $info= $this->shop_model->get_list($input);
-        $this ->data['info']=$info;
+       
 
 
         $this->load->model('categories_model');
@@ -167,7 +163,7 @@ Class Profile extends MY_controller{
         $this->data['catalogs'] = $catalogs;
 
         //lay danh sach danh muc san pham
-        $this->load->model('product_model');
+  
 
 
         //load thư viện validate dữ liệu
@@ -178,14 +174,17 @@ Class Profile extends MY_controller{
         if($this->input->post())
         {
             $this->form_validation->set_rules('product_name', 'Tên', 'required');
-            $this->form_validation->set_rules('quantity', 'so luong', 'required');
+            $this->form_validation->set_rules('quantity', 'Số  lượng', 'required');
             $this->form_validation->set_rules('catalog', 'Thể loại', 'required');
+              $this->form_validation->set_rules('description', 'Miêu tả', 'required');
+
             if($this->form_validation->run())
             {
                 //them vao csdl
                 $name        = $this->input->post('product_name');
                 $catalog_id  = $this->input->post('catalog');
                 $number = $this->input->post('quantity');
+                 $description        = $this->input->post('description');
                
                 $this->load->library('upload_library');
                 $upload_path = './upload/product';
@@ -205,9 +204,10 @@ Class Profile extends MY_controller{
                 $data = array(
                     'product_name'=> $name,
                     'quantity'=>$number,
-                    'category_id' => $catalog_id,
-                    'description'    => $this->input->post('description'),
+                    'category_id ' => $catalog_id,
+                    'description'    =>$description,
                 );
+                
                 if($image_link != '')
                 {
                     $data['image_link'] = $image_link;

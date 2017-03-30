@@ -50,7 +50,7 @@ function index()
         $row = $this->account_model->join_permission($phone);
       
 
-        if(intval($row->role_id)==2){
+        if(intval($row->role_id)==2&&intval($row->active)==1){
 
           $this ->session ->set_userdata('account_id',$row->account_id) ;
           $this ->session ->set_userdata('permissions_ac',json_decode($row->permissions)) ;
@@ -58,7 +58,7 @@ function index()
           redirect(base_url('home'));
 
         }
-        if(intval($row->role_id)==3){
+        if(intval($row->role_id)==3&&intval($row->active)==1){
           $this ->session ->set_userdata('account_id',$row->account_id) ;
           $this ->session ->set_userdata('permissions_ac',json_decode($row->permissions)) ;
           $this ->session ->set_userdata('shop_id',$row->shop_id) ;
@@ -70,6 +70,7 @@ function index()
           return false;
 
         }
+       
 
         return true;
       }

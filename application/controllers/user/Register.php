@@ -8,6 +8,7 @@ Class Register extends MY_controller{
 
 		parent::__construct();
 		$this->load->model('account_model');
+		$this->load->helper('cookie');
 	}
 
 
@@ -73,11 +74,12 @@ Class Register extends MY_controller{
 
 	    }*/
 
-	    function send_sms($phone,$sms){
+	 function send_sms($phone,$sms){
 
 	    $this->load->library('nexmo');
         // set response format: xml or json, default json
         $this->nexmo->set_format('json');
+        $phone= intval($phone);
       
         $from = '+84982803436';
         $to = '+84'.$phone;
@@ -88,6 +90,7 @@ Class Register extends MY_controller{
 
 
 	    }
+
 
 
 
@@ -133,8 +136,8 @@ Class Register extends MY_controller{
 	    if($this->input->post())
 	    {
 	    	$this->form_validation->set_rules('r_name', 'Tên', 'required|min_length[8]');
-	    	$this->form_validation->set_rules('r_email', 'Email đăng nhập', 'required|callback_check_email');
-	    	$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[8]|numeric');
+	    	$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[8]|numeric|callback_check_phone');
+
 	    	$this->form_validation->set_rules('r_address', 'Địa chỉ', 'required|min_length[8]');		
 	    	$this->form_validation->set_rules('r_password', 'Mật khẩu', 'required|min_length[6]');
 	    	$this->form_validation->set_rules('r_confirm', 'Nhập lại mật khẩu', 'matches[r_password]');
@@ -148,56 +151,60 @@ Class Register extends MY_controller{
 
 
 	    		$name     = $this->input->post('r_name');
-	    		$email    = $this->input->post('r_email');
 	    		$phone     = $this->input->post('r_phone');
 	    		$address = $this->input->post('r_address');
 	    		$password = $this->input->post('r_password');
 	    		$market_id	= $this->input->post('market_place');
 
 	    		$this->load->library('upload_library');
-				$upload_path = './upload/shop';
-				$upload_data = $this->upload_library->upload($upload_path, 'image');  
-				$image_link = '';
-				if(isset($upload_data['file_name']))
-				{
-					$image_link = $upload_data['file_name'];
+	    		$upload_path = './upload/shop';
+	    		$upload_data = $this->upload_library->upload($upload_path, 'image');  
+	    		$image_link = '';
+	    		if(isset($upload_data['file_name']))
+	    		{
+	    			$image_link = $upload_data['file_name'];
+	    		}
+	    			mt_rand();
+				$signup = rand(100000,999999);
+	    		
+	    		$data_account = array(
+	    			'phone' => $phone,
+	    			'password' => md5($password),
+	    			'role_id' =>3,
+	    			'activation'=>$signup,
+					'active' =>0,
+
+	    			);
+
+	    		if($this->account_model->create($data_account)){
+					$this->send_sms($phone,$signup);
+				set_cookie('signed', $this->db->insert_id(), 86500 );
+							
 				}
 
+	    		$account_id = $this->db->insert_id(); 
+	    		$data_shop = array(
+	    			'shop_name' => $name,
+	    			'address'=>$address,
+	    			'market_id' =>$market_id,
+	    			'image_shop' => $image_link,
+	    			'created' => now(),
+	    			'account_id'=> $account_id,
+
+	    			);
+
+
+	    		if($this->shop_model->create($data_shop))
+	    		{ 
+	    			
+	    			redirect(user_url('register/activate')); 
 	    		
-	    			$data_account = array(
-	    				'email' => $email,
-	    				'password' => md5($password),
-	    				'role_id' =>3,
-
-	    				);
+	    		}else{
+	    			$this->session->set_flashdata('message', 'Không đăng kí được ');
+	    		}
 
 
-	    			$this->account_model->create($data_account);
 
-	    			$account_id = $this->db->insert_id(); 
-	    			$data_shop = array(
-	    				'shop_name' => $name,
-	    				'address'=>$address,
-	    				'phone' => $phone,
-	    				'market_id' =>$market_id,
-	    				'image_shop' => $image_link,
-	    				'created' => now(),
-	    				'account_id'=> $account_id,
-
-	    				);
-
-
-	    			if($this->shop_model->create($data_shop))
-	    			{ 
-	    				$this->sendmail($email);
-                    //tạo ra nội dung thông báo
-	    				$this->session->set_flashdata('message', 'Đăng kí thành viên thành công');
-	    			}else{
-	    				$this->session->set_flashdata('message', 'Không đăng kí được ');
-	    			}
-
-
-	    	
 
 	    		
 	    		redirect(user_url('register/shop'));
@@ -214,66 +221,102 @@ Class Register extends MY_controller{
 		$this->load->helper('form');
 		$this->load->model('buyer_model');
 
-	
 
 
 
-	    if($this->input->post())
-	    {
-	    	$this->form_validation->set_rules('r_name', 'Tên', 'required|min_length[8]');
-	    	$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[8]|numeric|callback_check_phone');
-	    	$this->form_validation->set_rules('r_address', 'Địa chỉ', 'required|min_length[8]');		
-	    	$this->form_validation->set_rules('r_password', 'Mật khẩu', 'required|min_length[6]');
-	    	$this->form_validation->set_rules('r_confirm', 'Nhập lại mật khẩu', 'matches[r_password]');
+
+		if($this->input->post())
+		{
+			$this->form_validation->set_rules('r_name', 'Tên', 'required|min_length[8]');
+			$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[8]|numeric|callback_check_phone');
+			$this->form_validation->set_rules('r_address', 'Địa chỉ', 'required|min_length[8]');		
+			$this->form_validation->set_rules('r_password', 'Mật khẩu', 'required|min_length[6]');
+			$this->form_validation->set_rules('r_confirm', 'Nhập lại mật khẩu', 'matches[r_password]');
 
             //nhập liệu chính xác
-	    	if($this->form_validation->run())
-	    	{
+			if($this->form_validation->run())
+			{
                 //them vao csdl
 
 
 
 
-	    		$name     = $this->input->post('r_name');
-	    		$phone     = $this->input->post('r_phone');
-	    		$address = $this->input->post('r_address');
-	    		$password = $this->input->post('r_password');
-	 
-					
+				$name     = $this->input->post('r_name');
+				$phone     = $this->input->post('r_phone');
+				$address = $this->input->post('r_address');
+				$password = $this->input->post('r_password');
+
+					mt_rand();
+				$signup = rand(100000,999999);
 
 
-	    			$data_account = array(
-	    				'phone' => $phone,
-	    				'password' => md5($password),
-	    				'role_id' =>2,
-	    				);
+				$data_account = array(
+					'phone' => $phone,
+					'password' => md5($password),
+					'role_id' =>2,
+					'activation'=>$signup,
+					'active' =>0,
+					);
 
 
-	    			$this->account_model->create($data_account);
+				if($this->account_model->create($data_account)){
+					$this->send_sms($phone,$signup);
+				set_cookie('signed', $this->db->insert_id(), 86500 );
+							
+				}
 
-	    			$account_id = $this->db->insert_id(); 
+				$account_id = $this->db->insert_id(); 
+			
 
-	    			$data_buyer = array(
-	    				'buyer_name' => $name,
-	    				'address'=>$address,
-	    				'account_id'=>$account_id,
-	    				'created' => now(),
+				$data_buyer = array(
+					'buyer_name' => $name,
+					'address'=>$address,
+					'account_id'=>$account_id,
+					'created' => now(),
 
-	    				);
+					);
+				
 
-	    			if($this->buyer_model->create($data_buyer))
-	    			{ 
-	    				//$this->sendmail($email);
-                    //tạo ra nội dung thông báo
-	    				$this->session->set_flashdata('message', 'Đăng kí thành viên thành công');
-	    			}else{
-	    				$this->session->set_flashdata('message', 'Không đăng kí được ');
-	    			}
-	    		
-	    		redirect(user_url('register/buyer'));
-	    	}
-	    }
-	    $this->load->view('site/register/buyer/index',$this->data);
+				if($this->buyer_model->create($data_buyer))
+				{ 
+
+					redirect(user_url('register/activate')); 
+				}else{
+					$this->session->set_flashdata('message', 'Không đăng kí được ');
+				}
+
+				redirect(user_url('register/buyer'));
+			}
+		}
+		$this->load->view('site/register/buyer/index',$this->data);
+
+
+	}
+	function activate(){
+		if( !get_cookie('signed') ){
+			redirect('register/activate');
+		}
+
+
+		$data['error'] = '';
+
+		if( $this->input->post() ){
+            //if sent
+			$where =  array('id'=>get_cookie('signed'),'activation'=>$this->input->post('code') );
+			$result = $this->db->where( $where )->count_all_results('accounts');
+			if( $result < 1 ){
+				$data['error'] = '<div class="error">The authorization code is not correct!</div>';
+			} else {
+				delete_cookie('signed');
+				$this->db->set( array('active'=>1, 'activation'=>'') )->where('id', get_cookie('signed') )->update('accounts');
+				$this->session->set_flashdata('message', 'bạn đã đăng kí thành công');
+
+				redirect(user_url('login'));
+			}           
+		}
+
+		$this->load->view('site/register/active',$data);
+
 
 
 	}

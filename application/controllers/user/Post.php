@@ -11,6 +11,7 @@ Class Post extends MY_controller{
 	function index()
 
 	{
+		$this->load->model('account_model');
 
 		$this->load->model('categories_model');
 		$input_catalog['where'] = array('parent_id' => 0);
@@ -29,12 +30,10 @@ Class Post extends MY_controller{
 		$this->load->helper('form');
 		$this->load->model('shop_model');
 
-			if($this->session->userdata('shop_id')){
+			if($this->session->userdata('account_id')){
 
-				$shop_id = $this->session->userdata('shop_id');
-				$input['where'] =  array('id' => $shop_id );
-				$info= $this->shop_model->get_list($input);
-			
+				$account_id = $this->session->userdata('account_id');
+				$info= $this->account_model->join_shops($account_id);
 				$this ->data['info']=$info;
 			}
 
