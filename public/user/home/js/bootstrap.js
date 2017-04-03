@@ -222,7 +222,7 @@ if (typeof jQuery === 'undefined') {
     }, this), 0)
   }
 
-  Button.prototype.toggle = function () {
+/*  Button.prototype.toggle = function () {
     var changed = true
     var $parent = this.$element.closest('[data-toggle="buttons"]')
 
@@ -242,7 +242,7 @@ if (typeof jQuery === 'undefined') {
       this.$element.attr('aria-pressed', !this.$element.hasClass('active'))
       this.$element.toggleClass('active')
     }
-  }
+  }*/
 
 
   // BUTTON PLUGIN DEFINITION

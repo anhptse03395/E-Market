@@ -39,7 +39,7 @@ Class Listproduct extends MY_Controller
     $config = array();
         $config['total_rows'] = $total_rows;//tong tat ca cac san pham tren website
         $config['base_url']   = user_url('listproduct/index'); //link hien thi ra danh sach san pham
-        $config['per_page']   = 2;//so luong san pham hien thi tren 1 trang
+        $config['per_page']   = 20;//so luong san pham hien thi tren 1 trang
         $config['uri_segment'] = 4;//phan doan hien thi ra so trang tren url
         $config['next_link']   = 'Trang kế tiếp';
         $config['prev_link']   = 'Trang trước';
@@ -165,7 +165,7 @@ Class Listproduct extends MY_Controller
         //{
             $config['base_url'] = user_url('listproduct/search'); // link hien thi du lieu
             // }
-            $config['per_page'] = 5;
+            $config['per_page'] = 20;
             $config['uri_segment'] = 4;
            // $config['use_page_numbers'] = TRUE;
             $config['next_link']   = 'Trang kế tiếp';
@@ -262,7 +262,7 @@ function product_detail_shop($id=0, $page=1)
         //{
             $config['base_url'] = user_url('listproduct/product_detail_shop/'.$id); // link hien thi du lieu
             // }
-            $config['per_page'] = 2;
+            $config['per_page'] = 10;
             $config['uri_segment'] = 5;
            // $config['use_page_numbers'] = TRUE;
             $config['next_link']   = 'Trang kế tiếp';

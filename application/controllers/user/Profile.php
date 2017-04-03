@@ -344,6 +344,145 @@ Class Profile extends MY_controller{
         }
 
 
+         function  list_order_buyer($offset = NULL){
+        $buyer_id = $this->session->userdata('buyer_id');
+
+        $this->load->model('orders_model');
+        $info= $this->orders_model->join_count_total($buyer_id);
+
+        $total_rows= count($this->orders_model->join_count_total($buyer_id));
+             $limit = 5;
+        if(!is_null($offset))
+        {
+            $offset = $this->uri->segment(4);
+        }
+
+
+        $this->load->library('pagination');
+        $config = array();
+        $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
+        $config['base_url']   = user_url('profile/list_order_buyer'); //link hien thi ra danh sach san pham
+        $config['per_page']   = $limit;//so luong san pham hien thi tren 1 trang
+       // $config['uri_segment'] = 4;//phan doan hien thi ra so trang tren url
+        $config['next_link']   = 'Trang kế tiếp';
+        $config['prev_link']   = 'Trang trước';
+        //khoi tao cac cau hinh phan trang
+        $this->pagination->initialize($config);
+
+     
+        //lay danh sach san pha
+   //    $list = $this->orders_model->get_list($input);
+        $list= $this->orders_model->join_buyer_order($buyer_id,$limit,$offset);
+     
+        $this->data['list']=$list;
+
+        $message = $this->session->flashdata('message');
+        $this->data['message'] = $message;
+
+
+        $this->data['temp'] = 'site/profile/profile_buyer/list_order/index';
+        $this->load->view('site/profile/profile_buyer/main', $this->data);
+
+
+    }
+
+
+    function  list_order_shop(){
+        $id = $this->session->userdata('account_id');
+        $this->load->model('account_model');
+        $info= $this->account_model->join_shop_order($id);
+        $total_rows= $this->product_model->get_total($info->shop_id);
+
+        //load ra thu vien phan trang
+        $this->load->library('pagination');
+        $config = array();
+        $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
+        $config['base_url']   = user_url('profile/listpost'); //link hien thi ra danh sach san pham
+        $config['per_page']   = 5;//so luong san pham hien thi tren 1 trang
+        $config['uri_segment'] = 4;//phan doan hien thi ra so trang tren url
+        $config['next_link']   = 'Trang kế tiếp';
+        $config['prev_link']   = 'Trang trước';
+        //khoi tao cac cau hinh phan trang
+        $this->pagination->initialize($config);
+
+        $segment = $this->uri->segment(4);
+        $segment = intval($segment);
+
+
+        $input['limit'] = array($config['per_page'], $segment);
+        //lay danh sach san pha
+        //    $list = $this->orders_model->get_list($input);
+        $list= $this->account_model->join_shop_order(intval($id));
+
+
+        $this->data['list']=$list;
+
+        $message = $this->session->flashdata('message');
+        $this->data['message'] = $message;
+
+
+        $this->data['temp'] = 'site/profile/profile_shop/listorder/index';
+        $this->load->view('site/profile/profile_shop/main', $this->data);
+    }
+
+    function edit_order_shop(){
+
+
+
+
+            $id = $this->uri->rsegment('3');
+            $order = $this->order_model->get_info($id);
+            $this->data['order'] = $order;
+            $this->load->model('categories_model');
+
+
+            //lay danh sach danh muc san pham
+            $this->load->model('order_model');
+
+
+            //load thư viện validate dữ liệu
+            $this->load->library('form_validation');
+            $this->load->helper('form');
+
+            //neu ma co du lieu post len thi kiem tra
+            if($this->input->post())
+            {
+                $this->form_validation->set_rules('status', 'Trạng Thái', 'required');
+                if($this->form_validation->run())
+                {
+                    //them vao csdl
+                    $product_name        = $this->input->post('product_name');
+                    $status  = $this->input->post('status');
+                    $number = $this->input->post('quantity');
+                    $address =$this->input->post("address");
+                    $date_order=$this->input->post("date_order");
+                    //lay ten file anh minh hoa duoc update len
+
+                    //luu du lieu can them
+                    $data = array(
+                        'product_name'=> $product_name,
+                        'quantity'=>$number,
+                        'status' => $status,
+                        'address'    => $address,
+                        'date_order'=>$date_order,
+                    );
+
+                    //them moi vao csdl
+                    if($this->order_model->update($order->id, $data))
+                    {
+                        //tạo ra nội dung thông báo
+                        $this->session->set_flashdata('message', 'Cập nhật dữ liệu thành công');
+                    }else{
+                        $this->session->set_flashdata('message', 'Không cập nhật được');
+                    }
+                    redirect(user_url('profile/list_shop_order'));
+                }
+            }
+        $this->data['temp'] = 'site/profile/profile_shop/listorder/edit';
+        $this->load->view('site/profile/profile_shop/main', $this->data);
+    }
+
+
 
 
     }

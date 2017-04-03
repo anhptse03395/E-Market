@@ -62,7 +62,7 @@ class Home extends MY_Controller {
         //{
             $config['base_url'] = base_url('home/index'); // link hien thi du lieu
             // }
-            $config['per_page'] = 1;
+            $config['per_page'] = 10;
             $config['uri_segment'] = 3;
            // $config['use_page_numbers'] = TRUE;
             $config['next_link']   = 'Trang kế tiếp';

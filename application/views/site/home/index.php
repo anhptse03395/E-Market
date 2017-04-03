@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     </head>
 
-    <body>
+    <body style="background-color:rgba(110, 154, 75, 0.31) ">
 
         <!-- Navigation -->
         <a id="menu-toggle" style="margin-right: 20%;margin-top: 2%;font-size:large;" href="<?php echo user_url('login') ?>"> <i  style="margin-right: 3px" class="fa fa-user"></i>Đăng nhập/Đăng kí</a>
@@ -42,7 +42,7 @@
 
       
         <div  id ="container" class="container" style="margin-left: 20%">
-            <h1 style="color: red">Lựa chọn địa điểm muốn xem</h1>
+            <h1 style="color: rgba(26, 42, 88, 0.78)">Lựa chọn địa điểm muốn xem</h1>
             <div class="row">
              <form action="<?php echo base_url('home/index') ?>" method="post">
               
@@ -55,7 +55,7 @@
                                 <div class="input-group"> 
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
                                 </span>
-                                <select  data-style="btn-primary"  name="province" class="form-control"  onchange="this.form.submit();">
+                                <select style="background-color:rgba(247, 185, 22, 0.76);"  name="province" class="form-control"  onchange="this.form.submit();">
                                     <option value="">Chọn</option>
                                     <?php foreach ($provinces as $row) :?>
                                         
@@ -74,7 +74,7 @@
                                 <div class="input-group"> 
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
                                 </span>
-                                <select  name="market_place"  data-style="btn-success" class="form-control"  onchange="this.form.submit();">
+                                <select style="background-color:rgba(247, 185, 22, 0.76);" name="market_place"   class="form-control"  onchange="this.form.submit();">
                                     <option value="">Chọn</option>
                                     <?php if($market_places) :?>
                                         <?php foreach ($market_places as $row) :?>
@@ -138,55 +138,55 @@
                         
         <!-- /.container -->
     </section>
-     <?php if (isset($shops)) {?>
-                        <div >
+                <div style="margin-left: 10%" >
+                <?php if (isset($shops)) {?>
+                       <ul class="pagination">
                          
 
                             <li><?php echo $this->pagination->create_links()?></li>
 
-                        </div>
+                        </ul>
         
                     <?php  }?> 
-
+                </div>
 
     <!-- Call to Action -->
 
     <!-- Map -->
 
-
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 col-lg-offset-1 text-center">
-                    <h4><strong>Start Bootstrap</strong>
-                    </h4>
-                    <p>3481 Melrose Place
-                        <br>Beverly Hills, CA 90210</p>
-                        <ul class="list-unstyled">
-                            <li><i class="fa fa-phone fa-fw"></i> (123) 456-7890</li>
-                            <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:name@example.com">name@example.com</a>
-                            </li>
-                        </ul>
-                        <br>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-dribbble fa-fw fa-3x"></i></a>
-                            </li>
-                        </ul>
-                        <hr class="small">
-                        <p class="text-muted">Copyright &copy; Your Website 2014</p>
-                    </div>
+<!--     <footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 text-center">
+                <h4><strong>Start Bootstrap</strong>
+                </h4>
+                <p>3481 Melrose Place
+                    <br>Beverly Hills, CA 90210</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-phone fa-fw"></i> (123) 456-7890</li>
+                        <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:name@example.com">name@example.com</a>
+                        </li>
+                    </ul>
+                    <br>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-dribbble fa-fw fa-3x"></i></a>
+                        </li>
+                    </ul>
+                    <hr class="small">
+                    <p class="text-muted">Copyright &copy; Your Website 2014</p>
                 </div>
             </div>
-            <a id="to-top" href="#top" class="btn btn-dark btn-lg"><i class="fa fa-chevron-up fa-fw fa-1x"></i></a>
-        </footer>
+        </div>
+        <a id="to-top" href="#top" class="btn btn-dark btn-lg"><i class="fa fa-chevron-up fa-fw fa-1x"></i></a>
+    </footer> -->
 
         <!-- jQuery -->
         <script src="js/jquery.js"></script>

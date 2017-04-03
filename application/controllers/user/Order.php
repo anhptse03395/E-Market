@@ -11,7 +11,7 @@ Class Order extends MY_Controller
     /*
      * Lấy thông tin của khách hàng
      */
-
+/*
     function unique_multidim_array($array, $key) { 
         $temp_array = array(); 
         $i = 0; 
@@ -25,14 +25,14 @@ Class Order extends MY_Controller
             $i++; 
         } 
         return $temp_array; 
-    } 
+    }*/ 
 
 
     function checkout()
     {
         //thong gio hang
-       $carts= $this->cart->contents();
-        
+     $carts= $this->cart->contents();
+
 /*
  $data = $this->unique_multidim_array($carts,'shop_id');
  pre($data);*/
@@ -72,7 +72,7 @@ $this->load->library('form_validation');
 $this->load->helper('form');
 
         //neu ma co du lieu post len thi kiem tra
-$buyer_id= $this->session->userdata('account_id');
+$buyer_id= $this->session->userdata('buyer_id');
 if($this->input->post())
 {
 
@@ -83,8 +83,8 @@ if($this->input->post())
     if($this->form_validation->run())
     {
 
-        $rows = count($this->cart->contents());
-
+        // $rows = count($this->cart->contents());
+/*
         $duplicate=count($this->unique_multidim_array($carts,'shop_id'));
 
         if($duplicate<$rows){
@@ -123,52 +123,50 @@ if($this->input->post())
            redirect(site_url());
 
 
-       }
+       }*/
 
-       if($duplicate==$rows){
-          foreach ($carts as $row)
-          {
 
-            $data_order = array(
-                        'status'   => 1, //trang thai dang cho su ly
-                        'shop_id'    => $row['shop_id'],
+
+       $data_order = array(
+                         
                         'buyer_id'     => $buyer_id,
-                        'address'       => $this->input->post('message'), //ghi chú khi mua hàn
+                        'description'       => $this->input->post('message'), //ghi chú khi mua hàn
                         'date_order'       => now(),
                         );
 
 
-            $this->load->model('orders_model');
-            $this->orders_model->create($data_order);
-            $order_id = $this->db->insert_id();  
-            $this->load->model('order_details_model');
+       $this->load->model('orders_model');
+       $this->orders_model->create($data_order);
+       $order_id = $this->db->insert_id();  
+       $this->load->model('order_details_model');
 
 
-            $data_detail = array(
-                'order_id' => $order_id,
-                'product_id'     => $row['id'],
-                'quantity'            => $row['qty'],
-                'price'         => $row['subtotal'],
-                );
-            $this->order_details_model->create($data_detail);
-        }
+       foreach ($carts as $row)
+       {
+        $data_detail = array(
+            'order_id' => $order_id,
+            'product_id'     => $row['id'],
+            'shop_id'    => $row['shop_id'],
+            'quantity'            => $row['qty'],
+            'price'         => $row['subtotal'],
+            'status'   => 1,
+            );
+        $this->order_details_model->create($data_detail);
+    }
                     //xóa toàn bô giỏ hang
-        $this->cart->destroy();
+    $this->cart->destroy();
                     //tạo ra nội dung thông báo
-        $this->session->set_flashdata('message', 'Bạn đã đặt hàng thành công, chúng tôi sẽ kiểm tra và gửi hàng cho bạn');
+    $this->session->set_flashdata('message', 'Bạn đã đặt hàng thành công, chúng tôi sẽ kiểm tra và gửi hàng cho bạn');
 
                     //chuyen tới trang danh sách quản trị viên
-        redirect(site_url());
+    redirect(site_url());
 
-    }
+}
 
 
 }
+
+        $this->load->view('site/order/index',$this->data);
 }
 
-
-        //hiển thị ra view
-
-$this->load->view('site/order/index',$this->data);
-}
 }
