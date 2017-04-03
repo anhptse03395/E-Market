@@ -51,7 +51,7 @@
 
                                 <?php  	echo '</br>'.'<h6 style="margin-left: 33%">'.'ngày đăng'.' :'. mdate('%d-%m-%Y',$product->product_created).'</h6>';?>
 								<?php echo '</br>'.'<h3 style="margin-left: 33%;margin-top:">'.'Địa chỉ:'. $product->address.'</h3>'  ?>
-								<p class="price"><?php echo 'SĐT'.':' .$product->phone ?></p>
+								<p class="price"><?php echo 'SĐT'.':'.'0' .$product->phone ?></p>
 
 								<p class="text-center buttons">
 									<a href="<?php echo user_url('cart/add/'.$product->product_id)?>" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Đăt Hàng </a>

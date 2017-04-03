@@ -45,7 +45,23 @@ Class Account_model extends MY_Model{
       return $query->row();
 
     }
+    function join_shopsname($id){
+        $this->db->select('role_id,accounts.id as account_id,shops.id as shop_id,shops.shop_name as shop_name ,accounts.email as email,shops.phone as phone,shops.address as address ');
+        $this->db->from('accounts');
+        $this->db->join('shops ', 'shops.account_id=accounts.id','left');
+        $this->db->where('accounts.id', $id);
+        $query = $this->db->get();
+        return $query->row();
+    }
 
+    function join_buyername($id){
+        $this->db->select('role_id,accounts.id as account_id,buyers.id as id,buyers.buyer_name as buyer_name ,accounts.email as email,buyers.phone as phone,buyers.address as address ');
+        $this->db->from('accounts');
+        $this->db->join('buyers ', 'buyers.account_id=accounts.id','left');
+        $this->db->where('accounts.id', $id);
+        $query = $this->db->get();
+        return $query->row();
+    }
 
 
 }	

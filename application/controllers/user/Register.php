@@ -83,6 +83,7 @@ Class Register extends MY_controller{
       
         $from = '+84982803436';
         $to = '+84'.$phone;
+       
         $message = array(
             'text' =>  $sms,
         );
@@ -135,10 +136,10 @@ Class Register extends MY_controller{
         //neu ma co du lieu post len thi kiem tra
 	    if($this->input->post())
 	    {
-	    	$this->form_validation->set_rules('r_name', 'Tên', 'required|min_length[8]');
+	    	$this->form_validation->set_rules('r_name', 'Tên', 'required|min_length[2]');
 	    	$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[8]|numeric|callback_check_phone');
 
-	    	$this->form_validation->set_rules('r_address', 'Địa chỉ', 'required|min_length[8]');		
+	    	$this->form_validation->set_rules('r_address', 'Địa chỉ', 'required|min_length[5]');		
 	    	$this->form_validation->set_rules('r_password', 'Mật khẩu', 'required|min_length[6]');
 	    	$this->form_validation->set_rules('r_confirm', 'Nhập lại mật khẩu', 'matches[r_password]');
 
@@ -227,9 +228,9 @@ Class Register extends MY_controller{
 
 		if($this->input->post())
 		{
-			$this->form_validation->set_rules('r_name', 'Tên', 'required|min_length[8]');
+			$this->form_validation->set_rules('r_name', 'Tên', 'required|min_length[2]');
 			$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[8]|numeric|callback_check_phone');
-			$this->form_validation->set_rules('r_address', 'Địa chỉ', 'required|min_length[8]');		
+			$this->form_validation->set_rules('r_address', 'Địa chỉ', 'required|min_length[5]');		
 			$this->form_validation->set_rules('r_password', 'Mật khẩu', 'required|min_length[6]');
 			$this->form_validation->set_rules('r_confirm', 'Nhập lại mật khẩu', 'matches[r_password]');
 

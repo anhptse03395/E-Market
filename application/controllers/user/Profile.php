@@ -72,6 +72,68 @@ Class Profile extends MY_controller{
 
     }
 
+    function buyer(){
+
+
+        //lay id cua quan tri vien can chinh sua
+        $this->load->model('account_model');
+
+        $account_id = $this->session->userdata('account_id');
+        $info= $this->account_model->join_buyer($account_id);
+        $this->data['info']=$info;
+        $phone = $info->phone;
+
+
+
+        $this->load->library('form_validation');
+        $this->load->helper('form');
+
+
+
+        if($this->input->post())
+        {
+            $old_password = $this->input->post('old_password');
+            $repassword = $this->input->post('repassword');
+
+            $new_password = $this->input->post('new_password');
+            if($new_password)
+            {
+                $this->form_validation->set_rules('new_password', 'Mật khẩu moi', 'required|min_length[6]');
+                $this->form_validation->set_rules('repassword', 'Nhập lại mật khẩu', 'matches[new_password]');
+            }
+            if($this->form_validation->run())
+            {
+
+                $where = array('password' => md5($old_password),'phone'=>$phone);
+                if($this->account_model->check_exists($where)) {
+
+
+                    //neu ma thay doi mat khau thi moi gan du lieu
+                    if ($new_password) {
+                        $data['password'] = md5($new_password);
+                    }
+
+                    if ($this->account_model->update($account_id, $data)) {
+                        //tạo ra nội dung thông báo
+                        $this->session->set_flashdata('message', 'Cập nhật dữ liệu thành công');
+                         redirect(user_url('profile'));
+                    } else {
+                        $this->session->set_flashdata('message', 'Không cập nhật được');
+                    }
+                }
+                 $this->form_validation->set_message(__FUNCTION__,'Sai  mật khẩu');
+                return false;
+                
+               
+            }
+
+        }
+        $this->data['temp'] = 'site/profile/profile_buyer/info/index';
+        $this->load->view('site/profile/profile_buyer/main', $this->data);
+  
+
+    }
+
 
 
     function listpost(){
@@ -163,7 +225,6 @@ Class Profile extends MY_controller{
         $this->data['catalogs'] = $catalogs;
 
         //lay danh sach danh muc san pham
-  
 
 
         //load thư viện validate dữ liệu
@@ -173,10 +234,11 @@ Class Profile extends MY_controller{
         //neu ma co du lieu post len thi kiem tra
         if($this->input->post())
         {
+            
             $this->form_validation->set_rules('product_name', 'Tên', 'required');
             $this->form_validation->set_rules('quantity', 'Số  lượng', 'required');
             $this->form_validation->set_rules('catalog', 'Thể loại', 'required');
-              $this->form_validation->set_rules('description', 'Miêu tả', 'required');
+            $this->form_validation->set_rules('description', 'Miêu tả', 'required');
 
             if($this->form_validation->run())
             {
@@ -184,7 +246,7 @@ Class Profile extends MY_controller{
                 $name        = $this->input->post('product_name');
                 $catalog_id  = $this->input->post('catalog');
                 $number = $this->input->post('quantity');
-                 $description        = $this->input->post('description');
+                $description        = $this->input->post('description');
                
                 $this->load->library('upload_library');
                 $upload_path = './upload/product';
@@ -219,7 +281,7 @@ Class Profile extends MY_controller{
                 }
 
                 //them moi vao csdl
-                if($this->product_model->update($id, $data))
+                if($this->product_model->update($product->id, $data))
                 {
                     //tạo ra nội dung thông báo
                     $this->session->set_flashdata('message', 'Cập nhật dữ liệu thành công');

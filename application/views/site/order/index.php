@@ -65,16 +65,11 @@
                             <!-- /.row -->
 
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="company">Email</label>
-                                        <input type="text" value="<?php echo $buyer->buyer_email?>"  readonly="readonly" class="form-control" name="email">
-                                    </div>
-                                </div>
+                               
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="phone">Số điện thoại</label>
-                                        <input type="text" value="<?php echo $buyer->phone?>"  class="form-control" name="phone">
+                                        <input type="text" value="<?php echo '0'.$buyer->phone?>"  class="form-control" name="phone">
                                     </div>
                                 </div>
                                 
@@ -85,12 +80,12 @@
                             <div class="row">
                                 
                                
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="form-group">
-                                        <label for="state">Cổng thanh toán</label>
-                                        <select class="form-control" name="payment"></select>
-                                    </div>
-                                </div>
+                           <!--      <div class="col-sm-6 col-md-3">
+                               <div class="form-group">
+                                   <label for="state">Cổng thanh toán</label>
+                                   <select class="form-control" name="payment"></select>
+                               </div>
+                           </div> -->
                               
 
                                 

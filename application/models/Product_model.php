@@ -62,4 +62,11 @@ Class Product_model extends MY_Model
 
     }
 
+    function list_product_shop($id,$page){
+
+        $query = $this->db->get('products', $id, $page);
+        return $query->result();
+
+    }
+
 }

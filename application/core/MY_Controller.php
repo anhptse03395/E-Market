@@ -22,24 +22,28 @@ Class MY_Controller extends CI_Controller
             
             default:
             {
-              
+
                     //xu ly cac du lieu khi truy cap vao trang admin
-             $this->load->helper('user');
-             $this->user_check_login();
-             
-             $this->load->library('cart');
-             $this->data['total_items']  = $this->cart->total_items();
+               $this->load->helper('user');
+               $this->user_check_login();
 
-                $this->load->model('account_model');
-                $account_id = $this->session->userdata('account_id');
-                $shop_info= $this->account_model->join_shops($account_id);
-                $this->data['shop_info']=$shop_info;
+               $this->load->library('cart');
+               $this->data['total_items']  = $this->cart->total_items();
 
-                    }
-                    
-                }
-            }
-            
+               $this->load->model('account_model');
+               $account_id = $this->session->userdata('account_id');
+               
+               $shop_info= $this->account_model->join_shops($account_id);
+               $this->data['shop_info']=$shop_info;
+
+               $buyer_info= $this->account_model->join_buyer($account_id);
+               $this->data['buyer_info']=$buyer_info;
+
+           }
+
+       }
+   }
+
     /*
      * Kiem tra trang thai dang nhap cua admin
      */
@@ -60,7 +64,7 @@ Class MY_Controller extends CI_Controller
         if($login && $controller == 'login')
 
         {
-            
+
             redirect(admin_url('home'));
         }
 
@@ -101,17 +105,17 @@ Class MY_Controller extends CI_Controller
         if(!$login && $controller == 'post')
 
         {
-           $this->session->set_flashdata('message', 'Ban phải đăng nhập mới thực hiện chức năng này');
-           redirect(user_url('login'));
-       }
+         $this->session->set_flashdata('message', 'Ban phải đăng nhập mới thực hiện chức năng này');
+         redirect(user_url('login'));
+     }
         //neu ma admin da dang nhap thi khong cho phep vao trang login nua.
-       if(!$login && $controller == 'cart')
+     if(!$login && $controller == 'cart')
 
-       {
-           $this->session->set_flashdata('message', 'Ban phải đăng nhập mới thực hiện chức năng này'); 
-           redirect(user_url('login'));
-       }
-       elseif (!in_array($controller, array('login','register','listproduct', 'home'))) {
+     {
+         $this->session->set_flashdata('message', 'Ban phải đăng nhập mới thực hiện chức năng này'); 
+         redirect(user_url('login'));
+     }
+     elseif (!in_array($controller, array('login','register','listproduct', 'home','user'))) {
         $account_id = $this->session->userdata('account_id');
         $shop_id = $this->session->userdata('shop_id');
         $buyer_id =  $this->session->userdata('buyer_id');

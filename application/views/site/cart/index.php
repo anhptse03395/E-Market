@@ -37,17 +37,17 @@
 
                         <form method="post" action="<?php echo user_url('cart/update')?>">
 
-                            <h1>Đặt Hàng</h1>
+                            <h1>Đặt hàng</h1>
                             <p class="text-muted">Đơn hàng của bạn</p>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th colspan="2">Sản Phẩm</th>
+                                            <th colspan="2">Sản phẩm</th>
                                             <th>Số lượng</th>
-                                            <th>Giá Thương Lượng</th>
+                                            <th>Giá đã thương lượng</th>
                                           
-                                            <th >Tổng Tiền</th>
+                                            <th >Tổng tiền</th>
                                             <th >Xóa</th>
                                         </tr>
                                     </thead>
@@ -86,7 +86,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="5">Total</th>
+                                            <th colspan="5">Tổng số tiền</th>
                                             <th colspan="2"><?php echo number_format($total_amount)?>đ</th>
                                         </tr>
                                     </tfoot>
@@ -99,11 +99,14 @@
                                 <div class="pull-left">
                                     <a href="<?php echo user_url('listproduct')?>" class="btn btn-default"><i class="fa fa-chevron-left"></i> Trở lại đặt hàng</a>
                                 </div>
-                                <div class="pull-right">
-                                    <button class="btn btn-default" type="submit"><i class="fa fa-refresh"></i> Tính Tiền</button>
-                                    <button type="submit" class="btn btn-default" style="background: #FFCC00;">Thanh Toán <i class="fa fa-chevron-right"></i>
-                                    </button>
+                                  <div class="pull-right" >
+                                    <a style="color: blue" href="<?php echo user_url('order/checkout')?>" class="btn btn-default"><i class="fa fa-chevron-right"></i> Thanh toán</a>
                                 </div>
+                                <div class="pull-right" >
+                                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-calendar"></i>Tính Tiền</button>
+                                    
+                                </div>
+
                             </div>
 
                         </form>

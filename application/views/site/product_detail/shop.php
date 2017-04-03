@@ -78,11 +78,11 @@
 
 <div class="container">
     <div class="well well-sm">
-        <strong>Category Title</strong>
+        <strong style="color: blue">Hiển thị</strong>
         <div class="btn-group">
             <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-            </span> List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-                    class="glyphicon glyphicon-th"></span> Grid</a>
+            </span>Danh sách </a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+                    class="glyphicon glyphicon-th"></span>Lưới</a>
         </div>
     </div>
     <div id="products" class="row list-group" >

@@ -1653,7 +1653,7 @@ h2.title {
 
 
 #cart_items .cart_info .table.table-condensed tr {
-  border-bottom: 1px solid#F7F7F0
+  border-bottom: 1px solid #d2d2ac;
 }
 
 #cart_items .cart_info .table.table-condensed tr:last-child {

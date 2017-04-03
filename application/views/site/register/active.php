@@ -27,7 +27,7 @@
 						<?php endif;?>
 						
 
-						<h2>Điền mã điện thoại chúng tôi đã đăng ký</h2>
+						<h2>Điền mã điện thoại chúng tôi đã gửi</h2>
 						<form action="<?php echo user_url('register/activate') ?>" method="post">
 							<input placeholder="Mã code" type="text" name="code">
 						

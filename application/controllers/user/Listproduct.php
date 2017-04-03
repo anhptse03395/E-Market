@@ -28,7 +28,7 @@ Class Listproduct extends MY_Controller
 
     $input = array() ;
     $input['join'] =  array('shops');
-    $input['select']= "products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list";
+    $input['select']= "products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list,image_shop,shops.id as shop_id,shops.created as shop_created";
 
 
     $total_rows = count($this->product_model->join_shop($input));
@@ -39,7 +39,7 @@ Class Listproduct extends MY_Controller
     $config = array();
         $config['total_rows'] = $total_rows;//tong tat ca cac san pham tren website
         $config['base_url']   = user_url('listproduct/index'); //link hien thi ra danh sach san pham
-        $config['per_page']   = 5;//so luong san pham hien thi tren 1 trang
+        $config['per_page']   = 2;//so luong san pham hien thi tren 1 trang
         $config['uri_segment'] = 4;//phan doan hien thi ra so trang tren url
         $config['next_link']   = 'Trang kế tiếp';
         $config['prev_link']   = 'Trang trước';
@@ -53,6 +53,8 @@ Class Listproduct extends MY_Controller
         $input['limit'] = array($config['per_page'], $segment);
 
         $info = $this->product_model->join_shop($input);
+      
+
         $this->data['info'] =$info;
 
 
@@ -150,7 +152,7 @@ Class Listproduct extends MY_Controller
 
 ////////////////////////////////
             $input['join'] =  array('shops');
-            $input['select']= "products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list";
+            $input['select']= "products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list,image_shop,shops.id as shop_id,shops.created as shop_created";
 
             $total_rows = count($this->product_model->join_shop($input));
 
@@ -218,6 +220,8 @@ Class Listproduct extends MY_Controller
 */
 
         $product= $this->product_model->join_detail($id);
+    
+       $this->session->set_userdata('in',$product->shop_id);
       
         $this->data['product'] = $product;
 
@@ -232,48 +236,59 @@ Class Listproduct extends MY_Controller
  $this->load->view('site/product_detail/index',$this->data);
 
 }
-function product_detail_shop()
+function product_detail_shop($id=0, $page=1)
     {
+        /*echo $id;
+        echo '-'.$page;
+        exit();*/
         //lay id san pham muon xem
-        $id = $this->uri->rsegment(3);
-//        pre(intval($id));
-        $this->load->model('shop_model');
+          //pre($id);
+               // $id= intval($this->session->userdata('in'));
+       
+      
+        $id = $this->uri->segment(4);
+        $input = array();
         $input['where'] = array('shop_id'=>$id);
-        $product= $this->product_model->get_list($id);
-        $this->data['product'] = $product;
-
         //phan trang
-        $total_rows= $this->product_model->get_total($id);
-
+        $total_rows= $this->product_model->get_total($input);
+        //pre($total_rows);
 
         //load ra thu vien phan trang
-        $this->load->library('pagination');
-        $config = array();
-        $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
-        $config['base_url']   = user_url('listproduct/product_detail_shop'); //link hien thi ra danh sach san pham
-        $config['per_page']   = 2;//so luong san pham hien thi tren 1 trang
-        $config['uri_segment'] = 4;//phan doan hien thi ra so trang tren url
-        $config['next_link']   = 'Trang kế tiếp';
-        $config['prev_link']   = 'Trang trước';
-        //khoi tao cac cau hinh phan trang
-        $this->pagination->initialize($config);
+            $this->load->library('pagination');
+            $config = array();
+            $config['total_rows'] = $total_rows;
+        // neu ko search thi de link phan trang nhu binh thuong
+        // if(!isset($id) || !isset($name) || !isset($catalog_id) )
+        //{
+            $config['base_url'] = user_url('listproduct/product_detail_shop/'.$id); // link hien thi du lieu
+            // }
+            $config['per_page'] = 2;
+            $config['uri_segment'] = 5;
+           // $config['use_page_numbers'] = TRUE;
+            $config['next_link']   = 'Trang kế tiếp';
+            $config['prev_link']   = 'Trang trước';
+                //khoi tao cac cau hinh phan trang
+            $this->pagination->initialize($config);
 
-        $segment = $this->uri->segment(4);
-        $segment = intval($segment);
+          
+          
 
+         //$product= $this->db->get('products', $id, 2);
+           
+            $sql = "select * from products where shop_id=$id limit ".$config['per_page']." offset ".(($page-1)*$config['per_page']);
+            $query = $this->db->query($sql);
+            $result = $query->result();
+    
 
-        $input['limit'] = array($config['per_page'], $segment);
-
-
-
-
-        //lấy danh sách ảnh sản phẩm kèm theo
-        $image_list = @json_decode($product->image_list);
-        $this->data['image_list'] = $image_list;
+  
+        $this->data['product'] = $result;
 
         $this->load->view('site/product_detail/shop',$this->data);
 
     }
+
+ 
+
 
 
 

@@ -17,10 +17,10 @@
 
  
            <td class="image">Hình ảnh</td>
-           <td class="description">Tên sản phẩm</td>
-           <th>Chỉnh sửa</th>
+           <td class="image">Tên sản phẩm</td>
+           <td class="image">Chỉnh sửa</td>
 
-           <th>Xóa</th>
+           <td class="image">xóa</td>
          </thead>
          <tbody>
            <?php foreach ($list as $row):?>

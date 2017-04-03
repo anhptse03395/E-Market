@@ -13,86 +13,65 @@ Class Test extends MY_controller{
 
 	}
 
+	function index() {  
+  
+    // configure the paginator  
+    $this->load->library('pagination');  
+    $config['base_url'] = base_url() . 'blog/index/';  
+    $config['per_page'] = 5;  
+    $config['total_rows'] = $this->db->count_all('entries');  
+    $this->pagination->initialize($config);  
+  
+    // load the model and get the query results  
+    $this->load->model('Blog_model', 'blog');  
+    $data['entries'] = $this->blog->select_entries($config['per_page'], $this->uri->segment(3));  
+  
+    // load the view  
+    $this->load->view('entry_view', $data);  
+} 
 
-/*	$object = new StdClass;
-	$object=$this->user_model->get_info_rule($data) ;
-	$arraylist	= (array) $object ;
-
-
-	var_dump( (array) $object )
-*/
-	function index()
-
-
-	{		
-
-		/*$object = new StdClass;
-
-
-			
-		$input = array();
-		$input['select']= "user.id as id,user.name as name" ;
-			$input['join'] = array('dangtin');
-
-		$object= $this->user_model->join($input);
-			$arraylist=		var_dump((array) $object );
-			
-			echo $arraylist;*/
-
-
-			$input = array();
-			$input['select']= "user.id as id,user.name as name" ;
-			$input['join'] = array('dangtin');
-			$list=$this->user_model->join($input);
-		 	$data['list'] = $list;
-		 foreach ($list as $row) {
-		 	echo $row->id;
-		 	echo $row->name;
-		 }
-		 echo $this->db->last_query();
-
-				/*$user = $this->session->userdata('user_id');
-				echo  $user ;
-*/
-
-
-
+function select_entries($conditions = NULL, $limit = NULL, $offset = NULL) {  
+    $this->db->select("SQL_CALC_FOUND_ROWS *");  
+  
+    if(isset($conditions)) {  
+        $this->db->where($conditions, NULL, FALSE);  
+    }  
+  
+    $query = $this->db->get('entries', $limit, $offset);  
+  
+    if($query->num_rows() > 0) {  
+  
+        // let's see how many rows would have been returned without the limit  
+        $count_query = $this->db->query('SELECT FOUND_ROWS() AS row_count');  
+        $found_rows = $count_query->row();  
+  
+        // load all of the returned results into a single array ($rows).  
+        // this is handy if you need to execute other SQL statements or bring  
+        // in additional model data that might be useful to have in this array.  
+        // alternatively, you could return $query object if you prefer that.  
+        $rows = array();  
+        foreach($query->result() as $row) {  
+  
+            // to build on my comment above about returning an array instead of  
+            // the raw $query object, as an example, this would be a good spot  
+            // to retrieve the comment count for each entry and append that to  
+            // the current row before we push the row data into the $rows array.  
+            $row->comment_count = $this->_comment_count($row->entry_id);  
+  
+            array_push($rows, $row);  
+        }  
+  
+        // after the foreach loop above, we should now have all of the combined  
+        // entry data in a single array. let's return a two-element array: the  
+        // first element contains the result set in array form, and the second  
+        // element is the number of rows in the full result set without the limit  
+        return array('rows' => $rows, 'found_rows' => (int) $found_rows->row_count);  
+    } else {  
+        return FALSE;  
+    }  
+}
 
 
 
-		}
-	}
-
-			<form class="form-horizontal" role="form" method="get" action="<?php echo user_url('listproduct')?>"  >
-							<div class="form-group">
-								<label class="col-md-4 control-label">Keyword</label>
-								<div class="col-md-8">
-									<input type="text" class="form-control" placeholder="Keyword" name="name" value="<?php $this->input->get('name') ?>">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-4 control-label">Category</label>
-								<div class="col-md-8">
-								<select class="form-control" placeholder="Category" name="catalog">
-								<option value=""></option>
-
-										<?php foreach ($catalogs as $row):?>
-											<?php if(count($row->subs) > 1):?>
-												<optgroup label="<?php echo $row->name?>">
-													<?php foreach ($row->subs as $sub):?>
-														<option value="<?php echo $sub->id?>" <?php echo ($this->input->get('catalog') == $sub->id) ? 'selected' : ''?>> <?php echo $sub->name?> </option>
-													<?php endforeach;?>
-												</optgroup>
-											<?php else:?>
-												<option value="<?php echo $row->id?>" <?php echo ($this->input->get('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->name?></option>
-											<?php endif;?>
-										<?php endforeach;?>
-
-									</select>
-								</div>
-							</div>
-							<div class="col-sm-offset-4 col-sm-5">
-								<button type="submit" style="float: left;">Search</button>
-								
-							</div>
-						</form>
+}
+	
