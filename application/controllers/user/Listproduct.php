@@ -43,6 +43,8 @@ Class Listproduct extends MY_Controller
         $config['uri_segment'] = 4;//phan doan hien thi ra so trang tren url
         $config['next_link']   = 'Trang kế tiếp';
         $config['prev_link']   = 'Trang trước';
+         $config['first_link'] = 'Trang đầu';
+          $config['last_link'] = 'Trang cuối';
         //khoi tao cac cau hinh phan trang
         $this->pagination->initialize($config);
         
@@ -170,6 +172,8 @@ Class Listproduct extends MY_Controller
            // $config['use_page_numbers'] = TRUE;
             $config['next_link']   = 'Trang kế tiếp';
             $config['prev_link']   = 'Trang trước';
+             $config['first_link'] = 'Trang đầu';
+          $config['last_link'] = 'Trang cuối';
                 //khoi tao cac cau hinh phan trang
             $this->pagination->initialize($config);
 
@@ -267,6 +271,8 @@ function product_detail_shop($id=0, $page=1)
            // $config['use_page_numbers'] = TRUE;
             $config['next_link']   = 'Trang kế tiếp';
             $config['prev_link']   = 'Trang trước';
+             $config['first_link'] = 'Trang đầu';
+          $config['last_link'] = 'Trang cuối';
                 //khoi tao cac cau hinh phan trang
             $this->pagination->initialize($config);
 

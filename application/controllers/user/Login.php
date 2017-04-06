@@ -55,7 +55,7 @@ function index()
           $this ->session ->set_userdata('account_id',$row->account_id) ;
           $this ->session ->set_userdata('permissions_ac',json_decode($row->permissions)) ;
           $this ->session ->set_userdata('buyer_id',$row->buyer_id) ;
-          redirect(base_url('home'));
+          redirect(base_url('user/profile/list_order_buyer'));
 
         }
         if(intval($row->role_id)==3&&intval($row->active)==1){

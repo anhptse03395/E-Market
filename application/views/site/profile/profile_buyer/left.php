@@ -19,18 +19,33 @@
 				<!-- SIDEBAR MENU -->
 				<div class="profile-usermenu">
 					<ul class="nav">
+					<li>
+							<a href="<?php echo user_url('profile/list_order_buyer') ?>">
+							<i class="glyphicon glyphicon-send"></i>
+							<span class="hidden-xs">Đơn hàng của tôi <span></a>
+						</li>
+						<li>
+								<a href="#">
+								<i class="glyphicon glyphicon-list-alt"></i>
+								<span class="hidden-xs">Quản lý công nợ <span> </a>
+															
+						</li>
+						<li>
+								<a href="#">
+								<i class="glyphicon glyphicon-list-alt"></i>
+								<span class="hidden-xs">Phản hồi <span> </a>
+															
+						</li>
+					
+					
 						<li >
 							<a href="<?php echo user_url('profile/buyer')?>">
 							<i class="glyphicon glyphicon-user"></i>
 							<span class="hidden-xs">Cá Nhân<span> </a>
 						</li>
 						
-						<li>
-							<a href="#">
-							<i class="glyphicon glyphicon-send"></i>
-							<span class="hidden-xs">Đơn hàng của tôi <span></a>
-						</li>
-					
+						
+						
                     
                         
 					</ul>

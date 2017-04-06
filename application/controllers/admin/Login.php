@@ -27,7 +27,7 @@ Class Login extends MY_controller{
      */
     function check_login()
     {
-        $email = $this->input->post('username');
+        $phone = $this->input->post('username');
         
         $password = $this->input->post('password');
 
@@ -37,11 +37,11 @@ Class Login extends MY_controller{
 
 
         $this->load->model('account_model');
-        $where = array('email' => $email , 'password' => $password);
+        $where = array('phone' => $phone , 'password' => $password);
         if($this->account_model->check_exists($where))
         {
 
-        $row = $this->account_model->join_permission($email);
+        $row = $this->account_model->join_permission($phone);
 
             if(intval($row->role_id)!=2||intval($row->role_id)!=3){
                 $this ->session ->set_userdata('account_role',$row->role_id);

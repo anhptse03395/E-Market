@@ -25,11 +25,5 @@
 	<?php $this->load->view('site/footer') ?>
 
 </footer>
-
-    <script src="<?php echo public_url('user')?>/js/jquery.js"></script>
-	<script src="<?php echo public_url('user') ?>/js/bootstrap.min.js"></script>
-	<script src="<?php echo public_url('user') ?>/js/jquery.scrollUp.min.js"></script>
-	<script src="<?php echo public_url('user') ?>/js/price-range.js"></script>
     <script src="<?php echo public_url('user') ?>/js/jquery.prettyPhoto.js"></script>
-    <script src="<?php echo public_url('user') ?>/js/main.js"></script>
 </html>
