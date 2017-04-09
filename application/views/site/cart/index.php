@@ -45,9 +45,9 @@
                                         <tr>
                                             <th colspan="2">Sản phẩm</th>
                                             <th>Số lượng</th>
-                                            <th>Giá đã thương lượng</th>
-                                          
-                                            <th >Tổng tiền</th>
+                                       <!--      <th>Giá đã thương lượng</th>
+                                                                                 
+                                       <th >Tổng tiền</th> -->
                                             <th >Xóa</th>
                                         </tr>
                                     </thead>
@@ -72,24 +72,24 @@
                                                     <span> /Kg</span>
                                                 </td>
 
-                                                <td> <input name="price_<?php echo $row['id']?>" value="<?php echo $row['price'];?>" size="5"/>
-                                                    <span> Đồng</span>
-
-                                                </td>
-                                             
-                                                <td><?php echo $row['subtotal']; ?></td>
+                                              <!--   <td> <input type="hidden" name="price_<?php echo $row['id']?>" value="<?php echo $row['price'];?>" size="5"/>
+                                               <span> Đồng</span>
+                                              
+                                              </td>
+                                                                                            -->
+                                               <!--  <td><?php echo $row['subtotal']; ?></td> -->
                                                 <td ><a href="<?php echo user_url('cart/del/'.$row['id'])?>"><i class="fa fa-trash-o" style="margin-left: 20px"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach;?>
 
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th colspan="5">Tổng số tiền</th>
-                                            <th colspan="2"><?php echo number_format($total_amount)?>đ</th>
-                                        </tr>
-                                    </tfoot>
+                                  <!--   <tfoot>
+                                      <tr>
+                                          <th colspan="5">Tổng số tiền</th>
+                                          <th colspan="2"><?php echo number_format($total_amount)?>đ</th>
+                                      </tr>
+                                  </tfoot> -->
                                 </table>
 
                             </div>

@@ -26,10 +26,10 @@
                 </tbody>
             </table>
             <h4>Đổi mật khẩu </h4>
-            <input placeholder="Mật khẩu mới" type="password" name="old_password">
+            <input placeholder="Mật khẩu cũ" type="password" name="old_password">
             <div class="clear error" name="name_error"><?php echo form_error('old_password')?></div>
             <br>
-            <input placeholder="Mật khẩu cũ" type="password" name="new_password">
+            <input placeholder="Mật khẩu mới" type="password" name="new_password">
             <div class="clear error" name="name_error"><?php echo form_error('new_password')?></div>
             <br>
             

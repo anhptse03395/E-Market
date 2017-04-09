@@ -25,7 +25,7 @@
 							<li>
 							<a href="<?php echo user_url('profile/listpost') ?>">
 							<i class="glyphicon glyphicon-tasks"></i>
-							<span class="hidden-xs">Tin đăng của tôi<span> </a>
+							<span class="hidden-xs">Quản lý sản phẩm<span> </a>
 							</li>
 
 							<li>

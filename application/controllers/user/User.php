@@ -41,7 +41,7 @@ Class User extends MY_Controller
 
 
 		}
-		redirect(base_url('home'));
+		redirect(user_url('login'));
 	}
 
     

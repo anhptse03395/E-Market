@@ -75,8 +75,8 @@ Class Cart extends MY_Controller
         {
             //tong so luong san pham
             $total_qty = $this->input->post('qty_'.$row['id']);
-            $price =  $this->input->post('price_'.$row['id']);
-
+       /*     $price =  $this->input->post('price_'.$row['id']);*/
+             $price = 0;
             $data = array();
             $data['rowid'] = $key;
             $data['qty'] = $total_qty;

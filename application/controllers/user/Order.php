@@ -159,7 +159,7 @@ if($this->input->post())
     $this->session->set_flashdata('message', 'Bạn đã đặt hàng thành công, chúng tôi sẽ kiểm tra và gửi hàng cho bạn');
 
                     //chuyen tới trang danh sách quản trị viên
-    redirect(site_url());
+    redirect(user_url('profile/list_order_buyer'));
 
 }
 

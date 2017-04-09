@@ -138,34 +138,37 @@ Class Profile extends MY_controller{
 
     function listpost(){
 
-
-        $id = $this->session->userdata('account_id');
-        $this->load->model('account_model');
-        $info= $this->account_model->join_shops($id);
-
-        if(intval($info->role_id)==3){
-
-            $shop_id= $info->shop_id;
-            $input = array();
-            if($id > 0)
-            {
-                $input['where']['shop_id'] = $shop_id;
-            }
-            $name = $this->input->get('name');
-            if($name)
-            {
-                $input['like'] = array('name', $name);
-            }
+     $this->load->library('form_validation');
+     $this->load->helper('form');
 
 
+     $id = $this->session->userdata('account_id');
+     $this->load->model('account_model');
+     $info= $this->account_model->join_shops($id);
+
+     if(intval($info->role_id)==3){
+
+        $shop_id= $info->shop_id;
+        $input = array();
+        if($id > 0)
+        {
+            $input['where']['shop_id'] = $shop_id;
+        }
+        $name = $this->input->get('name');
+        if($name)
+        {
+            $input['like'] = array('name', $name);
         }
 
 
-        $total_rows= $this->product_model->get_total($input);
+    }
+
+
+    $total_rows= $this->product_model->get_total($input);
 
             //load ra thu vien phan trang
-        $this->load->library('pagination');
-        $config = array();
+    $this->load->library('pagination');
+    $config = array();
             $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
             $config['base_url']   = user_url('profile/listpost'); //link hien thi ra danh sach san pham
             $config['per_page']   = 5;//so luong san pham hien thi tren 1 trang
@@ -189,8 +192,8 @@ Class Profile extends MY_controller{
             $message = $this->session->flashdata('message');
             $this->data['message'] = $message;
 
-
-            $this->data['temp'] = 'site/profile/profile_shop/listpost/index';
+            $this->data['temp1'] = 'site/profile/profile_shop/listpost/empty';
+            $this->data['temp'] = 'site/profile/profile_shop/listpost/main';
             $this->load->view('site/profile/profile_shop/main', $this->data);
 
         }
@@ -198,13 +201,15 @@ Class Profile extends MY_controller{
 
         function search_post(){
 
+         $this->load->library('form_validation');
+         $this->load->helper('form');
 
-        $shop_id = $this->session->userdata('shop_id');
-        $this->load->model('product_model');
-        
+         $shop_id = $this->session->userdata('shop_id');
+         $this->load->model('product_model');
+
          $input = array();
-        $where =array();
-        if($this->input->post()){
+         $where =array();
+         if($this->input->post()){
 
 
 
@@ -237,11 +242,11 @@ Class Profile extends MY_controller{
         }
 
         if ($this->session->userdata('product_name')) {
-         $where['products.product_name like']= $this->session->userdata('product_name'); ;
+           $where['products.product_name like']= $this->session->userdata('product_name'); ;
 
-     }
+       }
 
-     if ($this->session->userdata('from_date') && ($this->session->userdata('end_date'))) {
+       if ($this->session->userdata('from_date') && ($this->session->userdata('end_date'))) {
 
         $from_date= $this->session->userdata('from_date');
         $end_date= $this->session->userdata('end_date');
@@ -254,13 +259,14 @@ Class Profile extends MY_controller{
 
     }
 
-        $input['where'] = $where;
+    $input['where'] = $where;
 
-        $total_rows= count($this->product_model->search_listpost($input,$shop_id));
-      
+
+    $total_rows= count($this->product_model->search_listpost($input,$shop_id));
+
             //load ra thu vien phan trang
-        $this->load->library('pagination');
-        $config = array();
+    $this->load->library('pagination');
+    $config = array();
             $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
             $config['base_url']   = user_url('profile/search_post'); //link hien thi ra danh sach san pham
             $config['per_page']   = 5;//so luong san pham hien thi tren 1 trang
@@ -272,7 +278,7 @@ Class Profile extends MY_controller{
             //khoi tao cac cau hinh phan trang
             $this->pagination->initialize($config);
 
-             $segment = intval($this->uri->segment(4));
+            $segment = intval($this->uri->segment(4));
 
 
             $input['limit'] = array($config['per_page'], $segment);
@@ -283,8 +289,8 @@ Class Profile extends MY_controller{
             $message = $this->session->flashdata('message');
             $this->data['message'] = $message;
 
-
-            $this->data['temp'] = 'site/profile/profile_shop/listpost/index';
+            $this->data['temp1'] = 'site/profile/profile_shop/listpost/table';
+            $this->data['temp'] = 'site/profile/profile_shop/listpost/main';
             $this->load->view('site/profile/profile_shop/main', $this->data);
 
         }
@@ -384,6 +390,7 @@ Class Profile extends MY_controller{
                     redirect(user_url('profile/listpost'));
                 }
             }
+
             $this->data['temp'] = 'site/profile/profile_shop/edit_post/index';
             $this->load->view('site/profile/profile_shop/main', $this->data);
 
@@ -392,20 +399,24 @@ Class Profile extends MY_controller{
 
         /*nguoi mua xem đơn hàng*/
         function  list_order_buyer($offset = NULL){
-            $buyer_id = $this->session->userdata('buyer_id');
 
-            $this->load->model('orders_model');
+         $this->load->library('form_validation');
+         $this->load->helper('form');
 
-            $total_rows= count($this->orders_model->join_count_total($buyer_id));
-            $limit = 2;
-            if(!is_null($offset))
-            {
-                $offset = $this->uri->segment(4);
-            }
+         $buyer_id = $this->session->userdata('buyer_id');
+
+         $this->load->model('orders_model');
+
+         $total_rows= count($this->orders_model->join_count_total($buyer_id));
+         $limit = 2;
+         if(!is_null($offset))
+         {
+            $offset = $this->uri->segment(4);
+        }
 
 
-            $this->load->library('pagination');
-            $config = array();
+        $this->load->library('pagination');
+        $config = array();
         $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
         $config['base_url']   = user_url('profile/list_order_buyer'); //link hien thi ra danh sach san pham
         $config['per_page']   = $limit;//so luong san pham hien thi tren 1 trang
@@ -435,75 +446,78 @@ Class Profile extends MY_controller{
 
     /*người mua search đơn hàng*/
     function  search_order_buyer(){
-
-        $this->load->model('orders_model'); 
-
-
-        $buyer_id = $this->session->userdata('buyer_id');
-        $input = array();
-        $where =array();
-        if($this->input->post()){
+     $this->load->library('form_validation');
+     $this->load->helper('form');
 
 
-
-            $this->session->unset_userdata('order_id');
-            $this->session->unset_userdata('from_date');
-            $this->session->unset_userdata('end_date');
+     $this->load->model('orders_model'); 
 
 
-            $this->session->set_userdata('order_id', $this->input->post('order_id'));
-
-            if ($this->session->userdata('order_id')) {
-                $where['orders.id'] = $this->session->userdata('order_id');
-
-            }
-            $this->session->set_userdata('from_date', $this->input->post('from_date'));
-            $from_date =  $this->session->userdata('from_date');
-            $this->session->set_userdata('end_date', $this->input->post('end_date'));
-            $end_date= $this->session->userdata('end_date');
-            if ($from_date && $end_date) {
-                $time = get_time_between_day($from_date,$end_date);
-            //nếu dữ liệu trả về hợp lệ
-                if(is_array($time))
-                {   
-                    $where['orders.date_order >='] = $time['start'];
-                    $where['orders.date_order <='] = $time['end'];
-                }
-
-            }
+     $buyer_id = $this->session->userdata('buyer_id');
+     $input = array();
+     $where =array();
+     if($this->input->post()){
 
 
 
+        $this->session->unset_userdata('order_id');
+        $this->session->unset_userdata('from_date');
+        $this->session->unset_userdata('end_date');
 
-        }
 
+        $this->session->set_userdata('order_id', $this->input->post('order_id'));
 
         if ($this->session->userdata('order_id')) {
-         $where['orders.id']= $this->session->userdata('order_id'); ;
+            $where['orders.id'] = $this->session->userdata('order_id');
 
-     }
-
-     if ($this->session->userdata('from_date') && ($this->session->userdata('end_date'))) {
-
-        $from_date= $this->session->userdata('from_date');
-        $end_date= $this->session->userdata('end_date');
-        $time = get_time_between_day($from_date,$end_date);
-        if(is_array($time))
-        {   
-            $where['orders.date_order >='] = $time['start'];
-            $where['orders.date_order <='] = $time['end'];
         }
+        $this->session->set_userdata('from_date', $this->input->post('from_date'));
+        $from_date =  $this->session->userdata('from_date');
+        $this->session->set_userdata('end_date', $this->input->post('end_date'));
+        $end_date= $this->session->userdata('end_date');
+        if ($from_date && $end_date) {
+            $time = get_time_between_day($from_date,$end_date);
+            //nếu dữ liệu trả về hợp lệ
+            if(is_array($time))
+            {   
+                $where['orders.date_order >='] = $time['start'];
+                $where['orders.date_order <='] = $time['end'];
+            }
+
+        }
+
+
+
 
     }
 
-    $input['where'] = $where;
-    $total_rows = count($this->orders_model->join_muti($input,$buyer_id));
 
-    
+    if ($this->session->userdata('order_id')) {
+       $where['orders.id']= $this->session->userdata('order_id'); ;
+
+   }
+
+   if ($this->session->userdata('from_date') && ($this->session->userdata('end_date'))) {
+
+    $from_date= $this->session->userdata('from_date');
+    $end_date= $this->session->userdata('end_date');
+    $time = get_time_between_day($from_date,$end_date);
+    if(is_array($time))
+    {   
+        $where['orders.date_order >='] = $time['start'];
+        $where['orders.date_order <='] = $time['end'];
+    }
+
+}
+
+$input['where'] = $where;
+$total_rows = count($this->orders_model->join_muti($input,$buyer_id));
+
+
                     // thu vien phan trang
-    $this->load->library('pagination');
-    $config = array();
-    $config['total_rows'] = $total_rows;
+$this->load->library('pagination');
+$config = array();
+$config['total_rows'] = $total_rows;
         // neu ko search thi de link phan trang nhu binh thuong
         // if(!isset($id) || !isset($name) || !isset($catalog_id) )
         //{
@@ -578,21 +592,27 @@ Class Profile extends MY_controller{
 
 
 function  list_order_shop($offset=null){
-    $shop_id = $this->session->userdata('shop_id');
-    $this->load->model('order_details_model');
 
-    $total_rows=  count($this->order_details_model->list_shop_order($shop_id));
+   $this->load->library('form_validation');
+   $this->load->helper('form');
+
+
+   $shop_id = $this->session->userdata('shop_id');
+   $this->load->model('order_details_model');
+
+
+   $total_rows=  count($this->order_details_model->list_shop_order($shop_id));
 
         //load ra thu vien phan trang
-    $limit = 2;
-    if(!is_null($offset))
-    {
-        $offset = $this->uri->segment(4);
-    }
+   $limit = 2;
+   if(!is_null($offset))
+   {
+    $offset = $this->uri->segment(4);
+}
 
 
-    $this->load->library('pagination');
-    $config = array();
+$this->load->library('pagination');
+$config = array();
         $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
         $config['base_url']   = user_url('profile/list_order_shop'); //link hien thi ra danh sach san pham
         $config['per_page']   = $limit;//so luong san pham hien thi tren 1 trang
@@ -621,74 +641,78 @@ function  list_order_shop($offset=null){
 
     function  search_order_shop(){
 
-        $this->load->model('order_details_model'); 
+     $this->load->library('form_validation');
+     $this->load->helper('form');
 
 
-        $shop_id = $this->session->userdata('shop_id');
-        $input = array();
-        $where =array();
-        if($this->input->post()){
+     $this->load->model('order_details_model'); 
 
 
-
-            $this->session->unset_userdata('order_id');
-            $this->session->unset_userdata('from_date');
-            $this->session->unset_userdata('end_date');
-
-
-            $this->session->set_userdata('order_id', $this->input->post('order_id'));
-
-            if ($this->session->userdata('order_id')) {
-                $where['orders.id'] = $this->session->userdata('order_id');
-
-            }
-            $this->session->set_userdata('from_date', $this->input->post('from_date'));
-            $from_date =  $this->session->userdata('from_date');
-            $this->session->set_userdata('end_date', $this->input->post('end_date'));
-            $end_date= $this->session->userdata('end_date');
-            if ($from_date && $end_date) {
-                $time = get_time_between_day($from_date,$end_date);
-            //nếu dữ liệu trả về hợp lệ
-                if(is_array($time))
-                {   
-                    $where['orders.date_order >='] = $time['start'];
-                    $where['orders.date_order <='] = $time['end'];
-                }
-
-            }
+     $shop_id = $this->session->userdata('shop_id');
+     $input = array();
+     $where =array();
+     if($this->input->post()){
 
 
 
+        $this->session->unset_userdata('order_id');
+        $this->session->unset_userdata('from_date');
+        $this->session->unset_userdata('end_date');
 
-        }
 
+        $this->session->set_userdata('order_id', $this->input->post('order_id'));
 
         if ($this->session->userdata('order_id')) {
-         $where['orders.id']= $this->session->userdata('order_id'); ;
+            $where['orders.id'] = $this->session->userdata('order_id');
 
-     }
-
-     if ($this->session->userdata('from_date') && ($this->session->userdata('end_date'))) {
-
-        $from_date= $this->session->userdata('from_date');
-        $end_date= $this->session->userdata('end_date');
-        $time = get_time_between_day($from_date,$end_date);
-        if(is_array($time))
-        {   
-            $where['orders.date_order >='] = $time['start'];
-            $where['orders.date_order <='] = $time['end'];
         }
+        $this->session->set_userdata('from_date', $this->input->post('from_date'));
+        $from_date =  $this->session->userdata('from_date');
+        $this->session->set_userdata('end_date', $this->input->post('end_date'));
+        $end_date= $this->session->userdata('end_date');
+        if ($from_date && $end_date) {
+            $time = get_time_between_day($from_date,$end_date);
+            //nếu dữ liệu trả về hợp lệ
+            if(is_array($time))
+            {   
+                $where['orders.date_order >='] = $time['start'];
+                $where['orders.date_order <='] = $time['end'];
+            }
+
+        }
+
+
+
 
     }
 
-    $input['where'] = $where;
-    $total_rows = count($this->order_details_model->join_search($input,$shop_id));
 
-    
+    if ($this->session->userdata('order_id')) {
+       $where['orders.id']= $this->session->userdata('order_id'); ;
+
+   }
+
+   if ($this->session->userdata('from_date') && ($this->session->userdata('end_date'))) {
+
+    $from_date= $this->session->userdata('from_date');
+    $end_date= $this->session->userdata('end_date');
+    $time = get_time_between_day($from_date,$end_date);
+    if(is_array($time))
+    {   
+        $where['orders.date_order >='] = $time['start'];
+        $where['orders.date_order <='] = $time['end'];
+    }
+
+}
+
+$input['where'] = $where;
+$total_rows = count($this->order_details_model->join_search($input,$shop_id));
+
+
                     // thu vien phan trang
-    $this->load->library('pagination');
-    $config = array();
-    $config['total_rows'] = $total_rows;
+$this->load->library('pagination');
+$config = array();
+$config['total_rows'] = $total_rows;
         // neu ko search thi de link phan trang nhu binh thuong
         // if(!isset($id) || !isset($name) || !isset($catalog_id) )
         //{
@@ -710,24 +734,34 @@ function  list_order_shop($offset=null){
 
             $list = $this->order_details_model->join_search($input,$shop_id);
             $this->data['list'] =$list;
+
             $this->data['temp'] = 'site/profile/profile_shop/list_order/index';
             $this->load->view('site/profile/profile_shop/main', $this->data);
 
         }
 
-        function edit_order_shop(){
 
 
+        function detail_order_shop(){
 
+         $this->load->library('form_validation');
+         $this->load->helper('form');
 
-            $id = $this->uri->rsegment('3');
-            $order = $this->order_model->get_info($id);
-            $this->data['order'] = $order;
-            $this->load->model('categories_model');
+         $this->load->model('order_details_model');
+
+         $order_id = $this->uri->segment(4);
+         $shop_id = $this->session->userdata('shop_id');
+
+         $list = $this->order_details_model->shop_detail_order($shop_id,$order_id);
+         $this->data['list'] = $list;
+
+         $this->data['temp'] = 'site/profile/profile_shop/list_order/detail';
+         $this->load->view('site/profile/profile_shop/main', $this->data);
+
 
 
             //lay danh sach danh muc san pham
-            $this->load->model('order_model');
+            /*$this->load->model('order_model');
 
 
             //load thư viện validate dữ liệu
@@ -767,61 +801,113 @@ function  list_order_shop($offset=null){
                     }
                     redirect(user_url('profile/list_shop_order'));
                 }
-            }
-            $this->data['temp'] = 'site/profile/profile_shop/listorder/edit';
-            $this->load->view('site/profile/profile_shop/main', $this->data);
+            }*/
         }
 
+        function put_price(){
+          $this->load->library('form_validation');
+          $this->load->helper('form');
 
-        function del()
-        {
-            $id = intval($this->uri->segment(4));
-            $this->__delete($id);
-            $this->session->set_flashdata('message', 'Successs delete');
-            redirect(user_url('profile/listpost'));
-        }
+          $this->load->model('order_details_model');
 
-    // xoa nhieu san pham
-        function del_all()
-        {
-            $ids = $this->input->post('ids');
-            foreach ($ids as $id)
-                $this->__delete($id);
+          $order_id = $this->uri->segment(4);
+          $product_id = $this->uri->segment(5);
+            $where = array('order_id'=>$order_id,
+                                'product_id'=>$product_id    
+                    );
 
-        }
+                $row = $this->order_details_model->get_info_rule($where);
+                $quantity = $row->quantity;
 
-    // ham ho tro xoa nhieu
-        private
-        function __delete($id)
-        {
-            $product = $this->product_model->get_info($id);
-            if (!$product) {
-                $this->session->set_flashdata('message', 'Can not edited');
-                redirect(user_url('profile/listpost'));
-            }
-        // xoa
-            $this->product_model->delete($id);
-        // xoa anh
-            $image_link = './upload/product/' . $product->image_link;
-            if (file_exists($image_link)) {
-                unlink($image_link);
-            }
-        //xoa anh kem theo
-            $image_list = json_decode($product->image_list);
-            if (is_array($image_list)) {
-                foreach ($image_list as $img) {
-                    $image_link = './upload/product/' . $img;
-                    if (file_exists($image_link)) {
-                        unlink($image_link);
-                    }
+          if($this->input->post())
+
+          {
+
+
+            $this->form_validation->set_rules('price', 'giá', 'required|numeric');
+
+
+            //nhập liệu chính xác
+            if($this->form_validation->run())
+            {
+                //them vao csdl
+
+                $price     = $this->input->post('price');
+
+              $total_price = $quantity*$price;
+
+
+                if($this->order_details_model-> shop_put_price($order_id,$product_id,$total_price))
+                {
+                    //tạo ra nội dung thông báo
+                    $this->session->set_flashdata('message', 'Bài đăng thành công');
+                }else{
+                    $this->session->set_flashdata('message', 'Không đăng bài được ');
                 }
+                //chuyen tới trang danh sách quản trị viên
+                redirect(user_url('profile/detail_order_shop/'.$row->order_id));
             }
+
+            
         }
 
-
+        $this->data['temp'] = 'site/profile/profile_shop/list_order/put_price';
+        $this->load->view('site/profile/profile_shop/main', $this->data);
 
     }
 
 
 
-    ?>
+
+    function del()
+    {
+        $id = intval($this->uri->segment(4));
+        $this->__delete($id);
+        $this->session->set_flashdata('message', 'Successs delete');
+        redirect(user_url('profile/listpost'));
+    }
+
+    // xoa nhieu san pham
+    function del_all()
+    {
+        $ids = $this->input->post('ids');
+        foreach ($ids as $id)
+            $this->__delete($id);
+
+    }
+
+    // ham ho tro xoa nhieu
+    private
+    function __delete($id)
+    {
+        $product = $this->product_model->get_info($id);
+        if (!$product) {
+            $this->session->set_flashdata('message', 'Can not edited');
+            redirect(user_url('profile/listpost'));
+        }
+        // xoa
+        $this->product_model->delete($id);
+        // xoa anh
+        $image_link = './upload/product/' . $product->image_link;
+        if (file_exists($image_link)) {
+            unlink($image_link);
+        }
+        //xoa anh kem theo
+        $image_list = json_decode($product->image_list);
+        if (is_array($image_list)) {
+            foreach ($image_list as $img) {
+                $image_link = './upload/product/' . $img;
+                if (file_exists($image_link)) {
+                    unlink($image_link);
+                }
+            }
+        }
+    }
+
+
+
+}
+
+
+
+?>

@@ -75,80 +75,25 @@
 				</fieldset>
 			</form>
 
+			<?php $this ->load->view($temp,$this->data) ?>
 
+			
 
-			<div class="table-responsive cart_info">
-				<table class="table table-condensed">
-
-					<div class="well-searchbox">
-
-					</div>
-					<thead>
-						<tr class="cart_menu">
-							<td class="description">Hình ảnh</td>
-							<td class="description">Tên sản phẩm</td>
-							<td class="description">Số lượng</td>
-							<td class="description">Người đăng</td>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach ($info as $row):?>
-							<tr>
-									<td class="cart_description">
-									<a href="<?php echo user_url('listproduct/product_detail/'.$row->product_id)?>"><img  height="70" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
-									<p style="color: green"> <?php echo $row->shop_name.' ' ;
-										echo '</br>'.'<h6>'.'ngày đăng'.' :'. mdate('%d-%m-%Y',$row->product_created).'</h6>' ;
-
-										?></p>	
-									</td>
-
-									<td class="cart_description">
-										<a style="color: black" href="<?php echo user_url('listproduct/product_detail/'.$row->product_id)?>"> <?php echo $row->product_name?>
-									</td>
-									<td class="cart_description">
-											<p> <?php echo $row->quantity?>Kg</p>
-									</td>
-									<td class="cart_description">
-										<a href="<?php echo user_url('listproduct/product_detail_shop/'.$row->shop_id)?>"><img  height="70" width="60" src="<?php echo base_url('upload/shop/'.$row->image_shop)?>" alt=""></a>
-										<p style="color: green"> <?php echo $row->shop_name.' ' ;
-											echo '</br>'.'<h6>'.'Tham gia'.' :'. mdate('%d-%m-%Y',$row->shop_created).'</h6>' ;
-
-											?></p>	
-									</td>
+		
+						
+					</div>	
 
 
 
-									</tr>
+				</section>
+
+			</body>
 
 
-
-								<?php endforeach;?>
-
-							</tbody>
-
-
-						</table>
-						<div class="pagination">
-
-							<li><?php echo $this->pagination->create_links()?></li>
-
-
-						</div>
-					</div>
-
-				</div>	
-
-
-
-			</section>
-
-		</body>
-
-
-		<script src="<?php echo public_url('user')?>/js/jquery.js"></script>
-		<script src="<?php echo public_url('user') ?>/js/bootstrap.min.js"></script>
-		<script src="<?php echo public_url('user') ?>/js/jquery.scrollUp.min.js"></script>
-		<script src="<?php echo public_url('user') ?>/js/price-range.js"></script>
-		<script src="<?php echo public_url('user') ?>/js/jquery.prettyPhoto.js"></script>
-		<script src="<?php echo public_url('user') ?>/js/main.js"></script>
-		</html>
+			<script src="<?php echo public_url('user')?>/js/jquery.js"></script>
+			<script src="<?php echo public_url('user') ?>/js/bootstrap.min.js"></script>
+			<script src="<?php echo public_url('user') ?>/js/jquery.scrollUp.min.js"></script>
+			<script src="<?php echo public_url('user') ?>/js/price-range.js"></script>
+			<script src="<?php echo public_url('user') ?>/js/jquery.prettyPhoto.js"></script>
+			<script src="<?php echo public_url('user') ?>/js/main.js"></script>
+			</html>

@@ -79,7 +79,7 @@ Class Listproduct extends MY_Controller
         //lay nội dung của biến message
         $message = $this->session->flashdata('message');
         $this->data['message'] = $message;
-
+        $this->data['temp'] ='site/listproduct/empty';
         $this->load->view('site/listproduct/index',$this->data);
 
         
@@ -200,7 +200,7 @@ Class Listproduct extends MY_Controller
         $this->data['catalogs'] = $catalogs;
         // gan thong bao loi de truyen vao view
         $this->data['message'] = $this->session->flashdata('message');
-
+        $this->data['temp'] ='site/listproduct/table';
         $this->load->view('site/listproduct/index',$this->data);
     }
 
