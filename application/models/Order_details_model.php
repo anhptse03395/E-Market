@@ -101,11 +101,22 @@ Class Order_details_model extends MY_Model{
 	function shop_put_price($order_id,$product_id,$price){
 
 		$data = array(
-               'price' => $price,
-              
-            );
+			'price' => $price,
+			
+			);
 		$this->db->where('order_details.order_id', $order_id);
 		$this->db->where('order_details.product_id', $product_id);
+		$this->db->update('order_details', $data); 
+	}
+
+	function shop_put_status($order_id,$shop_id,$status){
+
+		$data = array(
+			'status' => $status,
+			
+			);
+		$this->db->where('order_details.order_id', $order_id);
+		$this->db->where('order_details.shop_id', $shop_id);
 		$this->db->update('order_details', $data); 
 	}
 

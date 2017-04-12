@@ -306,7 +306,7 @@ Class Register extends MY_controller{
 			$where =  array('id'=>get_cookie('signed'),'activation'=>$this->input->post('code') );
 			$result = $this->db->where( $where )->count_all_results('accounts');
 			if( $result < 1 ){
-				$data['error'] = '<div class="error">The authorization code is not correct!</div>';
+				$this->session->set_flashdata('message', 'Sai mã code làm ơn kiểm tra lại');
 			} else {
 				delete_cookie('signed');
 				$this->db->set( array('active'=>1, 'activation'=>'') )->where('id', get_cookie('signed') )->update('accounts');

@@ -1266,9 +1266,9 @@
             /**
              * Shows or hides the widget
              */
-            toggle = function () {
+          /*  toggle = function () {
                 return (widget ? hide() : show());
-            },
+            },*/
 
             keydown = function (e) {
                 var handler = null,

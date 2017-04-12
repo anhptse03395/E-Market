@@ -31,7 +31,7 @@
 															
 						</li>
 						<li>
-								<a href="#">
+								<a href="<?php echo user_url('profile/feedback_buyer') ?>">
 								<i class="glyphicon glyphicon-list-alt"></i>
 								<span class="hidden-xs">Phản hồi <span> </a>
 															

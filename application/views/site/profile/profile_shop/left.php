@@ -21,31 +21,33 @@
 		<!-- SIDEBAR MENU -->
 		<div class="profile-usermenu">
 			<ul class="nav">
-				
-							<li>
-							<a href="<?php echo user_url('profile/listpost') ?>">
-							<i class="glyphicon glyphicon-tasks"></i>
-							<span class="hidden-xs">Quản lý sản phẩm<span> </a>
-							</li>
 
-							<li>
-								<a href="<?php echo user_url('profile/list_order_shop') ?>">
-								<i class="glyphicon glyphicon-th-list"></i>
-								<span class="hidden-xs">Đơn hàng của khách <span></a>
+				<li>
+					<a href="<?php echo user_url('profile/list_order_shop') ?>">
+						<i class="glyphicon glyphicon-th-list"></i>
+						<span class="hidden-xs">Đơn hàng của khách <span></a>
+						</li>
+						
+						<li>
+							<a href="<?php echo user_url('profile/listpost') ?>">
+								<i class="glyphicon glyphicon-tasks"></i>
+								<span class="hidden-xs">Quản lý sản phẩm<span> </a>
 								</li>
-							<li>
+
+								
+								<li>
 									<a href="#">
 										<i class="glyphicon glyphicon-list-alt"></i>
 										<span class="hidden-xs">Quản lý công nợ <span> </a>
 
-							</li>
-							<li >
+										</li>
+										<li >
 											<a href="<?php echo user_url('profile/shop/index')?>">
 												<i class="glyphicon glyphicon-user"></i>
 												<span class="hidden-xs">Cá Nhân<span> </a>
-							</li>
+												</li>
 
-			</ul>
+											</ul>
 										</div>
 										<!-- END MENU -->
 									</div>

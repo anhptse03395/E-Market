@@ -48,11 +48,11 @@ Class Product_model extends MY_Model
 
 
   function search_listpost($input= array(),$shop_id){
-  $this->get_list_set_input($input);
+    $this->get_list_set_input($input);
     $this->db->select('id,product_name,created ,quantity,image_link,image_list,description');
     $this->db->from('products');
-      $this->db->where('products.shop_id',$shop_id);
-      $query = $this->db->get();
+    $this->db->where('products.shop_id',$shop_id);
+    $query = $this->db->get();
     return $query->result();
 
 
@@ -62,10 +62,10 @@ Class Product_model extends MY_Model
   function join_detail ($id){
 
 
-    $this->db->select('products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list,address,phone,description,shops.id as shop_id');
+    $this->db->select('products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list,address,phone,description,shops.id as shop_id,category_id');
     $this->db->from('products');
-    $this->db->join('shops', 'products.shop_id = shops.id');
-    $this->db->join('accounts', 'accounts.id = shops.account_id');
+    $this->db->join('shops', 'products.shop_id = shops.id','left');
+    $this->db->join('accounts', 'accounts.id = shops.account_id','left');
     $this->db->where('products.id', $id);
 
     $query = $this->db->get();
@@ -78,6 +78,19 @@ Class Product_model extends MY_Model
     $query = $this->db->get('products', $id, $page);
     return $query->result();
 
+  }
+
+
+  function category_list($category_id,$limit,$offset){
+
+    $this->db->select('products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list,image_shop,shops.id as shop_id,shops.created as shop_created');
+    $this->db->from('products');
+    $this->db->join('shops', 'products.shop_id = shops.id','left');
+
+    $this->db->where('products.category_id', $category_id);
+    $this->db->limit($limit, $offset);
+    $query = $this->db->get();
+    return $query->result();
   }
 
 }

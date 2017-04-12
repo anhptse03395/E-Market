@@ -24,8 +24,26 @@ Class Cart extends MY_Controller
             redirect();
         }
         //tong so san pham
-        $qty = 1;
+        $qty = 10;
         $price = 0;
+        $this->load->model('shop_model');
+        $this->load->model('market_place_model');
+        $this->load->model('province_model');
+        $this->load->model('account_model');
+
+        $id = $product->shop_id;
+        $shop= $this->shop_model->get_info($id);
+        $account_id = $shop->account_id;
+        $account = $this->account_model->get_info($account_id);
+
+        $market_id = $shop->market_id;
+
+        $market = $this->market_place_model->get_info($market_id);
+
+        $province_id = $market->province_id;
+
+        $province = $this->province_model->get_info($province_id);
+
 
         //thong tin them vao gio hang
         $data = array();
@@ -35,6 +53,10 @@ Class Cart extends MY_Controller
         $data['image_link']  = $product->image_link;
         $data['price'] = $price;
         $data['shop_id']= $product->shop_id;
+        $data['market_name'] = $market->market_name;
+        $data['local_name'] = $province->local_name;
+        $data['shop_name'] = $shop->shop_name;
+         $data['shop_phone'] = $account->phone;
         $this->cart->insert($data);
 
         //chuyen sang trang danh sach san pham trong gio hang
@@ -49,9 +71,9 @@ Class Cart extends MY_Controller
         //thong gio hang
 
         $carts = $this->cart->contents();
-      
-      
-      
+
+
+
         //tong so san pham co trong gio hang
         $total_items = $this->cart->total_items();
         
@@ -75,8 +97,8 @@ Class Cart extends MY_Controller
         {
             //tong so luong san pham
             $total_qty = $this->input->post('qty_'.$row['id']);
-       /*     $price =  $this->input->post('price_'.$row['id']);*/
-             $price = 0;
+            /*     $price =  $this->input->post('price_'.$row['id']);*/
+            $price = 0;
             $data = array();
             $data['rowid'] = $key;
             $data['qty'] = $total_qty;

@@ -214,7 +214,7 @@ Class Listproduct extends MY_Controller
         //lay id san pham muon xem
         $id = $this->uri->rsegment(3);
 
-
+            $this->load->model('categories_model');
 /*
         $this->product_model->join_shop($input);
 
@@ -225,29 +225,23 @@ Class Listproduct extends MY_Controller
 
         $product= $this->product_model->join_detail($id);
     
-       $this->session->set_userdata('in',$product->shop_id);
-      
         $this->data['product'] = $product;
-
-        //lấy danh sách ảnh sản phẩm kèm theo
+         $catalog = $this->categories_model->get_info($product->category_id);
+        $this->data['catalog'] = $catalog;
+        
         $image_list = @json_decode($product->image_list);
         $this->data['image_list'] = $image_list;
 
         //lay thong tin cua danh mục san pham
- /*   $catalog = $this->catalog_model->get_info($product->catalog_id);
- $this->data['catalog'] = $catalog;*/
-        //hiển thị ra view
- $this->load->view('site/product_detail/index',$this->data);
+       
+     
+        $this->load->view('site/product_detail/index',$this->data);
 
 }
+
 function product_detail_shop($id=0, $page=1)
     {
-        /*echo $id;
-        echo '-'.$page;
-        exit();*/
-        //lay id san pham muon xem
-          //pre($id);
-               // $id= intval($this->session->userdata('in'));
+     
        
       
         $id = $this->uri->segment(4);
@@ -292,6 +286,67 @@ function product_detail_shop($id=0, $page=1)
         $this->load->view('site/product_detail/shop',$this->data);
 
     }
+
+
+    function list_category($category_id=0, $page=1,$offset = NULL)
+    {
+     
+       
+      
+        $category_id = $this->uri->segment(4);
+       /* pre($category_id);*/
+        $input = array();
+        $input['where'] = array('category_id'=>$category_id);
+        //phan trang
+        $total_rows= $this->product_model->get_total($input);
+
+       
+ 
+            $this->load->library('pagination');
+            $config = array();
+            $config['total_rows'] = $total_rows;
+        // neu ko search thi de link phan trang nhu binh thuong
+        // if(!isset($id) || !isset($name) || !isset($catalog_id) )
+        //{
+            $config['base_url'] = user_url('listproduct/list_category/'.$category_id); // link hien thi du lieu
+            // }
+            $config['per_page'] = 20;
+            $config['uri_segment'] = 5;
+           // $config['use_page_numbers'] = TRUE;
+            $config['next_link']   = 'Trang kế tiếp';
+            $config['prev_link']   = 'Trang trước';
+             $config['first_link'] = 'Trang đầu';
+          $config['last_link'] = 'Trang cuối';
+
+           if(!is_null($offset))
+           {
+            $offset = ($page-1)*$config['per_page'];
+            }
+                //khoi tao cac cau hinh phan trang
+            $this->pagination->initialize($config);
+
+          
+        $limit =  $config['per_page'];
+           
+   
+         $info = $this->product_model->category_list($category_id,$limit,$offset);
+        $this->data['info'] =$info;
+          $this->load->model('categories_model');
+            // dat la input_catalog de tranh bi trung voi input cua product
+            $input_catalog['where'] = array('parent_id' => 0);
+            $catalogs = $this->categories_model->get_list($input_catalog);
+            foreach ($catalogs as $row) {
+            $input_catalog['where'] = array('parent_id' => $row->id);
+            $subs = $this->categories_model->get_list($input_catalog);
+            $row->subs = $subs;
+        }
+        $this->data['catalogs'] = $catalogs;
+
+        $this->data['temp'] ='site/listproduct/table';
+        $this->load->view('site/listproduct/index',$this->data);
+
+    }
+
 
  
 

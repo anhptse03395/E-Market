@@ -78,6 +78,7 @@
               <tr>
                 <th class="description" style="color: blue">Mã số</th>
                 <th class="description" style="color: blue">Ngày đặt hàng</th>
+                <th class="description" style="color: blue">Ngày nhận hàng </th>
                 <th class="description" style="color: blue">Tổng số tiền</th>
                 <th class="description" style="color: blue">Nội dung</th>
                 <th class="description" style="color: blue">Xem chi tiết</th>
@@ -88,6 +89,7 @@
                 <tr>
                   <th><?php echo $row->order_id?></th>
                   <td> <?php echo mdate('%d-%m-%Y',$row->date_order)?></td>
+                  <td> <?php echo mdate('%d-%m-%Y',$row->date_receive)?></td>
                   <td> <?php if (isset($row->total_price)) {?>
                         <?php if($row->total_price==0) { ?>
                           <?php echo '<strong style="color:#fe950f">'.'Thương lượng'.'</strong>' ?>
