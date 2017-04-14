@@ -56,10 +56,11 @@
 									<li style="margin: 10px 5px; font-size: 20px ;cursor:pointer; text-decoration:underline;" data-toggle="collapse" data-target="#info"><i class="glyphicon glyphicon-chevron-right"></i>Các thông tin khác</li>
 
 									<div id="info" class="collapse">
+									<li  style="margin-top: 10px ; font-size: 20px"> <i class="glyphicon glyphicon-qrcode"></i> Mã sản phẩm : <?php echo $product->product_id?></li>
 										<li  style="margin-top: 10px ; font-size: 20px"> <i class="glyphicon glyphicon-tree-deciduous"></i> Loại sản phẩm : <?php echo $category->category_name?></li>
 										<li  style="margin-top: 10px; font-size: 20px"><i class="fa fa-truck"></i> Nhà sản xuất : <?php echo 'Ecopark' ?></li>
 										<li  style="margin-top: 10px; font-size: 20px"> <i class="glyphicon glyphicon-tower"></i> Địa điểm chợ : <?php echo $market->market_name?></li>
-										<li  style="margin-top: 10px; font-size: 20px"> <i class="glyphicon glyphicon-map-marker"></i> Tỉnh Thành : <?php echo $province->local_name?></li>
+										<li  style="margin-top: 10px; font-size: 20px"> <i class="glyphicon glyphicon-map-marker"></i> Tỉnh thành : <?php echo $province->local_name?></li>
 									</div>
 								</ul>
 								<p class="text-center buttons">

@@ -2,24 +2,24 @@
 <link href="<?php echo public_url('user')?>/css/bootstrap.min.css" rel="stylesheet">
 <link href="<?php echo public_url('user')?>/css/profile.css" rel="stylesheet">
 <link href="<?php echo public_url('user')?>/css/option.css" rel="stylesheet">
-  <form style="margin-bottom: 5%;width: 100%" action="" method="post">
+<form style="margin-bottom: 5%;width: 100%" action="" method="post">
 
 
-<div class="form_main col-md-4 col-sm-5 col-xs-7" style="width: 100%">
+  <div class="form_main col-md-4 col-sm-5 col-xs-7" style="width: 100%">
 
-  <?php  $message = $this->session->flashdata('message');
-                        ?>
-                        <?php if(isset($message) && $message):?>
-                            <div class="alert alert-info">
-                                <h3 style="text-align: center;"><strong> </strong><?php echo $message?></h3>
-                            </div>
-                        <?php endif;?>
+    <?php  $message = $this->session->flashdata('message');
+    ?>
+    <?php if(isset($message) && $message):?>
+      <div class="alert alert-info">
+        <h3 style="text-align: center;"><strong> </strong><?php echo $message?></h3>
+      </div>
+    <?php endif;?>
 
-  <div class="form">
+    <div class="form">
 
-  
+
      <?php foreach ($list as $row):?>
-       <table class="table table-user-information" style="width: 40% ;float: left; margin-left: 5% ">
+       <table class="table table-user-information" style="width: 42% ;float: left; margin-left: 5% ">
         <tbody>
           <tr>
             <td >Mã đơn hàng:</td>
@@ -68,46 +68,46 @@
             <td>Trạng thái</td>
             <td>
              <?php if (isset($row->status)) {?>
+             <span class="label label-info"> <?php if($row->status==0){echo "Đơn hàng mới";}?>
+               <span class="label label-danger"><?php if($row->status==3){echo "Đơn hàng bị hủy";}?></span> 
+               <span class="label label-info"> <?php if($row->status==1){echo "Đang xử lý";}?>
+                 <span class="label label-success"> <?php  if($row->status==2){echo "Đã gửi hàng";}
+                  ?></span>
 
-             <span class="label label-danger"><?php if($row->status==3){echo "Đơn hàng bị hủy";}?></span> 
-             <span class="label label-info"> <?php if($row->status==1){echo "Đang xử lý";}?>
-               <span class="label label-success"> <?php  if($row->status==2){echo "Đã gửi hàng";}
-                ?></span>
+                  <?php } ?>
 
-                <?php } ?>
-
-              </td>
-            </tr>
-
-
-          </tbody>
-        </table>
-
-      <?php endforeach;?> 
+                </td>
+              </tr>
 
 
-   
-   
-</div>
+            </tbody>
+          </table>
 
-</div>
-     <div class="pbody" style="width: 25%;margin-left: 30%">
-  
-       <h4 style="color: blue" class="text-center">Xác nhận đơn hàng</h4>
-       
-       <div class="cards">
-           <select class="form-control" name="status">
-              <option value="">Chọn</option>
-               <option value="4">Đang xử lý</option>
-               <option value="2">Gủi hàng</option>
-                <option value="3">Hủy đơn hàng</option>
-
-           </select>
-           <button  style="margin-top: 1%" class="btn btn-info center-block btn-md">Xác nhận</button>
-       </div>
-   </div>
+        <?php endforeach;?> 
 
 
-  </form>
+
+
+      </div>
+
+    </div>
+    <div class="pbody" style="width: 25%;margin-left: 30%">
+
+     <h4 style="color: blue" class="text-center">Xác nhận đơn hàng</h4>
+
+     <div class="cards">
+       <select class="form-control" name="status">
+        <option value="">Chọn</option>
+        <option value="1">Đang xử lý</option>
+        <option value="2">Gủi hàng</option>
+        <option value="3">Hủy đơn hàng</option>
+
+      </select>
+      <button  style="margin-top: 1%" class="btn btn-info center-block btn-md">Xác nhận</button>
+    </div>
+  </div>
+
+
+</form>
 
 

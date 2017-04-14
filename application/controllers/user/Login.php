@@ -62,7 +62,7 @@ function index()
           $this ->session ->set_userdata('account_id',$row->account_id) ;
           $this ->session ->set_userdata('permissions_ac',json_decode($row->permissions)) ;
           $this ->session ->set_userdata('shop_id',$row->shop_id) ;
-            redirect(user_url('profile/listpost'));
+            redirect(user_url('profile/list_order_shop'));
 
         }
         if(intval($row->role_id)!=3||intval($row->role_id)!=2){

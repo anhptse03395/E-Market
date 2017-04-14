@@ -151,7 +151,7 @@
 
                 <?php if (isset($row->status)) {?>
 
-                <span class="label label-danger"><?php if($row->status==3){echo "Đơn hàng bị hủy";}?></span> 
+                <span class="label label-danger"><?php if($row->status==3){echo "Đơn hàng bị hủy";}?></span>  <span class="label label-info"> <?php if($row->status==0){echo "Đơn hàng mới";}?>
                 <span class="label label-info"> <?php if($row->status==1){echo "Đang xử lý";}?>
                  <span class="label label-success"> <?php  if($row->status==2){echo "Đã gửi hàng";}
                   ?></span>

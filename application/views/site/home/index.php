@@ -61,7 +61,7 @@
                             <div class="input-group"> 
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
                             </span>
-                            <select id="city_select" style="background-color:rgba(247, 185, 22, 0.76);"  name="province" class="form-control">
+                            <select id="city_select" style="background-color:rgba(247, 185, 22, 0.76);"  name="province" class="form-control" onchange="this.form.submit();">
                                 <option value="">Chọn</option>
                                 <?php foreach ($provinces as $row) :?>
 
@@ -209,7 +209,7 @@
                         <a href="<?php echo user_url('listproduct/list_category/9') ?>" class="btn btn-primary">Xem</a>
                     </div>                              
                 </div>
-                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text" style="width: 427px;height: 295px">
                     <img src="<?php echo public_url('user/images/home/luongthuc.jpg') ?>" alt="" />
                     <div class="portfolio_images_overlay text-center">
                         <h6>Lương thực</h6>
@@ -217,7 +217,7 @@
                         <a href="<?php echo user_url('listproduct/list_category/12') ?>" class="btn btn-primary">Xem</a>
                     </div>                              
                 </div>
-                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text" style="width: 450px;height: 295px">
                     <img src="<?php echo public_url('user/images/home/dokho.jpg') ?>" alt="" />
                     <div class="portfolio_images_overlay text-center">
                         <h6>Đồ khô</h6>
@@ -233,7 +233,7 @@
 
 </footer> 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $('#area_section').hide();
 
 
@@ -269,7 +269,7 @@
 
 
 });
-</script>
+</script> -->
 
 
 

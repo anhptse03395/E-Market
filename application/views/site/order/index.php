@@ -108,9 +108,12 @@
                           <td  class="description" style="color: blue">Số điện thoại</td>
                       </tr>
                   </thead>
-
+                        
                   <tbody>
-                     <?php foreach ($carts as $row):?>
+                     <?php foreach ($shops as $row):?>
+
+
+
                         <tr>
                             <td ><?php echo $row['shop_name'];?></td>
                             <td ><?php echo $row['local_name'];?></td>

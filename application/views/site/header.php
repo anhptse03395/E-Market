@@ -27,7 +27,7 @@
 		<div class="row">
 			<div class="col-sm-4">
 				<div class="logo pull-left">
-					<a href="index.html"><img style="" src="<?php echo public_url('user')?>/images/home/e-logo2.png" alt=""></a>
+					<a href="<?php echo base_url('home') ?>"><img style="" src="<?php echo public_url('user')?>/images/home/e-logo2.png" alt=""></a>
 				</div>
 
 			</div>
@@ -48,9 +48,9 @@
 
 						<?php if(isset($mes)) {?>
 							<?php if(isset($shop_id)) {?>
-								<li style="display: block;" ><a href="<?php  echo user_url('profile/shop')?>"><i class="fa 	fa-user" ></i> Tài khoản</a></li>
+								<li style="display: block;" ><a href="<?php  echo user_url('profile/list_order_shop')?>"><i class="fa 	fa-user" ></i> Cá nhân</a></li>
 							<?php }if(isset($buyer_id)) {?>
-								<li style="display: block;" ><a href="<?php  echo user_url('profile/buyer')?>"><i class="fa fa-user" ></i> Tài khoản</a></li>
+								<li style="display: block;" ><a href="<?php  echo user_url('profile/list_order_buyer')?>"><i class="fa fa-user" ></i> Cá nhân</a></li>
 							<?php } ?>	
 
 						

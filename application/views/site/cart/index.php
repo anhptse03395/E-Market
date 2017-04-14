@@ -37,7 +37,7 @@
 
                         <form method="post" action="<?php echo user_url('cart/update')?>">
 
-                            <h1>Đặt hàng</h1>
+                            <h1 style="color: #224e46">Đặt hàng</h1>
                             <p class="text-muted">Đơn hàng của bạn</p>
                             <div class="table-responsive">
                                 <table class="table">
@@ -99,14 +99,16 @@
                             <div class="pull-left">
                                 <a href="<?php echo user_url('listproduct/search')?>" class="btn btn-info"><i class="fa fa-chevron-left"></i> Trở lại đặt hàng</a>
                             </div>
-                            <div class="pull-right " style="margin-left: 10%">
-                                <button class="btn btn-toolbar" type="submit"><i class="glyphicon glyphicon-calendar"></i>Thêm vào giỏ hàng</button>
-
-                            </div>
-                            <div class="pull-right" >
+                            
+                              <div class="pull-right" style="margin-left: 10%">
                                 <a  href="<?php echo user_url('order/checkout')?>" class="btn btn-success"><i class="fa fa-chevron-right"></i> Thanh toán</a>
                             </div>
 
+                            <div class="pull-right " >
+                                <button class="btn btn-toolbar" type="submit"><i class="glyphicon glyphicon-calendar"></i>Thêm vào giỏ hàng</button>
+
+                            </div>
+                          
 
                         </div>
 
@@ -124,7 +126,7 @@
             <div class="col-md-3" style="width: 40%">
                 <div class="box" id="order-summary">
                     <div class="box-header">
-                        <h3>Giỏ hàng của bạn</h3>
+                        <h3 style="color: rgba(116, 254, 15, 0.81)">Giỏ hàng của bạn</h3>
                     </div>
             
 
@@ -152,15 +154,15 @@
                                         </td >
                                         
                                         <td class="cart_description">
-                                        <?php echo $row['name'];?>
+                                         <h6 style="color: orange"><?php echo $row['name'];?></h6>
                                             
                                         </td>
                                         <td class="cart_description">
-                                        <?php echo $row['qty'].'Kg';?>
+                                        <h6 style="color: blue"><?php echo $row['qty'].'Kg';?></h6>
                                             
                                         </td>
                                         <td class="cart_description">
-                                        <?php echo $row['shop_name'];?>
+                                         <h6 style="color: green"><?php echo $row['shop_name'];?></h6>
                                             
                                         </td>
                                     </tr>     

@@ -29,12 +29,24 @@
 
           <form id="eventForm" action="<?php echo user_url('profile/search_order_buyer') ?>" method="post" class="form-horizontal">
 
-            <div class="form-group" style="width: 60%;margin-left: 15%">
+            <div class="form-group" style="width: 40%;float: left; margin-right: 10%" >
               <label class="col-xs-3 control-label">Mã đơn hàng </label>
               <div class="input-group"> 
                 <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
               </span>
-              <input  type="text" class="form-control" value="<?php echo set_value('order_id') ?>"  name="order_id" style="width: 50%" />
+              <input  type="text" class="form-control" value="<?php echo set_value('order_id') ?>"  name="order_id"  />
+            </div>
+          </div>
+
+          <div class="form-group" style="width: 40%;float: left;">
+             <label class="col-xs-3 control-label">Trạng thái </label>
+              <div class="input-group"> 
+                <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
+              </span>
+              <select  name="catalog" class="form-control">
+                <option value="">Danh mục</option>
+
+              </select>
             </div>
           </div>
 
@@ -81,6 +93,7 @@
                 <th class="description" style="color: blue">Ngày nhận hàng </th>
                 <th class="description" style="color: blue">Tổng số tiền</th>
                 <th class="description" style="color: blue">Nội dung</th>
+                <th class="description" style="color: blue">Trạng thái</th>
                 <th class="description" style="color: blue">Xem chi tiết</th>
               </tr>
             </thead>
@@ -91,17 +104,29 @@
                   <td> <?php echo mdate('%d-%m-%Y',$row->date_order)?></td>
                   <td> <?php echo mdate('%d-%m-%Y',$row->date_receive)?></td>
                   <td> <?php if (isset($row->total_price)) {?>
-                        <?php if($row->total_price==0) { ?>
-                          <?php echo '<strong style="color:#fe950f">'.'Thương lượng'.'</strong>' ?>
-                            <?php } ?>
+                    <?php if($row->total_price==0) { ?>
+                    <?php echo '<strong style="color:#fe950f">'.'Thương lượng'.'</strong>' ?>
+                    <?php } ?>
 
-                          <?php if($row->total_price>0) { ?>
-                          <?php echo $row->total_price ?>
-                        <?php } ?>
-                        <?php } ?>
-                     </td>
+                    <?php if($row->total_price>0) { ?>
+                    <?php echo $row->total_price ?>
+                    <?php } ?>
+                    <?php } ?>
+                  </td>
 
-                    <td> <?php echo $row->description?> </td>
+                  <td> <?php echo $row->description?> </td>
+                  <td >
+
+
+                    <?php if (isset($row->status)) {?>
+                    <span class="label label-warning"> <?php if($row->status==0){echo 'Đơn hàng mới';}?></span>
+                    <span class="label label-danger"><?php if($row->status==3){echo "Đơn hàng bị hủy";}?></span> 
+                    <span class="label label-info"> <?php if($row->status==1){echo "Đang xử lý";}?></span>
+                    <span class="label label-success"> <?php  if($row->status==2){echo "Đã gửi hàng";}
+                      ?></span>
+
+                      <?php } ?>
+                    </td>
 
                     <td><a href="<?php echo user_url('profile/list_order_details/'.$row->order_id) ?>" class="btn btn-info btn-sm">xem</a>
 

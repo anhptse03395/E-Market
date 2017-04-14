@@ -763,11 +763,14 @@ $config['total_rows'] = $total_rows;
             //them vao csdl
 
                 $status     = intval($this->input->post('status'));
-                
+                if($status !=0){
 
 
-                $this->order_details_model->shop_put_status($order_id,$shop_id,$status);
-                
+                    $this->order_details_model->shop_put_status($order_id,$shop_id,$status);
+                    if($status==1){
+
+                          $this->session->set_flashdata('message', 'Đơn hàng trong quá trình sử lý ');
+                    }
                     if($status==2){
 
                           $this->session->set_flashdata('message', 'bạn đã gửi hàng thành công ');
@@ -779,9 +782,9 @@ $config['total_rows'] = $total_rows;
                 
                 //chuyen tới trang danh sách quản trị viên
                 redirect(user_url('profile/detail_order_shop/'.$order_id));
-            
+                }
 
-            
+
         }
 
 

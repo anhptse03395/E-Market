@@ -51,8 +51,10 @@
      $('#city_select').on('change', function() {
 
       var province_id = $(this).val();
+
       $.ajax({
-          url: '',
+        contentType: "application/json; charset=utf-8",
+          url: '<?php echo base_url() ?>test/get_view ',
           type: 'POST',
           dataType: 'json',
           data: {province_id: $(this).val()},

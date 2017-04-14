@@ -8,7 +8,7 @@ Class Order_details_model extends MY_Model{
 	function list_order_detail($order_id){
 
 		$this->db->select('price,shops.id as shop_id,shop_name,orders.date_order as date_order,orders.description as description,order_details.quantity as quantity,
-			order_details.status as status,products.product_name as product_name
+			orders.status as status,products.product_name as product_name
 			');
 		$this->db->from('order_details');
 		$this->db->join('orders','order_details.order_id=orders.id');
