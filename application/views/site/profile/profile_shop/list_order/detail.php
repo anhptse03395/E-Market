@@ -93,13 +93,15 @@
 </div>
      <div class="pbody" style="width: 25%;margin-left: 30%">
   
-       <h4 class="text-center">Xác nhận đơn hàng</h4>
+       <h4 style="color: blue" class="text-center">Xác nhận đơn hàng</h4>
        
        <div class="cards">
            <select class="form-control" name="status">
               <option value="">Chọn</option>
+               <option value="4">Đang xử lý</option>
                <option value="2">Gủi hàng</option>
                 <option value="3">Hủy đơn hàng</option>
+
            </select>
            <button  style="margin-top: 1%" class="btn btn-info center-block btn-md">Xác nhận</button>
        </div>

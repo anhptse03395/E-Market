@@ -14,9 +14,6 @@
 				<div class="social-icons pull-right">
 					<ul class="nav navbar-nav">
 						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-						<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-						<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
 						<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
 					</ul>
 				</div>
@@ -92,7 +89,7 @@
 				</div>
 				<div class="mainmenu pull-left">
 					<ul class="nav navbar-nav collapse navbar-collapse">
-						<li><a href="index.html" class="active">Trang Chủ</a></li>
+						<li><a href="<?php echo base_url('home') ?>" class="active">Trang Chủ</a></li>
 						<li class="dropdown"><a href="#">Tin Tức<i class="fa fa-angle-down"></i></a>
 							<ul role="menu" class="sub-menu">
 								<li><a href="<?php echo user_url('listproduct/search') ?>"> Sản phẩm</a></li>

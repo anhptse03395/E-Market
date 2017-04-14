@@ -215,24 +215,28 @@ Class Listproduct extends MY_Controller
         $id = $this->uri->rsegment(3);
 
             $this->load->model('categories_model');
-/*
-        $this->product_model->join_shop($input);
-
-        $product = $this->product_model->get_info($id);
-        if(!$product) redirect();
-        $this->data['product'] = $product;
-*/
-
+   $this->load->model('market_place_model');
+        $this->load->model('province_model');
+        
         $product= $this->product_model->join_detail($id);
+
+          $market_id = $product->market_id;
+
+        $market = $this->market_place_model->get_info($market_id);
+        
+         $this->data['market'] = $market;
+        $province_id = $market->province_id;
+
+        $province = $this->province_model->get_info($province_id);
+        $this->data['province'] = $province;
     
         $this->data['product'] = $product;
-         $catalog = $this->categories_model->get_info($product->category_id);
-        $this->data['catalog'] = $catalog;
+         $category = $this->categories_model->get_info($product->category_id);
+        $this->data['category'] = $category;
         
         $image_list = @json_decode($product->image_list);
         $this->data['image_list'] = $image_list;
 
-        //lay thong tin cua danh mục san pham
        
      
         $this->load->view('site/product_detail/index',$this->data);

@@ -23,8 +23,9 @@ class Home extends MY_Controller {
 		$provinces = $this->province_model->get_list();
 		$this->data['provinces'] = $provinces;
 
-		$province_id = $this->input->post('province');
+		$province_id = $this->input->post('area');
 		if($province_id){
+			pre($province_id);
 			$input['where']  = array('province_id' => $province_id);
 			$market_places = $this->market_place_model->get_list($input);
 

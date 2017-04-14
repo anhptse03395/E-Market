@@ -57,7 +57,7 @@
 											<?php endforeach;?>
 										</optgroup>
 									<?php else:?>
-										<option value="<?php echo $row->id?>" <?php echo ($this->input->post('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->category_name?></option>
+										<option style=""  value="<?php echo $row->id?>" <?php echo ($this->input->post('catalog') == $row->id) ? 'selected' : ''?>><?php echo $row->category_name?></option>
 									<?php endif;?>
 								<?php endforeach;?>
 							</select>

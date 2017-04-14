@@ -20,7 +20,7 @@
                 </tr>
                 <tr>
                     <td>Số điện thoại</td>
-                    <td><?php echo $info->phone ?></td>
+                    <td><?php echo '0'.$info->phone ?></td>
                 </tr>
 
                 </tbody>

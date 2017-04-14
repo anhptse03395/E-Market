@@ -30,7 +30,7 @@
 
 
         <div class="text-vertical-center">
-            <h1 style="color: rgba(36, 197, 176, 0.68);text-align: ">Chào mừng bạn đến với E-market</h1>
+            <h1 style="color: rgba(247, 240, 240, 0.78);text-align: ">Chào mừng bạn đến với E-market</h1>
 
             <br>
             <a href="#container" class="btn btn-dark btn-lg">Khám phá chợ</a>
@@ -61,7 +61,7 @@
                             <div class="input-group"> 
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
                             </span>
-                            <select style="background-color:rgba(247, 185, 22, 0.76);"  name="province" class="form-control"  onchange="this.form.submit();">
+                            <select id="city_select" style="background-color:rgba(247, 185, 22, 0.76);"  name="province" class="form-control">
                                 <option value="">Chọn</option>
                                 <?php foreach ($provinces as $row) :?>
 
@@ -77,10 +77,10 @@
                     <div class="form-group">
                         <label for="subject">
                             Địa điểm chợ</label>
-                            <div class="input-group"> 
+                            <div class="input-group" id="area_section" > 
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
                             </span>
-                            <select style="background-color:rgba(247, 185, 22, 0.76);" name="market_place"   class="form-control"  onchange="this.form.submit();">
+                            <select  id="area_select" style="background-color:rgba(247, 185, 22, 0.76);" name="market_place"   class="form-control"  onchange="this.form.submit();">
                                 <option value="">Chọn</option>
                                 <?php if($market_places) :?>
                                     <?php foreach ($market_places as $row) :?>
@@ -161,27 +161,69 @@
 <!-- Map -->
 
 <!-- Footer -->
+
+
+
 <footer style="">
 
     <div class="container">
         <div class="row">
             <div class="main_portfolio_content">
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text" style="margin: " >
+                    <img src="<?php echo public_url('user/images/home/rau.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Rau</h6>
 
-                <div class="col-lg-3">
-                    <div class="cuadro_intro_hover " style="background-color:#cccccc;">
-                        <p style="text-align:center; margin-top:20px;">
-                            <img  src="<?php echo public_url('user/images/seller.png') ?>" class="img-responsive" alt="">
-                        </p>
-                        <div class="caption">
-                            <div class="blur"></div>
-                            <div class="caption-text">
-                            <h3 style="">Người bán</h3>
-                                
-                            <a class=" " href="<?php echo user_url('register/shop') ?>"></a>
-                            </div>
-                        </div>
+                        <a href="<?php echo user_url('listproduct/list_category/16') ?>" class="btn btn-primary">Xem</a>
                     </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
+                    <img src="<?php echo public_url('user/images/home/qua.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Quả</h6>
+                        
+                        <a href="<?php echo user_url('listproduct/list_category/5') ?>" class="btn btn-primary">Xem</a>
+                    </div>                              
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
+                    <img src="<?php echo public_url('user/images/home/cu.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Củ</h6>
 
+                        <a href="<?php echo user_url('listproduct/list_category/13') ?>" class="btn btn-primary">Xem</a>
+                    </div>                              
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
+                    <img src="<?php echo public_url('user/images/home/thit.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Thịt</h6>
+
+                        <a href="<?php echo user_url('listproduct/list_category/10') ?>" class="btn btn-primary">Xem</a>
+                    </div>                              
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
+                    <img src="<?php echo public_url('user/images/home/ca.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Cá</h6>
+
+                        <a href="<?php echo user_url('listproduct/list_category/9') ?>" class="btn btn-primary">Xem</a>
+                    </div>                              
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
+                    <img src="<?php echo public_url('user/images/home/luongthuc.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Lương thực</h6>
+
+                        <a href="<?php echo user_url('listproduct/list_category/12') ?>" class="btn btn-primary">Xem</a>
+                    </div>                              
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
+                    <img src="<?php echo public_url('user/images/home/dokho.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Đồ khô</h6>
+
+                        <a href="<?php echo user_url('listproduct/list_category/1') ?>" class="btn btn-primary">Xem</a>
+                    </div>                              
                 </div>
             </div>
         </div>
@@ -191,11 +233,51 @@
 
 </footer> 
 
-<!-- jQuery -->
+<script type="text/javascript">
+    $('#area_section').hide();
 
+
+    $('#city_select').on('change', function() {
+   
+     if (this.value == 0) {
+        $('#area_section').hide(600);
+    }else{
+
+
+        //$("#area_select").html(data);
+        $.ajax({
+         type:"POST",
+         dataType: 'json',
+         url:"<?php echo base_url('home/index') ?>",
+         data: {area:$(this).val()},
+
+         success: function(data) {
+            $('select#area_select').html('');
+            for(var i=0;i<data.length;i++)
+            {
+                $("<option />").val(data[i].market_id)
+                .text(data[i].market_name)
+                .appendTo($('select#area_select'));
+            }
+        }
+    });
+
+
+        $('#area_section').show(600); 
+    };
+
+
+
+});
 </script>
+
+
+
+
 <script src="<?php echo public_url('user/home')?>/js/option.js"></script>
 <script src="<?php echo public_url('user/home')?>/js/shop.js"></script>
+
+
 
 </body>
 
