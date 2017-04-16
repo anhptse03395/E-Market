@@ -85,7 +85,7 @@ Class Order_details_model extends MY_Model{
 	}
 
 	function shop_detail_order($shop_id,$order_id){
-		$this->db->select('price ,orders.id as order_id,orders.date_order as date_order,orders.description as description,buyer_name,phone,status,product_name,products.id as product_id,order_details.quantity as quantity');
+		$this->db->select('price ,orders.id as order_id,orders.date_order as date_order,orders.description as description,buyer_name,phone,status,product_name,products.id as product_id,order_details.quantity as quantity,date_receive');
 		$this->db->from('order_details');
 		$this->db->join('orders','order_details.order_id=orders.id','left');
 		$this->db->join('products', 'products.id=order_details.product_id','left');
@@ -109,16 +109,7 @@ Class Order_details_model extends MY_Model{
 		$this->db->update('order_details', $data); 
 	}
 
-	function shop_put_status($order_id,$shop_id,$status){
 
-		$data = array(
-			'status' => $status,
-			
-			);
-		$this->db->where('order_details.order_id', $order_id);
-		$this->db->where('order_details.shop_id', $shop_id);
-		$this->db->update('order_details', $data); 
-	}
 
 
 }	

@@ -43,8 +43,12 @@
               <div class="input-group"> 
                 <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
               </span>
-              <select  name="catalog" class="form-control">
-                <option value="">Danh mục</option>
+              <select onchange="this.form.submit();" name="status" class="form-control">
+                <option value="">Tất cả</option>
+                <option value="1">Đơn hàng mới</option>
+                <option value="2">Đang xử lý</option>
+                <option value="3">Đã gửi hàng</option>
+                <option value="4">Đơn bị hủy</option>
 
               </select>
             </div>
@@ -119,10 +123,10 @@
 
 
                     <?php if (isset($row->status)) {?>
-                    <span class="label label-warning"> <?php if($row->status==0){echo 'Đơn hàng mới';}?></span>
-                    <span class="label label-danger"><?php if($row->status==3){echo "Đơn hàng bị hủy";}?></span> 
-                    <span class="label label-info"> <?php if($row->status==1){echo "Đang xử lý";}?></span>
-                    <span class="label label-success"> <?php  if($row->status==2){echo "Đã gửi hàng";}
+                    <span class="label label-warning"> <?php if($row->status==1){echo 'Đơn hàng mới';}?></span>
+                    <span class="label label-danger"><?php if($row->status==4){echo "Đơn hàng bị hủy";}?></span> 
+                    <span class="label label-info"> <?php if($row->status==2){echo "Đang xử lý";}?></span>
+                    <span class="label label-success"> <?php  if($row->status==3){echo "Đã gửi hàng";}
                       ?></span>
 
                       <?php } ?>

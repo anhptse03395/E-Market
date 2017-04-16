@@ -123,7 +123,7 @@ Class Orders_model extends MY_Model{
 		{
 
 			$this->get_list_set_input($input);
-			$this->db->select('sum(price) as total_price,orders.id as order_id,orders.date_order as date_order,orders.description as description,address_receiver,name_receiver,date_receive');
+			$this->db->select('sum(price) as total_price,status,orders.id as order_id,orders.date_order as date_order,orders.description as description,address_receiver,name_receiver,date_receive');
 			$this->db->from('orders');
 			$this->db->join('order_details', 'order_details.order_id=orders.id','left');
 			$this->db->where('orders.buyer_id', $buyer_id);
@@ -134,6 +134,16 @@ Class Orders_model extends MY_Model{
 
 
 		}
+		function shop_put_status($order_id,$status){
+
+		$data = array(
+			'status' => $status,
+			
+			);
+		$this->db->where('orders.id', $order_id);
+		//$this->db->where('order_details.shop_id', $shop_id);
+		$this->db->update('orders', $data); 
+	}
 
 
 	}

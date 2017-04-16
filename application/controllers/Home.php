@@ -16,14 +16,14 @@ class Home extends MY_Controller {
 		$this->load->helper('form');
 
 		$this->load->model('province_model');
-		$this->load->model('market_place_model');
+		
 		$this->load->model('shop_model');
 
 
 		$provinces = $this->province_model->get_list();
 		$this->data['provinces'] = $provinces;
 
-		$province_id = $this->input->post('province');
+		/*$province_id = $this->input->post('province');
 		if($province_id){
 
 			$input['where']  = array('province_id' => $province_id);
@@ -31,7 +31,7 @@ class Home extends MY_Controller {
 
 			$this->data['market_places'] = $market_places;
 
-		}
+		}*/
 
 
 		if ($this->input->post()) {
@@ -83,6 +83,27 @@ class Home extends MY_Controller {
         $this->load->view('site/home/index',$this->data);
 
     }
+    	function get_market(){
+    		$this->load->model('market_place_model');
+
+		$id = $this->input->post('province_id');
+				
+		$input ['where']=array('province_id'=>$id);
+		$markets  =  $this->market_place_model->get_list($input);
+
+		if(count($markets >0)){
+
+			$pro_select_box = '';
+			$pro_select_box .='<option value="">Chọn</option>';
+			foreach ($markets as $row ) {
+				$pro_select_box .='<option value="'.$row->id.'">'.$row->market_name.'</option>';
+			}
+			echo json_encode($pro_select_box);
+
+		}
+
+
+	}
 
 
     

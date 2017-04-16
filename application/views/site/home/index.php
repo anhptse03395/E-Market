@@ -17,6 +17,7 @@
     <link href="<?php echo public_url('user/home')  ?>/css/category.css" rel="stylesheet">
 
 
+
     <!-- Custom Fonts -->
     <link href="<?php echo public_url('user/home')  ?>/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
@@ -61,7 +62,7 @@
                             <div class="input-group"> 
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
                             </span>
-                            <select id="city_select" style="background-color:rgba(247, 185, 22, 0.76);"  name="province" class="form-control" onchange="this.form.submit();">
+                            <select id="province" style="background-color:rgba(247, 185, 22, 0.76);"  name="province" class="form-control" ">
                                 <option value="">Chọn</option>
                                 <?php foreach ($provinces as $row) :?>
 
@@ -80,15 +81,9 @@
                             <div class="input-group" id="area_section" > 
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
                             </span>
-                            <select  id="area_select" style="background-color:rgba(247, 185, 22, 0.76);" name="market_place"   class="form-control"  onchange="this.form.submit();">
+                            <select  id="market_place" style="background-color:rgba(247, 185, 22, 0.76);" name="market_place"   class="form-control" disabled=""  onchange="this.form.submit();">
                                 <option value="">Chọn</option>
-                                <?php if($market_places) :?>
-                                    <?php foreach ($market_places as $row) :?>
-
-                                        <option value="<?php echo $row->id?>" <?php echo ($this->input->post('market_place') == $row->id) ? 'selected' : '' ?>> <?php echo $row->market_name ?> </option>
-
-                                    <?php endforeach;?>
-                                <?php endif ; ?>
+                                
                             </select>
                         </div>
                     </div>
@@ -230,46 +225,40 @@
     </div>
 
 
-
+<script src="<?php echo public_url('user') ?>/js/jquery.js"></script> 
 </footer> 
 
-<!-- <script type="text/javascript">
-    $('#area_section').hide();
+   <script type="text/javascript">
 
+        $(document).ready(function() {
 
-    $('#city_select').on('change', function() {
-   
-     if (this.value == 0) {
-        $('#area_section').hide(600);
-    }else{
+         $('#province').on('change', function() {
+          var province_id = $(this).val();
 
+          if(province_id==''){
+            $('#market_place').prop('disabled',true);
+        }else{
+           $('#market_place').prop('disabled',false);
+           $.ajax({
 
-        //$("#area_select").html(data);
-        $.ajax({
-         type:"POST",
-         dataType: 'json',
-         url:"<?php echo base_url('home/index') ?>",
-         data: {area:$(this).val()},
-
-         success: function(data) {
-            $('select#area_select').html('');
-            for(var i=0;i<data.length;i++)
-            {
-                $("<option />").val(data[i].market_id)
-                .text(data[i].market_name)
-                .appendTo($('select#area_select'));
+            type: "POST",
+            data: {'province_id': province_id},
+            dataType: 'json',
+            url: "<?php echo base_url('home/get_market')?>",
+            success : function(data){
+               
+           $('#market_place').html(data);
+                           },
+            error : function(){
+                alert('error.....');
             }
-        }
-    });
+        });
 
+       }
 
-        $('#area_section').show(600); 
-    };
-
-
-
-});
-</script> -->
+   });
+     });
+ </script>
 
 
 

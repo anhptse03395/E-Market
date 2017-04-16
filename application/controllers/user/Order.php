@@ -109,7 +109,7 @@ Class Order extends MY_Controller
                         'date_receive' =>$date_receive,
                         'name_receiver' => $name_receiver,
                         'address_receiver'=>$address_receiver,
-                         'status'   => 0,
+                         'status'   => 1,
                         );
 
 
