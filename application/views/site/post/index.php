@@ -112,7 +112,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-text-height"></span>
                                 </span>
-                                <input type="text" class="form-control"  placeholder=" Tên sản phẩm" name="p_product_name" value="<?php echo set_value('p_product_name')?>" required="required" /></div>
+                                <input type="text" class="form-control"  placeholder=" Tên sản phẩm" name="p_product_name" value="<?php echo set_value('p_product_name')?>"  /></div>
                                 <div class="clear error" name="name_error"><?php echo form_error('p_product_name')?></div>
                         </div>
                          <div class="form-group">

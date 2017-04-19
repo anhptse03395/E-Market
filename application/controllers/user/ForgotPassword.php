@@ -105,12 +105,11 @@ Class ForgotPassword extends MY_controller{
         );
      	 $this->nexmo->send_message($from, $to, $message);
 
-
 	    }
 
 
 
-	function sendmail($email,$new_password)
+/*	function sendmail($email,$new_password)
 	{
 
 
@@ -125,7 +124,6 @@ Class ForgotPassword extends MY_controller{
 			'mailtype'  => 'html', 
 			'charset'   => 'iso-8859-1'
 			);
-
 
 
 		$this->load->library('email', $config);
@@ -148,7 +146,7 @@ Class ForgotPassword extends MY_controller{
 	    		show_error($this->email->print_debugger());
 	    	}
 
-	    }
+	    }*/
 
 
 

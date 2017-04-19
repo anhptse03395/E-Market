@@ -26,8 +26,6 @@ class Test extends MY_Controller {
 
 
 
-
-
         $this->load->view('test',$this->data);
 
     }
@@ -54,3 +52,48 @@ class Test extends MY_Controller {
     
 
 }
+
+ function product_detail_shop($shop_id=0, $page=1,$offset = NULL)
+        {
+
+
+
+            $shop_id = $this->uri->segment(4);
+            $input = array();
+            $input['where'] = array('shop_id'=>$shop_id);
+        //phan trang
+            $total_rows= $this->product_model->get_total($input);
+            //pre($total_rows);
+
+            $this->load->library('pagination');
+            $config = array();
+            $config['total_rows'] = $total_rows;
+      
+            $config['base_url'] = user_url('listproduct/product_detail_shop/'.$shop_id); // link hien thi du lieu
+            // }
+            $config['per_page'] = 10;
+            $config['uri_segment'] = 5;
+           // $config['use_page_numbers'] = TRUE;
+            $config['next_link']   = 'Trang kế tiếp';
+            $config['prev_link']   = 'Trang trước';
+            $config['first_link'] = 'Trang đầu';
+            $config['last_link'] = 'Trang cuối';
+
+            if(!is_null($offset))
+            {
+                $offset = ($page-1)*$config['per_page'];
+            }
+                //khoi tao cac cau hinh phan trang
+            $this->pagination->initialize($config);
+
+
+            $limit =  $config['per_page'];
+
+            $result = $this->product_model->list_product_shop($shop_id,$limit,$offset);
+
+            $this->data['product'] = $result;
+
+            $this->load->view('site/product_detail/shop',$this->data);
+
+        }
+

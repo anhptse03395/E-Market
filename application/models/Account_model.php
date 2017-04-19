@@ -89,7 +89,7 @@ function join_shop_order ($id){
 
 function join_buyer_feedback($id)
 {
-  $this->db->select('accounts.id as account_id,buyers.id as buyer_id,buyer_name,phone,address, phone as buyer_phone,feedback.reason as reason,feedback.description as description');
+  $this->db->select('accounts.id as account_id,buyers.id as buyer_id,buyer_name,buyers.address as address, accounts.phone as phone,feedback.reason as reason,feedback.description as description');
   $this->db->from('accounts');
 
   $this->db->join('buyers', 'buyers.account_id=accounts.id', 'left');
@@ -101,6 +101,19 @@ function join_buyer_feedback($id)
   return $query->row();
 }
 
+      function join_shop_feedback($id)
+      {
+          $this->db->select('accounts.id as account_id,shops.id as shop_id,shop_name,shops.address as address,accounts.phone as phone,feedback.reason as reason,feedback.description as description');
+          $this->db->from('accounts');
+
+          $this->db->join('shops', 'shops.account_id=accounts.id', 'left');
+          $this->db->join('feedback', 'feedback.account_id=accounts.id', 'left');
+
+          $this->db->where('accounts.id', $id);
+
+          $query = $this->db->get();
+          return $query->row();
+      }
 
 }	
 ?>

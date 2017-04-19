@@ -36,11 +36,18 @@
 
 								
 								<li>
-									<a href="#">
+									<a href="<?php echo user_url('profile/manage_debt_shop') ?>">
 										<i class="glyphicon glyphicon-list-alt"></i>
 										<span class="hidden-xs">Quản lý công nợ <span> </a>
 
 										</li>
+
+								<li>
+									<a href="<?php echo user_url('profile/feedback_shop') ?>">
+										<i class="glyphicon glyphicon-list-alt"></i>
+										<span class="hidden-xs">Phản hồi <span> </a>
+
+										</li>		
 										<li >
 											<a href="<?php echo user_url('profile/shop/index')?>">
 												<i class="glyphicon glyphicon-user"></i>

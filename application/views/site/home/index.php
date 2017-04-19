@@ -31,7 +31,7 @@
 
 
         <div class="text-vertical-center">
-            <h1 style="color: rgba(247, 240, 240, 0.78);text-align: ">Chào mừng bạn đến với E-market</h1>
+            <h1 style="color: rgba(9, 33, 212, 0.62);text-align: ">Chào mừng bạn đến với E-market</h1>
 
             <br>
             <a href="#container" class="btn btn-dark btn-lg">Khám phá chợ</a>
@@ -66,7 +66,7 @@
                                 <option value="">Chọn</option>
                                 <?php foreach ($provinces as $row) :?>
 
-                                    <option data-subtext="<i class='glyphicon glyphicon-eye-open'></i>"   value="<?php echo $row->id?>" <?php echo ($this->input->post('province') == $row->id) ? 'selected' : '' ?>> <?php echo $row->local_name ?> </option>
+                                    <option data-subtext="<i class='glyphicon glyphicon-eye-open'></i>"   value="<?php echo $row->id?>"> <?php echo $row->local_name ?> </option>
 
                                 <?php endforeach;?>
                             </select>
@@ -100,53 +100,53 @@
 
     <!-- Portfolio -->
     <section id="portfolio" class="portfolio">
-       <div class="container">
-          <?php if (isset($shops)) {?>
-          <div style="display: block;" class="row">
-            <h1>
-                Danh sách cửa hàng
-            </h1>
-        </div>
-        <?php  }?> 
+     <div class="container">
+     <?php if (isset($shops)&& $shops!='') {?>
+      <div style="display: block;" class="row">
+        <h1>
+            Danh sách cửa hàng
+        </h1>
+    </div>
+    <?php  }?> 
 
 
-        <div class="row">
-            <?php if (isset($shops)) {?>
-            <?php foreach ($shops as $row): ?>
+    <div class="row">
+        <?php if (isset($shops)) {?>
+        <?php foreach ($shops as $row): ?>
 
-               <div class="col-sm-3">
-                <div class="card">
-                    <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
-                    <div class="avatar">
-                        <img src="<?php echo base_url('upload/shop/'.$row->image_shop)?>" alt="" />
-                    </div>
-                    <div class="content">
-                        <p><?php echo $row->shop_name ?> <br>
-                         <?php echo $row->address ?></br>
+         <div class="col-sm-3">
+            <div class="card">
+                <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
+                <div class="avatar">
+                    <img src="<?php echo base_url('upload/shop/'.$row->image_shop)?>" alt="" />
+                </div>
+                <div class="content">
+                    <p><?php echo $row->shop_name ?> <br>
+                       <?php echo $row->address ?></br>
 
-                         <a href="<?php echo user_url('listproduct/product_detail_shop/'.$row->id)?>"><button  class="btn btn-default">Xem</button></p></a>
-                     </div>
-                 </div>
-             </div>
-         <?php endforeach ?>
+                       <a href="<?php echo user_url('listproduct/product_detail_shop/'.$row->id)?>"><button  class="btn btn-default">Xem</button></p></a>
+                   </div>
+               </div>
+           </div>
+       <?php endforeach ?>
 
-         <?php  }?> 
+       <?php  }?> 
 
 
 
-     </div>
- </div>                 
+   </div>
+</div>                 
 
- <!-- /.container -->
+<!-- /.container -->
 </section>
 <div style="margin-left: 10%" >
     <?php if (isset($shops)) {?>
-    <ul class="pagination">
-
+    <div class="pagination">
 
         <li><?php echo $this->pagination->create_links()?></li>
 
-    </ul>
+
+    </div>
 
     <?php  }?> 
 </div>
@@ -225,40 +225,40 @@
     </div>
 
 
-<script src="<?php echo public_url('user') ?>/js/jquery.js"></script> 
+    <script src="<?php echo public_url('user') ?>/js/jquery.js"></script> 
 </footer> 
 
-   <script type="text/javascript">
+<script type="text/javascript">
 
-        $(document).ready(function() {
+    $(document).ready(function() {
 
-         $('#province').on('change', function() {
+       $('#province').on('change', function() {
           var province_id = $(this).val();
 
           if(province_id==''){
             $('#market_place').prop('disabled',true);
         }else{
-           $('#market_place').prop('disabled',false);
-           $.ajax({
+         $('#market_place').prop('disabled',false);
+         $.ajax({
 
             type: "POST",
             data: {'province_id': province_id},
             dataType: 'json',
             url: "<?php echo base_url('home/get_market')?>",
             success : function(data){
-               
-           $('#market_place').html(data);
-                           },
-            error : function(){
-                alert('error.....');
-            }
-        });
 
-       }
+             $('#market_place').html(data);
+         },
+         error : function(){
+            alert('error.....');
+        }
+    });
 
+     }
+
+ });
    });
-     });
- </script>
+</script>
 
 
 

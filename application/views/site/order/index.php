@@ -179,7 +179,7 @@
                     <input type="text" class="form-control"  name="date_receive" value="<?php echo set_value('date_receive') ?>"  />
 
                 </div>
-                <div class="clear error" name="name_error"></div>
+                <div class="clear error" style="color: red" name="name_error"><?php echo form_error('date_receive') ?></div>
 
             </div>
 
@@ -191,6 +191,7 @@
                     <label for="email">Nội dung đặt hàng</label>
                     <textarea type="text" rows="3" cols="10"  sclass="form-control" name="message"></textarea>
                 </div>
+                   <div class="clear error" style="color: red" name="name_error"><?php echo form_error('message') ?></div>
 
             </div>
 

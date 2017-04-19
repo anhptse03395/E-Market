@@ -1,15 +1,3 @@
-<!-- 
-$this->db->select('shop_name,orders.date_order as date_order,orders.description as description,order_details.quantity as quantity,
-			order_details.status as status,products.product_name as product_name
-			');
-		$this->db->from('orders');
-
-		$this->db->join('order_details', 'order_details.order_id=orders.id','left');
-		$this->db->join('products', 'products.id=order_details.product_id','left');
-
-		$this->db->join('shops', 'order_details.shop_id=shops.id','left');
-		$this->db->join('accounts', 'accounts.id=shops.account_id','left');
- -->
 
 
 <?php 
@@ -35,7 +23,7 @@ Class Orders_model extends MY_Model{
 	function join_buyer_order ($buyer_id,$limit,$offset){
 
 
-		$this->db->select('sum(price) as total_price,orders.id as order_id,orders.date_order as date_order,orders.description as description,count(order_id) as total,address_receiver,name_receiver,date_receive,status');
+		$this->db->select('sum(price*order_details.quantity) as total_price,orders.id as order_id,orders.date_order as date_order,orders.description as description,count(order_id) as total,address_receiver,name_receiver,date_receive,status');
 		$this->db->from('orders');
 		$this->db->join('order_details', 'order_details.order_id=orders.id','left');
 		$this->db->where('orders.buyer_id', $buyer_id);

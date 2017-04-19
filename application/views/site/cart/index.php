@@ -101,7 +101,7 @@
                             </div>
                             
                               <div class="pull-right" style="margin-left: 10%">
-                                <a  href="<?php echo user_url('order/checkout')?>" class="btn btn-success"><i class="fa fa-chevron-right"></i> Thanh toán</a>
+                                <a  href="<?php echo user_url('order/checkout')?>" class="btn btn-success"><i class="fa fa-chevron-right"></i> Đặt hàng</a>
                             </div>
 
                             <div class="pull-right " >

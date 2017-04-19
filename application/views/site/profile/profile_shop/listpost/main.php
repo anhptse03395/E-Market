@@ -32,7 +32,7 @@
           <form id="eventForm" action="<?php echo user_url('profile/search_post') ?>" method="post" class="form-horizontal">
 
             <div class="form-group" style="width: 60%;margin-left: 15%">
-              <label class="col-xs-3 control-label " style="color: rgba(32, 86, 171, 0.96)">Tên sản phẩm </label>
+              <label class="col-xs-3 control-label " style="">Tên sản phẩm </label>
               <div class="input-group"> 
                 <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
               </span>
@@ -42,7 +42,7 @@
 
 
           <div class="form-group" style="float: left;width: 50%">
-            <label class="col-xs-3 control-label" style="color: #7ade0f">Từ ngày</label>
+            <label class="col-xs-3 control-label" style="">Từ ngày</label>
             <div class="col-xs-5 date" >
               <div class="input-group input-append date" id="datePicker" >
                 <input  type="text" class="form-control" value="<?php echo set_value('from_date') ?>"  name="from_date"  />
@@ -55,7 +55,7 @@
 
 
           <div class="form-group" style="float: left;width: 50%">
-            <label class="col-xs-3 control-label" style="color: #fe980f">Đến ngày</label>
+            <label class="col-xs-3 control-label" style="">Đến ngày</label>
             <div class="col-xs-5 date" >
               <div class="input-group input-append date" id="datePicker1">
                 <input  type="text" class="form-control" value="<?php echo set_value('end_date') ?>" name="end_date" />

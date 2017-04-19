@@ -73,11 +73,23 @@ Class Product_model extends MY_Model
 
   }
 
-  function list_product_shop($id,$page){
+/*  function list_product_shop($id,$page){
 
     $query = $this->db->get('products', $id, $page);
     return $query->result();
 
+  }*/
+
+  function list_product_shop($shop_id,$limit,$offset){
+
+    $this->db->select('*');
+    $this->db->from('products');
+   // $this->db->join('shops', 'products.shop_id = shops.id','left');
+
+    $this->db->where('products.shop_id', $shop_id);
+    $this->db->limit($limit, $offset);
+    $query = $this->db->get();
+    return $query->result();
   }
 
 

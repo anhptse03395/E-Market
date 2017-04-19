@@ -25,7 +25,7 @@
 							<span class="hidden-xs">Đơn hàng của tôi <span></a>
 						</li>
 						<li>
-								<a href="#">
+								<a href="<?php echo user_url('profile/manage_debt_buyer') ?>">
 								<i class="glyphicon glyphicon-list-alt"></i>
 								<span class="hidden-xs">Quản lý công nợ <span> </a>
 															

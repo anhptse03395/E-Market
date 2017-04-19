@@ -98,7 +98,7 @@
                 <th class="description" style="color: blue">Tổng số tiền</th>
                 <th class="description" style="color: blue">Nội dung</th>
                 <th class="description" style="color: blue">Trạng thái</th>
-                <th class="description" style="color: blue">Xem chi tiết</th>
+                <th class="text-center" style="color: blue">Hành động</th>
               </tr>
             </thead>
             <tbody>
@@ -125,14 +125,15 @@
                     <?php if (isset($row->status)) {?>
                     <span class="label label-warning"> <?php if($row->status==1){echo 'Đơn hàng mới';}?></span>
                     <span class="label label-danger"><?php if($row->status==4){echo "Đơn hàng bị hủy";}?></span> 
-                    <span class="label label-info"> <?php if($row->status==2){echo "Đang xử lý";}?></span>
-                    <span class="label label-success"> <?php  if($row->status==3){echo "Đã gửi hàng";}
+                    <span class="label label-info"> <?php if($row->status==2){echo "Đang đàm phán";}?></span>
+                    <span class="label label-success"> <?php  if($row->status==3){echo "Đang xử lý";}
                       ?></span>
 
                       <?php } ?>
                     </td>
 
-                    <td><a href="<?php echo user_url('profile/list_order_details/'.$row->order_id) ?>" class="btn btn-info btn-sm">xem</a>
+                    <td><a href="<?php echo user_url('profile/list_order_details/'.$row->order_id) ?>" class="btn btn-info btn-sm">Xem</a>
+                     <td><a href="<?php echo user_url('profile/list_order_details/'.$row->order_id) ?>" class="btn btn-warning btn-sm">Sửa</a>
 
                     </td>
                   </tr>

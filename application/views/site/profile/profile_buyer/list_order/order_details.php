@@ -43,85 +43,109 @@
         </div>
                 </div>
               </form> -->
+              <form id="eventForm" action="" method="post" class="form-horizontal" style="margin-bottom: 3%">
 
-              <div class="table-responsive">
-
-
-                <table id="mytable" class="table table-bordred table-striped">
-
-                  <thead>
-
-
-                    <td class="description" style="color: blue">Tên sản phẩm</td>
-                    <td class="description" style="color: blue">Nội dung</td>
-                    <td class="description" style="color: blue">Ngày đặt hàng</td>
-                    <td class="description" style="color: blue">Tên cửa hàng</td>
-
-                    <td class="description" style="color: blue">Số lượng(Kg)</td>
-                    <td class="description" style="color: blue">Giá(VND)</td>
-                    <td class="description" style="color: blue">Trạng thái</td>
-
-                  </thead>
-                  <tbody>
-                    <!--                    --><?php foreach ($list as $row):?>
-                    <tr>
-                      <td class="cart_description" style="color: rgba(71, 189, 34, 0.9)">
-                       <?php echo $row->product_name?>
-                     </td>
-                     <td class="cart_description">
-                      <?php echo $row->description?>                            </td>
-                      <td class="cart_description" style="color: #da8f2a">
-                        <?php echo mdate('%d-%m-%Y',$row->date_order)?>
-                      </td>
-                      <td class="cart_description">
-                        <a href="<?php echo user_url('listproduct/product_detail_shop/').$row->shop_id ?>">  <?php echo $row->shop_name?></a>
-                      </td>
-                      <td class="cart_description">
-                       <?php echo $row->quantity?>
-                     </td>
-                     <td class="cart_description">
-                      <?php if (isset($row->price)) {?>
-                      <?php if($row->price==0) { ?>
-                      <?php echo '<strong style="color:#fe950f">'.'Thương lượng'.'</strong>' ?>
-                      <?php } ?>
-
-                      <?php if($row->price>0) { ?>
-                      <?php echo $row->price ?>
-                      <?php } ?>
-                      <?php } ?>
-                    </td>
-                    <td class="cart_description">
+                <div class="table-responsive">
+                  <?php  $message = $this->session->flashdata('message');
+                  ?>
+                  <?php if(isset($message) && $message):?>
+                    <div class="alert alert-info">
+                      <h3 style="text-align: center;"><strong> </strong><?php echo $message?></h3>
+                    </div>
+                  <?php endif;?>
 
 
-                      <?php if (isset($row->status)) {?>
-                      <span class="label label-warning"> <?php if($row->status==1){echo 'Đơn hàng mới';}?></span>
-                      <span class="label label-danger"><?php if($row->status==4){echo "Đơn hàng bị hủy";}?></span> 
-                      <span class="label label-info"> <?php if($row->status==2){echo "Đang xử lý";}?></span>
-                       <span class="label label-success"> <?php  if($row->status==3){echo "Đã gửi hàng";}
-                        ?></span>
+                  <table id="mytable" class="table table-bordred table-striped">
 
+                    <thead>
+
+
+                      <td class="description" style="color: blue">Tên sản phẩm</td>
+                      <td class="description" style="color: blue">Nội dung</td>
+                      <td class="description" style="color: blue">Ngày đặt hàng</td>
+                      <td class="description" style="color: blue">Tên cửa hàng</td>
+
+                      <td class="description" style="color: blue">Số lượng(Kg)</td>
+                      <td class="description" style="color: blue">Giá(VND)</td>
+                      <td class="description" style="color: blue">Trạng thái</td>
+
+                    </thead>
+                    <tbody>
+                     <?php foreach ($list as $row):?>
+                      <tr>
+                        <td class="cart_description" style="color: rgba(71, 189, 34, 0.9)">
+                         <?php echo $row->product_name?>
+                       </td>
+                       <td class="cart_description">
+                        <?php echo $row->description?>                            </td>
+                        <td class="cart_description" style="color: #da8f2a">
+                          <?php echo mdate('%d-%m-%Y',$row->date_order)?>
+                        </td>
+                        <td class="cart_description">
+                          <a href="<?php echo user_url('listproduct/product_detail_shop/').$row->shop_id ?>">  <?php echo $row->shop_name?></a>
+                        </td>
+                        <td class="cart_description">
+                         <?php echo $row->quantity?>
+                       </td>
+                       <td class="cart_description">
+                        <?php if (isset($row->price)) {?>
+                        <?php if($row->price==0) { ?>
+                        <?php echo '<strong style="color:#fe950f">'.'Thương lượng'.'</strong>' ?>
+                        <?php } ?>
+
+                        <?php if($row->price>0) { ?>
+                        <?php echo $row->price ?>
+                        <?php } ?>
                         <?php } ?>
                       </td>
+                      <td class="cart_description">
 
 
-                    </tr>
-                    <!--                    --><?php endforeach;?>
+                        <?php if (isset($row->status)) {?>
+                        <span class="label label-warning"> <?php if($row->status==1){echo 'Đơn hàng mới';}?></span>
+                        <span class="label label-danger"><?php if($row->status==4){echo "Đơn hàng bị hủy";}?></span> 
+                        <span class="label label-info"> <?php if($row->status==2){echo "Đang đàm phán";}?></span>
+                        <span class="label label-success"> <?php  if($row->status==3){echo "Đang xử lý";}
+                          ?></span>
+
+                          <?php } ?>
+                        </td>
 
 
-                  </tbody>
+                      </tr>
+                      <!--                    --><?php endforeach;?>
 
-                </table>
+
+                    </tbody>
+
+                  </table>
+
+                  <div class="form-group"  >
+                    <label class="col-xs-3 control-label">Xác nhận giá đơn hàng </label>
+                    <div class="input-group"> 
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
+                    </span>
+                    
+
+                    <select style="width: 40%" onchange="this.form.submit();" name="review_price" class="form-control">
+                      <option value="">Chọn</option>
+                      <option value="1">Đồng ý</option>
+                      <option value="2">Hủy</option>
+
+
+                    </select>
+
+
+                  </div>
+                </div>
 
                 <div class="clearfix"></div>
-                <ul class="pagination pull-right">
-                  <li><!-- <?php echo $this->pagination->create_links();?> --></li>
-                </ul>
 
               </div>
+            </form>
 
-
-            </div>
           </div>
         </div>
+      </div>
 
 

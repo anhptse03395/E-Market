@@ -23,7 +23,7 @@
         <tbody>
           <tr>
             <td >Mã đơn hàng:</td>
-            <td><?php echo $row->order_id ?></td>
+            <td  ><?php echo $row->order_id ?></td>
           </tr>
 
           <tr>

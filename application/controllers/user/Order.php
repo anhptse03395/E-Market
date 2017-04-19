@@ -25,7 +25,21 @@ Class Order extends MY_Controller
         $i++; 
       } 
       return $temp_array; 
-    } 
+    }
+
+      function compareDate() {
+       $date_rec =$this->input->post('date_receive');
+       $date =DateTime::createFromFormat('d/m/Y', $date_rec);     
+       $date= $date->format('Y-m-d');
+       $date_receive = strtotime($date);
+       $date_now = now();
+      if ($date_receive >= $date_now)
+        return True;
+      else {
+       $this->form_validation->set_message(__FUNCTION__,'Ngày đặt phải lớn hơn hiện tại');
+       return False;
+     }
+   } 
 
 
     function checkout()
@@ -76,87 +90,88 @@ Class Order extends MY_Controller
     $this->load->library('form_validation');
     $this->load->helper('form');
 
+
         //neu ma co du lieu post len thi kiem tra
-    $buyer_id= $this->session->userdata('buyer_id');
-    if($this->input->post())
+   $buyer_id= $this->session->userdata('buyer_id');
+   if($this->input->post())
+   {
+
+
+
+    $this->form_validation->set_rules('date_receive', 'Ngày đặt', 'callback_compareDate');
+    $this->form_validation->set_rules('message', 'Ghi chú', 'required');
+          //  $this->form_validation->set_rules('payment', 'Cổng thanh toán', 'required');
+
+            //nhập liệu chính xác
+    if($this->form_validation->run())
     {
 
 
 
+      foreach ($shops as $shop ) {
 
-      $this->form_validation->set_rules('message', 'Ghi chú', 'required');
-          //  $this->form_validation->set_rules('payment', 'Cổng thanh toán', 'required');
+       $date_rec =$this->input->post('date_receive');
+       $date =DateTime::createFromFormat('d/m/Y', $date_rec);     
+       $date= $date->format('Y-m-d');
+       $date_receive = strtotime($date);
+       $name_receiver =$this->input->post('name_receiver');
+       $address_receiver =$this->input->post('address_receiver');
+       $data_order = array(
 
-            //nhập liệu chính xác
-      if($this->form_validation->run())
-      {
-
-
-
-        foreach ($shops as $shop ) {
-
-         $date_rec =$this->input->post('date_receive');
-         $date =DateTime::createFromFormat('d/m/Y', $date_rec);     
-         $date= $date->format('Y-m-d');
-         $date_receive = strtotime($date);
-         $name_receiver =$this->input->post('name_receiver');
-         $address_receiver =$this->input->post('address_receiver');
-         $data_order = array(
-
-          'buyer_id'     => $buyer_id,
+        'buyer_id'     => $buyer_id,
                         'description'       => $this->input->post('message'), //ghi chú khi mua hàn
                         'date_order'       => now(),
                         'date_receive' =>$date_receive,
                         'name_receiver' => $name_receiver,
                         'address_receiver'=>$address_receiver,
-                         'status'   => 1,
+                        'status'   => 1,
                         );
 
 
-         $this->load->model('orders_model');
-         $this->orders_model->create($data_order);
-         $order_id = $this->db->insert_id();  
-         $this->load->model('order_details_model');
+       $this->load->model('orders_model');
+       $this->orders_model->create($data_order);
+       $order_id = $this->db->insert_id();  
+       $this->load->model('order_details_model');
 
-         foreach ($carts as $row)
-         {
-          if($row['shop_id']==$shop['shop_id'] ){
+       foreach ($carts as $row)
+       {
+        if($row['shop_id']==$shop['shop_id'] ){
 
-            $data_detail = array(
-              'order_id' => $order_id,
-              'product_id'     => $row['id'],
-              'shop_id'    => $row['shop_id'],
-              'quantity'            => $row['qty'],
-              'price'         => $row['subtotal'],
-             
-              );
-            $this->order_details_model->create($data_detail);
+          $data_detail = array(
+            'order_id' => $order_id,
+            'product_id'     => $row['id'],
+            'shop_id'    => $row['shop_id'],
+            'quantity'            => $row['qty'],
+            'price'         => $row['subtotal'],
 
-          }
+            );
+          $this->order_details_model->create($data_detail);
 
         }
-
-
 
       }
 
 
 
-
-                //xóa toàn bô giỏ hang
-      $this->cart->destroy();
-                    //tạo ra nội dung thông báo
-      $this->session->set_flashdata('message', 'Bạn đã đặt hàng thành công, chúng tôi sẽ kiểm tra và gửi hàng cho bạn');
-
-                    //chuyen tới trang danh sách quản trị viên
-      redirect(user_url('profile/list_order_buyer'));
-
     }
 
 
+
+
+                //xóa toàn bô giỏ hang
+    $this->cart->destroy();
+                    //tạo ra nội dung thông báo
+    $this->session->set_flashdata('message', 'Bạn đã đặt hàng thành công, chúng tôi sẽ kiểm tra và gửi hàng cho bạn');
+
+                    //chuyen tới trang danh sách quản trị viên
+    redirect(user_url('profile/list_order_buyer'));
+
   }
 
-  $this->load->view('site/order/index',$this->data);
+
+}
+
+$this->load->view('site/order/index',$this->data);
 }
 
 }

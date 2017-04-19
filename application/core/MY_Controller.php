@@ -68,7 +68,6 @@ Class MY_Controller extends CI_Controller
             redirect(admin_url('home'));
         }
 
-        
         elseif (!in_array($controller, array('login', 'home'))) {
             $admin_role = $this->session->userdata('admin_role');
             $admin_root = $this->config->item('root_admin');
@@ -121,7 +120,7 @@ Class MY_Controller extends CI_Controller
          $this->session->set_flashdata('message', 'Ban phải đăng nhập mới thực hiện chức năng này');
          redirect(user_url('login'));
      }
-     elseif (!in_array($controller, array('login','register','listproduct', 'home','user','contact','rule','Test'))) {
+     elseif (!in_array($controller, array('login','register','listproduct', 'home','user','contact','rule'))) {
         $account_id = $this->session->userdata('account_id');
         $shop_id = $this->session->userdata('shop_id');
         $buyer_id =  $this->session->userdata('buyer_id');
