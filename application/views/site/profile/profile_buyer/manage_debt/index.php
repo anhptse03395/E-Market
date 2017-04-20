@@ -61,32 +61,40 @@
             </select>
         </div>
     </div>
-
-
-    <div class="form-group" style="float: left;width: 50%">
-        <label class="col-xs-3 control-label">Từ ngày</label>
-        <div class="col-xs-5 date" >
-            <div class="input-group input-append date" id="datePicker" >
-                <input  type="text" class="form-control" value="<?php echo set_value('from_date') ?>"  name="from_date"  />
-                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar " ></span></span>
+      <div class="form-group" style=" margin-right: 10%" >
+                <label class="col-xs-3 control-label">Tên khách hàng</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
+                </span>
+                <input  type="text" class="form-control" value="<?php echo set_value('shop_name') ?>"  name="shop_name"  />
             </div>
-
-
         </div>
-    </div>
 
 
-    <div class="form-group" style="float: left;width: 50%">
-        <label class="col-xs-3 control-label">Đến ngày</label>
-        <div class="col-xs-5 date" >
-            <div class="input-group input-append date" id="datePicker1">
-                <input  type="text" class="form-control" value="<?php echo set_value('end_date') ?>"  name="end_date" />
-                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>
-
+<!--     <div class="form-group" style="float: left;width: 50%">
+    <label class="col-xs-3 control-label">Từ ngày</label>
+    <div class="col-xs-5 date" >
+        <div class="input-group input-append date" id="datePicker" >
+            <input  type="text" class="form-control" value="<?php echo set_value('from_date') ?>"  name="from_date"  />
+            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar " ></span></span>
         </div>
-    </div>
 
+
+    </div>
+</div>
+
+ -->
+ <!--    <div class="form-group" style="float: left;width: 50%">
+     <label class="col-xs-3 control-label">Đến ngày</label>
+     <div class="col-xs-5 date" >
+         <div class="input-group input-append date" id="datePicker1">
+             <input  type="text" class="form-control" value="<?php echo set_value('end_date') ?>"  name="end_date" />
+             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+         </div>
+ 
+     </div>
+ </div>
+  -->
 
     <div class="form-group">
         <div class="col-xs-6 col-xs-offset-4">

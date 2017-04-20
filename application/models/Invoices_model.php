@@ -125,9 +125,36 @@ Class Invoices_model extends MY_Model{
 		return $query->result();
 	}
 
-	function search_debt_buyer($input = array(),$buyer_id){
+	function search_debt_buyer($buyer_id,$order_id,$shop_name){
+		if(!isset($shop_name)){
+			$shop_name = '';
 
+		}
+		if(!isset($order_id)){
+			$order_id = '';
+
+		}
+		$query =	$this->db->query('SELECT * from ((SELECT t1.status,t1.order_id, t1.shop_name,t1.buyer_id, t1.total_price, t2.total_paid, t1.total_price - t2.total_paid AS debt 
+			FROM (SELECT o.id as order_id,o.buyer_id ,o.status, COUNT(od.order_id) AS OrderDetail,s.shop_name ,SUM(od.price * od.quantity) AS total_price
+			FROM orders o
+			JOIN order_details od ON o.id = od.order_id 
+			LEFT JOIN shops s on o.shop_id =s.id
+			GROUP BY o.id
+			) AS t1
+			JOIN 
+			(SELECT iv.order_id AS Id2, 
+			SUM(iv.amount) AS total_paid FROM invoices iv 
+			JOIN orders o2 ON o2.id = iv.order_id 
+			GROUP BY O2.id) AS t2
+			ON t1.order_id = t2.Id2
+			WHERE t1.buyer_id ='.$buyer_id. 
+
+			') as T3)
 		
+			where T3.order_id  = '.$order_id.'				
+		
+			');
+		return $query->result();
 	}
 
 
