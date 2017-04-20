@@ -13,7 +13,7 @@ Class Order_details_model extends MY_Model{
 		$this->db->from('order_details');
 		$this->db->join('orders','order_details.order_id=orders.id');
 		$this->db->join('products', 'products.id=order_details.product_id','left');
-		$this->db->join('shops', 'order_details.shop_id=shops.id','left');
+		$this->db->join('shops', 'orders.shop_id=shops.id','left');
 		$this->db->join('accounts', 'accounts.id=shops.account_id','left');
 		$this->db->where('order_details.order_id', $order_id);
 		$query = $this->db->get();
@@ -41,7 +41,7 @@ Class Order_details_model extends MY_Model{
 		$this->db->join('products', 'products.id=order_details.product_id','left');
 		$this->db->join('buyers', 'orders.buyer_id=buyers.id','left');
 		$this->db->join('accounts', 'accounts.id=buyers.account_id','left');
-		$this->db->where('order_details.shop_id', $shop_id);
+		$this->db->where('orders.shop_id', $shop_id);
 		$this->db->group_by('orders.id');
 		$this->db->order_by('orders.id', 'desc');
 		$query = $this->db->get();
@@ -55,7 +55,7 @@ Class Order_details_model extends MY_Model{
 		$this->db->join('products', 'products.id=order_details.product_id','left');
 		$this->db->join('buyers', 'orders.buyer_id=buyers.id','left');
 		$this->db->join('accounts', 'accounts.id=buyers.account_id','left');
-		$this->db->where('order_details.shop_id', $shop_id);
+		$this->db->where('orders.shop_id', $shop_id);
 		$this->db->group_by('orders.id');
 		$this->db->order_by('orders.id', 'desc');
 		$this->db->limit($limit, $offset);
@@ -73,7 +73,7 @@ Class Order_details_model extends MY_Model{
 		$this->db->join('products', 'products.id=order_details.product_id','left');
 		$this->db->join('buyers', 'orders.buyer_id=buyers.id','left');
 		$this->db->join('accounts', 'accounts.id=buyers.account_id','left');
-		$this->db->where('order_details.shop_id', $shop_id);
+		$this->db->where('orders.shop_id', $shop_id);
 		$this->db->group_by('orders.id');
 		$this->db->order_by('orders.id', 'desc');
 
@@ -91,7 +91,7 @@ Class Order_details_model extends MY_Model{
 		$this->db->join('products', 'products.id=order_details.product_id','left');
 		$this->db->join('buyers', 'orders.buyer_id=buyers.id','left');
 		$this->db->join('accounts', 'accounts.id=buyers.account_id','left');
-		$this->db->where('order_details.shop_id', $shop_id);
+		$this->db->where('orders.shop_id', $shop_id);
 		$this->db->where('order_details.order_id', $order_id);
 		$query = $this->db->get();
 		return $query->result();

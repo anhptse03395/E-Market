@@ -1,10 +1,6 @@
 
 <script src="<?php echo public_url('user') ?>/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/chart-master/Chart.js"></script>
-<script rel="stylesheet" type="text/css" href="<?php echo public_url('user/home')?>/js/bootstrap-datetimepicker.min.js"></script>
-<script rel="stylesheet" type="text/css" href="<?php echo public_url('user/home')?>/js/bootstrap-datetimepicker.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo public_url('user/home/css')?>/bootstrap-datetimepicker.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo public_url('user/home/css')?>/bootstrap-datetimepicker.css">
 <div class="container" style="width: 100%">
     <div class="row">
 
@@ -32,10 +28,9 @@
                         <td class="description" style="color: blue">Lần trả</td>
                         <td class="description" style="color: blue">Ngày trả tiền</td>
                         <td class="description" style="color: blue">Số tiền(VND)</td>
-                        <td class="description" style="color: blue">Tên cửa hàng</td>
+                        <td class="description" style="color: blue">Tên khách hàng</td>
                          <td class="description" style="color: blue">Số điện thoại</td>
                         <td class="description" style="color: blue">Trạng thái</td>
-
 
                     </thead>
                     <tbody>
@@ -55,7 +50,7 @@
 
                                     </td>
                                     <td class="cart_description">
-                                        <a href="<?php echo user_url('listproduct/product_detail_shop/').$row->shop_id ?>">  <?php echo $row->shop_name?></a>
+                                        <a href="<?php echo user_url('listproduct/product_detail_shop/').$row->shop_id ?>">  <?php echo $row->buyer_name?></a>
                                     </td>
                                      <td class="cart_description">
                                         <?php echo '0'.$row->phone ?>
@@ -88,9 +83,7 @@
                         </table>
 
                         <div class="clearfix"></div>
-                        <ul class="pagination pull-right">
-                            <li><!-- <?php echo $this->pagination->create_links();?> --></li>
-                        </ul>
+                      
 
                     </div>
 

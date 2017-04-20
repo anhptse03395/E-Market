@@ -19,7 +19,7 @@
       </div>
     <?php endif;?>
     <form  action="" method="post" class="form-horizontal" style="margin-bottom: 3%">
-    <input type="text" name ="test" value="<?php set_value('test') ?>">
+ <!--    <input type="text" name ="test" value="<?php set_value('test') ?>"> -->
     <div><?php echo form_error('test') ?></div>
 
   <div class="table-responsive">

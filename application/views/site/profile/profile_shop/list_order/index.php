@@ -60,121 +60,137 @@
 
           <form id="eventForm" action="<?php echo user_url('profile/search_order_shop') ?>" method="post" class="form-horizontal">
 
-            <div class="form-group" style="width: 60%;margin-left: 15%">
-              <label class="col-xs-3 control-label" style="" >Mã đơn hàng </label>
+            <div class="form-group" style="width: 40%;float: left; margin-right: 10%" >
+              <label class="col-xs-3 control-label">Mã đơn hàng </label>
               <div class="input-group"> 
                 <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
               </span>
-              <input  type="text" class="form-control"  name="order_id" value="<?php echo set_value('order_id') ?>" style="width: 50%" />
+              <input  type="text" class="form-control" value="<?php echo set_value('order_id') ?>"  name="order_id"  />
             </div>
           </div>
 
+          <div class="form-group" style="width: 40%;float: left;">
+           <label class="col-xs-3 control-label">Trạng thái </label>
+           <div class="input-group"> 
+            <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
+          </span>
+          <select onchange="this.form.submit();" name="status" class="form-control">
+            <option value="">Tất cả</option>
+            <option value="1">Đơn hàng mới</option>
+            <option value="2">Đang xử lý</option>
+            <option value="3">Đã gửi hàng</option>
+            <option value="4">Đơn bị hủy</option>
 
-
-          <div class="form-group" style="float: left;width: 50%">
-            <label class="col-xs-3 control-label" style="" >Từ ngày</label>
-            <div class="col-xs-5 date" >
-              <div class="input-group input-append date" id="datePicker" >
-                <input  type="text" value="<?php echo set_value('from_date')  ?>"  class="form-control"  name="from_date"  />
-                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar " ></span></span>
-              </div>
-
-
-            </div>
-          </div> 
-
-
-          <div class="form-group" style="float: left;width: 50%">
-            <label class="col-xs-3 control-label" style="" >Đến ngày</label>
-            <div class="col-xs-5 date" >
-              <div class="input-group input-append date" id="datePicker1">
-                <input  type="text" value="<?php echo set_value('end_date') ?>"  class="form-control" name="end_date" />
-                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-              </div>
-
-            </div>
-          </div>
-
-
-          <div class="form-group">
-            <div class="col-xs-6 col-xs-offset-4">
-              <button type="submit" class="btn btn-info">Tìm kiếm</button>
-            </div>
-          </div>
-        </form>
-
-
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th class="description" style="color: blue" >Mã số</th>
-                
-                <th class="description" style="color: blue">Người mua</th>
-                <th class="description" style="color: blue">Số tiền</th>
-                <th class="description" style="color: blue">Nội dung</th>
-                <th class="description" style="color: blue">Ngày đặt</th>
-                <th class="description" style="color: blue">Trạng thái</th>
-                <th class="description" style="color: blue">Xem chi tiết</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <?php foreach ($list as $row):?>
-               <tr>
-                <td class="cart_description">
-                  <?php echo  $row->order_id ;  ?>
-                </td>
-                
-                <td class="cart_description">
-                  <?php echo $row->buyer_name?>
-                </td>
-                <td class="cart_description">
-                  <?php if (isset($row->total_price)) {?>
-                  <?php if($row->total_price==0) { ?>
-                  <?php echo '<strong style="color:#fe950f">'.'Thương lượng'.'</strong>' ?>
-                  <?php } ?>
-
-                  <?php if($row->total_price>0) { ?>
-                  <?php echo $row->total_price ?>
-                  <?php } ?>
-                  <?php } ?>
-
-                </td>
-                <td class="cart_description">
-                  <?php echo $row->description?>
-                </td>
-                <td class="cart_description">
-                 <?php echo mdate('%d-%m-%Y',$row->date_order)?>
-               </td>
-               <td class="cart_description">
-
-                <?php if (isset($row->status)) {?>
-
-                <span class="label label-warning"> <?php if($row->status==1){echo 'Đơn hàng mới';}?></span>
-                <span class="label label-danger"><?php if($row->status==4){echo "Đơn hàng bị hủy";}?></span> 
-                <span class="label label-info"> <?php if($row->status==2){echo "Đang đàm phán";}?></span>
-                <span class="label label-success"> <?php  if($row->status==3){echo "Đang xử lý";}
-                  ?></span>
-
-                  <?php } ?>
-                </td>
-                <td> <a  href="<?php echo user_url('profile/detail_order_shop/'.$row->order_id) ?>" class="open-list btn btn-info btn-sm">xem</a>
-                </td>
-
-              </tr>
-            <?php endforeach;?> 
-
-          </tbody>
-        </table>
-        <div class="clearfix"></div>
-        <ul class="pagination pull-right">
-          <li><?php echo $this->pagination->create_links();?></li>
-        </ul>
+          </select>
+        </div>
       </div>
-    </div>
+
+
+
+      <div class="form-group" style="float: left;width: 50%">
+        <label class="col-xs-3 control-label" style="" >Từ ngày</label>
+        <div class="col-xs-5 date" >
+          <div class="input-group input-append date" id="datePicker" >
+            <input  type="text" value="<?php echo set_value('from_date')  ?>"  class="form-control"  name="from_date"  />
+            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar " ></span></span>
+          </div>
+
+
+        </div>
+      </div> 
+
+
+      <div class="form-group" style="float: left;width: 50%">
+        <label class="col-xs-3 control-label" style="" >Đến ngày</label>
+        <div class="col-xs-5 date" >
+          <div class="input-group input-append date" id="datePicker1">
+            <input  type="text" value="<?php echo set_value('end_date') ?>"  class="form-control" name="end_date" />
+            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-xs-6 col-xs-offset-4">
+          <button type="submit" class="btn btn-info">Tìm kiếm</button>
+        </div>
+      </div>
+    </form>
+
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="description" style="color: blue" >Mã số</th>
+            
+            <th class="description" style="color: blue">Người mua</th>
+            <th class="description" style="color: blue">Số tiền</th>
+            <th class="description" style="color: blue">Nội dung</th>
+            <th class="description" style="color: blue">Ngày đặt</th>
+            <th class="description" style="color: blue">Trạng thái</th>
+            <th class="description" style="color: blue">Xem chi tiết</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <?php foreach ($list as $row):?>
+           <tr>
+            <td class="cart_description">
+              <?php echo  $row->order_id ;  ?>
+            </td>
+            
+            <td class="cart_description">
+              <?php echo $row->buyer_name?>
+            </td>
+            <td class="cart_description">
+              <?php if (isset($row->total_price)) {?>
+              <?php if($row->total_price==0) { ?>
+              <?php echo '<strong style="color:#fe950f">'.'Thương lượng'.'</strong>' ?>
+              <?php } ?>
+
+              <?php if($row->total_price>0) { ?>
+              <?php echo $row->total_price ?>
+              <?php } ?>
+              <?php } ?>
+
+            </td>
+            <td class="cart_description">
+              <?php echo $row->description?>
+            </td>
+            <td class="cart_description">
+             <?php echo mdate('%d-%m-%Y',$row->date_order)?>
+           </td>
+           <td class="cart_description">
+
+            <?php if (isset($row->status)) {?>
+
+            <span class="label label-warning"> <?php if($row->status==1){echo 'Đơn hàng mới';}?></span>
+            <span class="label label-danger"><?php if($row->status==4){echo "Đơn hàng bị hủy";}?></span> 
+            <span class="label label-info"> <?php if($row->status==2){echo "Đang đàm phán";}?></span>
+            <span class="label label-success"> <?php  if($row->status==3){echo "Đang xử lý";}
+              ?></span>
+
+              <?php } ?>
+            </td>
+            <td> <a  href="<?php echo user_url('profile/detail_order_shop/'.$row->order_id) ?>" class="open-list btn btn-info btn-sm">xem</a>
+            </td>
+
+          </tr>
+        <?php endforeach;?> 
+
+      </tbody>
+    </table>
+    <div class="clearfix"></div>
+    <ul class="pagination pull-right">
+      <li><?php echo $this->pagination->create_links();?></li>
+    </ul>
   </div>
+</div>
+</div>
 
 
-  <!-- Modal -->
+<!-- Modal -->
 

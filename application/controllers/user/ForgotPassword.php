@@ -37,10 +37,11 @@ Class ForgotPassword extends MY_controller{
 		if($this->account_model->check_exists($where))
 		{
             //trả về thông báo lỗi
-			$this->form_validation->set_message(__FUNCTION__, 'Số điện thoại đã được đăng kí');
-			return false;
+			
+			return true;
 		}
-		return true;
+		$this->form_validation->set_message(__FUNCTION__, 'Số điện thoại chưa được đăng ký');
+		return false;
 	}
 
 

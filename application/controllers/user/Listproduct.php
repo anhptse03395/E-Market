@@ -158,6 +158,7 @@ $input['select']= "products.id as product_id,product_name,shop_name,products.cre
 
 $total_rows = count($this->product_model->join_shop($input));
 
+$this->data['total_rows'] = $total_rows;
                     // thu vien phan trang
 $this->load->library('pagination');
 $config = array();

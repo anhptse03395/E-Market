@@ -24,9 +24,30 @@
 
 <body style="background-color:rgba(110, 154, 75, 0.31);width: 100% " >
 
-    <!-- Navigation -->
+    <?php $mes = $this->session->userdata('account_id');
 
-    <a id="menu-toggle" style="margin-right: 20%;margin-top: 2%;font-size:large;" href="<?php echo user_url('login') ?>"> <i  style="margin-right: 3px" class="fa fa-user"></i>Đăng nhập/Đăng kí</a>
+    $shop_id =$this->session->userdata('shop_id');
+
+    $buyer_id= $this->session->userdata('buyer_id');
+    ?>
+
+        <?php if(isset($mes)) {?>
+                            <?php if(isset($shop_id)) {?>
+                               <a id="menu-toggle" style="margin-right: 20%;margin-top: 2%;font-size:large;" href="<?php  echo user_url('profile/list_order_shop')?>"> <i  style="margin-right: 3px" class="fa fa-user"></i> Cá nhân</a>
+                            <?php }if(isset($buyer_id)) {?>
+                               <a id="menu-toggle" style="margin-right: 20%;margin-top: 2%;font-size:large;" href="<?php  echo user_url('profile/list_order_buyer')?>"> <i  style="margin-right: 3px" class="fa fa-user"></i> Cá nhân</a>
+                            <?php } ?>  
+
+                        
+                        <?php }else{ ?>
+                      <a id="menu-toggle" style="margin-right: 20%;margin-top: 2%;font-size:large;" href="<?php echo user_url('login') ?>"> <i  style="margin-right: 3px" class="fa fa-user"></i>Đăng nhập/Đăng kí</a>
+
+                        <?php } ?>  
+
+ 
+
+
+
     <header id="top" class="header">
 
 
@@ -100,44 +121,44 @@
 
     <!-- Portfolio -->
     <section id="portfolio" class="portfolio">
-     <div class="container">
-     <?php if (isset($shops)&& $shops!='') {?>
-      <div style="display: block;" class="row">
-        <h1>
-            Danh sách cửa hàng
-        </h1>
-    </div>
-    <?php  }?> 
+       <div class="container">
+           <?php if (isset($shops)&& $shops!='') {?>
+           <div style="display: block;" class="row">
+            <h1>
+                Danh sách cửa hàng
+            </h1>
+        </div>
+        <?php  }?> 
 
 
-    <div class="row">
-        <?php if (isset($shops)) {?>
-        <?php foreach ($shops as $row): ?>
+        <div class="row">
+            <?php if (isset($shops)) {?>
+            <?php foreach ($shops as $row): ?>
 
-         <div class="col-sm-3">
-            <div class="card">
-                <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
-                <div class="avatar">
-                    <img src="<?php echo base_url('upload/shop/'.$row->image_shop)?>" alt="" />
-                </div>
-                <div class="content">
-                    <p><?php echo $row->shop_name ?> <br>
-                       <?php echo $row->address ?></br>
+               <div class="col-sm-3">
+                <div class="card">
+                    <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
+                    <div class="avatar">
+                        <img src="<?php echo base_url('upload/shop/'.$row->image_shop)?>" alt="" />
+                    </div>
+                    <div class="content">
+                        <p><?php echo $row->shop_name ?> <br>
+                         <?php echo $row->address ?></br>
 
-                       <a href="<?php echo user_url('listproduct/product_detail_shop/'.$row->id)?>"><button  class="btn btn-default">Xem</button></p></a>
-                   </div>
-               </div>
-           </div>
-       <?php endforeach ?>
+                         <a href="<?php echo user_url('listproduct/product_detail_shop/'.$row->id)?>"><button  class="btn btn-default">Xem</button></p></a>
+                     </div>
+                 </div>
+             </div>
+         <?php endforeach ?>
 
-       <?php  }?> 
+         <?php  }?> 
 
 
 
-   </div>
-</div>                 
+     </div>
+ </div>                 
 
-<!-- /.container -->
+ <!-- /.container -->
 </section>
 <div style="margin-left: 10%" >
     <?php if (isset($shops)) {?>
@@ -232,32 +253,32 @@
 
     $(document).ready(function() {
 
-       $('#province').on('change', function() {
-          var province_id = $(this).val();
+     $('#province').on('change', function() {
+      var province_id = $(this).val();
 
-          if(province_id==''){
-            $('#market_place').prop('disabled',true);
-        }else{
-         $('#market_place').prop('disabled',false);
-         $.ajax({
+      if(province_id==''){
+        $('#market_place').prop('disabled',true);
+    }else{
+       $('#market_place').prop('disabled',false);
+       $.ajax({
 
-            type: "POST",
-            data: {'province_id': province_id},
-            dataType: 'json',
-            url: "<?php echo base_url('home/get_market')?>",
-            success : function(data){
+        type: "POST",
+        data: {'province_id': province_id},
+        dataType: 'json',
+        url: "<?php echo base_url('home/get_market')?>",
+        success : function(data){
 
-             $('#market_place').html(data);
-         },
-         error : function(){
-            alert('error.....');
-        }
-    });
+           $('#market_place').html(data);
+       },
+       error : function(){
+        alert('error.....');
+    }
+});
 
-     }
+   }
 
+});
  });
-   });
 </script>
 
 

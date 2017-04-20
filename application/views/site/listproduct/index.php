@@ -32,7 +32,7 @@
 				<fieldset>
 
 					<!-- Form Name -->
-					<legend>Các bài đăng</legend>
+					<legend style="color: blue">Tìm kiếm sản phẩm 		</legend>
 
 					<!-- Text input-->
 					<div class="form-group row has-success">
@@ -71,6 +71,7 @@
 							<button  class="btn btn-primary">Tìm Kiếm</button>
 						</div>
 					</div>
+					
 
 				</fieldset>
 			</form>
@@ -79,21 +80,21 @@
 
 			
 
-		
-						
-					</div>	
+
+
+		</div>	
 
 
 
-				</section>
+	</section>
 
-			</body>
+</body>
 
 
-			<script src="<?php echo public_url('user')?>/js/jquery.js"></script>
-			<script src="<?php echo public_url('user') ?>/js/bootstrap.min.js"></script>
-			<script src="<?php echo public_url('user') ?>/js/jquery.scrollUp.min.js"></script>
-			<script src="<?php echo public_url('user') ?>/js/price-range.js"></script>
-			<script src="<?php echo public_url('user') ?>/js/jquery.prettyPhoto.js"></script>
-			<script src="<?php echo public_url('user') ?>/js/main.js"></script>
-			</html>
+<script src="<?php echo public_url('user')?>/js/jquery.js"></script>
+<script src="<?php echo public_url('user') ?>/js/bootstrap.min.js"></script>
+<script src="<?php echo public_url('user') ?>/js/jquery.scrollUp.min.js"></script>
+<script src="<?php echo public_url('user') ?>/js/price-range.js"></script>
+<script src="<?php echo public_url('user') ?>/js/jquery.prettyPhoto.js"></script>
+<script src="<?php echo public_url('user') ?>/js/main.js"></script>
+</html>

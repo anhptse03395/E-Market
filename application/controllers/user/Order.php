@@ -121,6 +121,7 @@ Class Order extends MY_Controller
         'buyer_id'     => $buyer_id,
                         'description'       => $this->input->post('message'), //ghi chú khi mua hàn
                         'date_order'       => now(),
+                        'shop_id'    => $shop['shop_id'],
                         'date_receive' =>$date_receive,
                         'name_receiver' => $name_receiver,
                         'address_receiver'=>$address_receiver,
@@ -140,7 +141,6 @@ Class Order extends MY_Controller
           $data_detail = array(
             'order_id' => $order_id,
             'product_id'     => $row['id'],
-            'shop_id'    => $row['shop_id'],
             'quantity'            => $row['qty'],
             'price'         => $row['subtotal'],
 

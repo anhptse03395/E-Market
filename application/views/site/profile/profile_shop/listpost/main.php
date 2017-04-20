@@ -73,7 +73,7 @@
             </div>
           </div>
   
-  <a  href="" class="btn btn-success loading" style="margin-left:13% " >Thêm sản phẩm</a>
+  <a  href="<?php echo user_url('profile/addproduct') ?>" class="btn btn-success loading" style="margin-left:13% " >Thêm sản phẩm</a>
 
   <a href="<?php echo user_url('profile/search_post') ?>" class="btn btn-warning loading" style="margin-left:20% ">Xem tất cả</a>
           <?php $this->load->view($temp1,$this->data) ?>
