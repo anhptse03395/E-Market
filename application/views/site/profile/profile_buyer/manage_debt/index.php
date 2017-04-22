@@ -61,7 +61,7 @@
             </select>
         </div>
     </div>
-      <div class="form-group" style=" margin-right: 10%" >
+      <div class="form-group" style="width: 80%" >
                 <label class="col-xs-3 control-label">Tên khách hàng</label>
                 <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>

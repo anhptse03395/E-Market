@@ -5,7 +5,8 @@ Class Cart extends MY_Controller
     {
         parent::__construct();
         $this->load->library('cart');
-        
+          $this->load->library('form_validation');
+       $this->load->helper('form');
         
     }
     
@@ -56,7 +57,7 @@ Class Cart extends MY_Controller
         $data['market_name'] = $market->market_name;
         $data['local_name'] = $province->local_name;
         $data['shop_name'] = $shop->shop_name;
-         $data['shop_phone'] = $account->phone;
+        $data['shop_phone'] = $account->phone;
         $this->cart->insert($data);
 
         //chuyen sang trang danh sach san pham trong gio hang
@@ -84,6 +85,19 @@ Class Cart extends MY_Controller
 
         $this->load->view('site/cart/index', $this->data);
     }
+
+    function check_quantity(){
+           $carts = $this->cart->contents();
+         foreach ($carts as $key => $row){
+              $total_qty = $this->input->post('qty_'.$row['id']);
+            if($total_qty<=0){
+                $this->form_validation->set_message(__FUNCTION__, 'Số lượng phải lớn hơn 0');
+                return false;
+            }
+
+         }
+         return true;
+    }
     
     /*
      * Cập nhật giỏ hàng
@@ -91,25 +105,36 @@ Class Cart extends MY_Controller
     function update()
     {
         //thong gio hang
-        $carts = $this->cart->contents();
-        
-        foreach ($carts as $key => $row)
-        {
-            //tong so luong san pham
-            $total_qty = $this->input->post('qty_'.$row['id']);
-            /*     $price =  $this->input->post('price_'.$row['id']);*/
-            $price = 0;
-            $data = array();
-            $data['rowid'] = $key;
-            $data['qty'] = $total_qty;
-            $data['price'] = $price;
-            $this->cart->update($data);
-        }
-        
+     
+       $carts = $this->cart->contents();
+
+       foreach ($carts as $key => $row)
+       {
+            if($this->input->post()){
+                   //tong so luong san phẩm
+            $this->form_validation->set_rules('qty_'. $row['id'], 'Số lượng', 'required|numeric|callback_check_quantity');
+            if($this->form_validation->run()){
+
+              $total_qty = $this->input->post('qty_'.$row['id']);
+              /*     $price =  $this->input->post('price_'.$row['id']);*/
+              $price = 0;
+              $data = array();
+              $data['rowid'] = $key;
+              $data['qty'] = $total_qty;
+              $data['price'] = $price;
+              $this->cart->update($data);
+          }
+
+          
+      }
+
+
+  }
+            redirect(user_url('cart'));
         //chuyen sang trang danh sach san pham trong gio hang
-        redirect(user_url('cart'));
-    }
-    
+
+}
+
     /*
      * Xoa sản phẩm trong gio hang
      */

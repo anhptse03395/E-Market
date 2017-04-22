@@ -19,8 +19,8 @@
       </div>
     <?php endif;?>
     <form  action="" method="post" class="form-horizontal" style="margin-bottom: 3%">
- <!--    <input type="text" name ="test" value="<?php set_value('test') ?>"> -->
-    <div><?php echo form_error('test') ?></div>
+  <!--    <input type="text" name ="test" value="<?php set_value('test') ?>"> 
+      <div><?php echo form_error('test') ?></div> -->
 
   <div class="table-responsive">
     <table class="table table-striped">
@@ -65,7 +65,7 @@
            <input  type="text"  name="price_<?php echo $row->product_id?>" value="<?php echo $row->price ?>"  />
            <?php } ?>
            <?php } ?>
-
+        <div><?php echo form_error('price_'. $row->product_id) ?></div>
                 
          </td>
       

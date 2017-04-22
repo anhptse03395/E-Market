@@ -184,7 +184,9 @@ $config['total_rows'] = $total_rows;
 
             $info = $this->product_model->join_shop_imp($input);
             $this->data['info'] =$info;
+         
             $this->load->model('categories_model');
+
             // dat la input_catalog de tranh bi trung voi input cua product
             $input_catalog['where'] = array('parent_id' => 0);
             $catalogs = $this->categories_model->get_list($input_catalog);

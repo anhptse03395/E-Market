@@ -53,9 +53,9 @@
                                </thead>
 
                                <tbody>
-                                <?php $total_amount = 0;?>
+                               <!--  <?php $total_amount = 0;?> -->
                                 <?php foreach ($carts as $row):?>
-                                    <?php $total_amount = $total_amount + $row['subtotal'];?>
+                                   <!--  <?php $total_amount = $total_amount + $row['subtotal'];?> -->
                                     <tr>
                                         <td>
                                             <a href="#">
@@ -70,6 +70,7 @@
                                             ?>
                                             <input name="qty_<?php echo $row['id']?>" value="<?php echo $row['qty'];?>" />
                                             <span> /Kg</span>
+                                          <div style="color: red"><?php echo form_error('qty_'.$row['id']) ?></div>
                                         </td>
 
                                               <!--   <td> <input type="hidden" name="price_<?php echo $row['id']?>" value="<?php echo $row['price'];?>" size="5"/>

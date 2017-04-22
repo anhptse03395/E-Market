@@ -1017,10 +1017,11 @@ $config['total_rows'] = $total_rows;
      if($this->input->post())
 
      {
+         //$this->form_validation->set_rules('test','ma don hang','min_length[6]');
        foreach ($list as $row) {
 
            $this->form_validation->set_rules('price_'. $row->product_id , 'giá', 'required|numeric|callback_check_price');
-            // $this->form_validation->set_rules('test','ma don hang','min_length[3]');
+            
            if($this->form_validation->run()){
 
             $product_id =$this->input->post('product_'.$row->product_id);
@@ -1036,10 +1037,7 @@ $config['total_rows'] = $total_rows;
 
     }
                //chuyen tới trang danh sách quản trị viên
-
-
-    redirect(user_url('profile/detail_order_shop/'.$order_id));
-
+   // redirect(user_url('profile/detail_order_shop/'.$order_id));
 }
 
 $this->data['temp'] = 'site/profile/profile_shop/list_order/detail';
@@ -1265,7 +1263,7 @@ function  manage_debt_buyer($offset = 0){
    $buyer_id = $this->session->userdata('buyer_id');
 
    $total_rows= count($this->invoices_model->count_debt_buyer($buyer_id));
-   $limit = 2;
+   $limit = 1;
 
    $this->load->library('pagination');
    $config = array();
@@ -1289,53 +1287,95 @@ function  manage_debt_buyer($offset = 0){
     }
 
 
-    function search_debt_buyer(){
+    function search_debt_buyer($offset = 0){
 
       $this->load->library('form_validation');
       $this->load->helper('form');
       $this->load->model('invoices_model');
       $buyer_id = $this->session->userdata('buyer_id');
+      //pre($buyer_id);
+        $order_id='';
+        $shop_name='';
       if($this->input->post()){
 
-        $shop_name = $this->input->post('shop_name');
-        $order_id = $this->input->post('order_id');
-        $status =  $this->input->post('status');
+          $this->session->unset_userdata('shop_name');
+          $this->session->unset_userdata('order_id');
 
-        $list = $this->invoices_model->search_debt_buyer($buyer_id,$order_id,$shop_name);
-        pre($list);
+          $this->session->set_userdata('shop_name', $this->input->post('shop_name'));
 
-      }
+          if ($this->session->userdata('shop_name')) {
+
+           $shop_name =$this->session->userdata('shop_name');
+       }
+       $this->session->set_userdata('order_id', $this->input->post('order_id'));
+
+       if ($this->session->userdata('order_id')) {
+
+           $order_id =$this->session->userdata('order_id');
+       }
+
+   }
+   if ($this->session->userdata('shop_name')) {
+
+       $shop_name =$this->session->userdata('shop_name');
+   }
+   if ($this->session->userdata('order_id')) {
+
+       $order_id =$this->session->userdata('order_id');
+   }
+
+   $total_rows = count($this->invoices_model->count_search_debt_buyer($buyer_id,$order_id,$shop_name));
+     $limit = 1;
+   /*  echo $this->db->last_query();
+   pre($total_rows);*/
+ $this->load->library('pagination');
+    $config = array();
+        $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
+        $config['base_url']   = user_url('profile/search_debt_buyer'); //link hien thi ra danh sach san pham
+        $config['per_page']   = $limit;//so luong san pham hien thi tren 1 trang
+        // $config['uri_segment'] = 4;//phan doan hien thi ra so trang tren url
+        $config['next_link']   = 'Trang kế tiếp';
+        $config['prev_link']   = 'Trang trước';
+        $config['first_link'] = 'Trang đầu';
+        $config['last_link'] = 'Trang cuối';
+        //khoi tao cac cau hinh phan trang
+        $this->pagination->initialize($config);
+
+        $list = $this->invoices_model->search_debt_buyer($buyer_id,$order_id,$shop_name,$limit,$offset);
+         $this->data['list']=$list;
+        $this->data['temp'] = 'site/profile/profile_buyer/manage_debt/index';
+        $this->load->view('site/profile/profile_buyer/main', $this->data);
 
 
-  }
-  /*chi tiết công nợ cua buyer*/
-  function  detail_debt_buyer(){
+    }
+    /*chi tiết công nợ cua buyer*/
+    function  detail_debt_buyer(){
 
-    $order_id = intval($this->uri->segment(4));
+        $order_id = intval($this->uri->segment(4));
 
-    $this->load->model('invoices_model');
-    $list= $this->invoices_model->detail_debt_buyer($order_id);
-    $this->data['list']=$list;
-    $this->data['temp'] = 'site/profile/profile_buyer/manage_debt/debt';
-    $this->load->view('site/profile/profile_buyer/main', $this->data);
-
-
-}
-/*côn nợ của shop*/
-function  manage_debt_shop($offset = 0){
+        $this->load->model('invoices_model');
+        $list= $this->invoices_model->detail_debt_buyer($order_id);
+        $this->data['list']=$list;
+        $this->data['temp'] = 'site/profile/profile_buyer/manage_debt/debt';
+        $this->load->view('site/profile/profile_buyer/main', $this->data);
 
 
+    }
+    /*côn nợ của shop*/
+    function  manage_debt_shop($offset = 0){
 
-   $this->load->library('form_validation');
-   $this->load->helper('form');
-   $this->load->model('invoices_model');
-   $shop_id = $this->session->userdata('shop_id');
 
-   $total_rows= count($this->invoices_model->count_debt_shop($shop_id));
-   $limit = 2;
 
-   $this->load->library('pagination');
-   $config = array();
+       $this->load->library('form_validation');
+       $this->load->helper('form');
+       $this->load->model('invoices_model');
+       $shop_id = $this->session->userdata('shop_id');
+
+       $total_rows= count($this->invoices_model->count_debt_shop($shop_id));
+       $limit = 2;
+
+       $this->load->library('pagination');
+       $config = array();
         $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
         $config['base_url']   = user_url('profile/manage_debt_shop'); //link hien thi ra danh sach san pham
         $config['per_page']   = $limit;//so luong san pham hien thi tren 1 trang
@@ -1362,8 +1402,8 @@ function  manage_debt_shop($offset = 0){
         $list= $this->invoices_model->detail_debt_shop($order_id);
        // pre($list);
         $this->data['list']=$list;
-        $this->data['temp'] = 'site/profile/profile_buyer/manage_debt/debt';
-        $this->load->view('site/profile/profile_buyer/main', $this->data);
+        $this->data['temp'] = 'site/profile/profile_shop/manage_debt/detail_debt';
+        $this->load->view('site/profile/profile_shop/main', $this->data);
 
 
     }
