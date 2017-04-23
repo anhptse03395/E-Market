@@ -35,6 +35,7 @@
           <th class="description" style="color: blue">Ngày đặt hàng</th>
           <th class="description" style="color: blue">Ngày nhận hàng</th>
           <th class="description" style="color: blue">Trạng thái</th>
+          <th class="description" style="color: blue">Xóa sản phẩm</th>
         </tr>
       </thead>
 
@@ -55,14 +56,14 @@
           </td>
           <td class="cart_description"><?php echo $row->quantity ?></td>
 
-          <td class="cart_description">
+          <td class="">
            <?php if (isset($row->price)) {?>
            <?php if($row->price==0) { ?>
            <input  type="text" name="price_<?php echo $row->product_id?>" value="" />
            <?php } ?>
 
            <?php if($row->price>0) { ?>
-           <input  type="text"  name="price_<?php echo $row->product_id?>" value="<?php echo $row->price ?>"  />
+           <input  type="text"  name="price_<?php echo $row->product_id?>" value="<?php echo number_format($row->price, 0, '.', ',') ?>"  />
            <?php } ?>
            <?php } ?>
         <div><?php echo form_error('price_'. $row->product_id) ?></div>
@@ -93,6 +94,11 @@
 
             <?php } ?>
           </td>
+             <td class="cart_description">
+                <a class="glyphicon glyphicon-trash" title="Xóa" href="<?php echo user_url('profile/del_order/'.$row->order_id.'/'.$row->product_id)?>">
+                
+              </a>
+             </td>
 
 
         </tr>

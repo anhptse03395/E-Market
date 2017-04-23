@@ -21,16 +21,12 @@
 
     });
 </script>
-                <?php foreach ($list as $row) {
-                    $total_debt =0;
-                    $total_debt =   $total_debt +$row->debt;
-
-                } ?>
+               
 
 <div class="col-md-9" id="customer-orders" style="width: 100%">
     <div class="box">
         <h3>Công nợ</h3>
-        <div> <?php echo $total_debt ?></div>
+        <div></div>
         <form id="eventForm" action="<?php echo user_url('profile/search_order_buyer') ?>" method="post" class="form-horizontal">
 
             <div class="form-group" style="width: 40%;float: left; margin-right: 10%" >

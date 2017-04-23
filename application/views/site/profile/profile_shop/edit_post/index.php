@@ -58,15 +58,15 @@
                                             <input type="text" class="form-control"  placeholder=" Tên sản phẩm" name="product_name" value="<?php echo $product->product_name?>" /></div>
                                             <div class="clear error" name="name_error"><?php echo form_error('product_name')?></div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="email">
-                                                Số lượng/Kg</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><span class="glyphicon glyphicon-hdd"></span>
-                                                </span>
-                                                <input type="text" style="width: 50%" class="form-control"  placeholder="Số lượng/kg" name="quantity" value="<?php echo $product->quantity ?>" /></div>
-                                                <div class="clear error" name="name_error"><?php echo form_error('quantity')?></div>
-                                            </div>
+                                       <!--  <div class="form-group">
+                                           <label for="email">
+                                               Số lượng/Kg</label>
+                                               <div class="input-group">
+                                                   <span class="input-group-addon"><span class="glyphicon glyphicon-hdd"></span>
+                                               </span>
+                                               <input type="text" style="width: 50%" class="form-control"  placeholder="Số lượng/kg" name="quantity" value="<?php echo $product->quantity ?>" /></div>
+                                               <div class="clear error" name="name_error"><?php echo form_error('quantity')?></div>
+                                           </div> -->
 
                                             <div class="form-group">
                                                 <label for="email">
@@ -106,7 +106,7 @@
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span>
                                                 </span>
-                                                <textarea type="text" style="width: 100%" class="form-control" rows="9" cols="25" name="description"  placeholder="Nội Dung Đăng Bài" >
+                                                <textarea type="text" class="form-control" rows="9" cols="25" name="description"  placeholder="Nội Dung Đăng Bài" >
                                                     <?php echo $product->description?>
                                                 </textarea>
 

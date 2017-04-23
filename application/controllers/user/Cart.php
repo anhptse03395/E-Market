@@ -130,7 +130,14 @@ Class Cart extends MY_Controller
 
 
   }
-            redirect(user_url('cart'));
+            $total_items = $this->cart->total_items();
+        
+        $this->data['carts'] = $carts;
+
+        $this->data['total_items']  =$total_items;
+        
+
+        $this->load->view('site/cart/index', $this->data);
         //chuyen sang trang danh sach san pham trong gio hang
 
 }

@@ -132,6 +132,12 @@ Class Orders_model extends MY_Model{
 		//$this->db->where('order_details.shop_id', $shop_id);
 		$this->db->update('orders', $data); 
 	}
+	function del_order($order_id){
+		$data = array(
+			'id' => $order_id
+			);
+		$this->db->delete('orders', $data);
+	}
 
 
 	}

@@ -8,7 +8,7 @@
  
            <td class="description" style="color: blue">Hình ảnh</td>
            <td class="description" style="color: blue">Tên sản phẩm</td>
-            <td class="description" style="color: blue">Số lượng(Kg)</td>
+           
              <td class="description" style="color: blue">Ngày đăng</td>
            <td class="description" style="color: blue">Chỉnh sửa</td>
            <td class="description" style="color: blue">xóa</td>
@@ -23,9 +23,7 @@
               <td class="cart_description">
           <?php echo $row->product_name?>
               </td>
-              <td class="cart_description">
-          <?php echo $row->quantity?>
-              </td>
+       
               <td class="cart_description">
                <?php echo mdate('%d-%m-%Y',$row->created)?>
               </td>

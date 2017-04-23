@@ -28,7 +28,7 @@ Class Listproduct extends MY_Controller
 
     $input = array() ;
     $input['join'] =  array('shops');
-    $input['select']= "products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list,image_shop,shops.id as shop_id,shops.created as shop_created";
+    $input['select']= "products.id as product_id,product_name,shop_name,products.created as product_created, image_link,image_list,image_shop,shops.id as shop_id,shops.created as shop_created";
 
 
     $total_rows = count($this->product_model->join_shop($input));
@@ -154,7 +154,7 @@ if (($this->session->userdata('id') || $this->session->userdata('name') || $this
 
 ////////////////////////////////
 $input['join'] =  array('shops');
-$input['select']= "products.id as product_id,product_name,shop_name,products.created as product_created, quantity,image_link,image_list,image_shop,shops.id as shop_id,shops.created as shop_created";
+$input['select']= "products.id as product_id,product_name,shop_name,products.created as product_created, image_link,image_list,image_shop,shops.id as shop_id,shops.created as shop_created";
 
 $total_rows = count($this->product_model->join_shop($input));
 

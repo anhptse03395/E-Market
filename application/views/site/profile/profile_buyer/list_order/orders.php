@@ -134,13 +134,14 @@
                 </td>
 
                 <td><a href="<?php echo user_url('profile/list_order_details/'.$row->order_id) ?>" class="btn btn-info btn-sm">Xem</a>
-                  
-                 <td>
-                  <?php if ( $row->status ==1|| $row->status==2)  {?>
-                  <a href="<?php echo user_url('profile/list_order_details/'.$row->order_id) ?>" class="btn btn-warning btn-sm">Sửa</a>
-                  <?php } ?>
-
                 </td>
+                  
+             <!--     <td>
+              <?php if ( $row->status ==1|| $row->status==2)  {?>
+              <a href="<?php echo user_url('profile/list_order_details/'.$row->order_id) ?>" class="btn btn-warning btn-sm">Sửa</a>
+              <?php } ?>
+             
+                             </td> -->
               </tr>
 
             <?php endforeach;?> 

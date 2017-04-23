@@ -109,6 +109,20 @@ Class Order_details_model extends MY_Model{
 		$this->db->update('order_details', $data); 
 	}
 
+	function get_list_order_detail($order_id){
+		$this->db->select('*');
+		$this->db->from('order_details');
+		$this->db->where('order_details.order_id',$order_id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	function del_order_detail($order_id,$product_id){
+		$data = array(
+			'order_id' => $order_id,
+			'product_id'=>$product_id
+			);
+		$this->db->delete('order_details', $data);
+	}
 
 
 
