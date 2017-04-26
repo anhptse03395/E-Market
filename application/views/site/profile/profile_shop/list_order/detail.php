@@ -1,11 +1,20 @@
 
 
-
 <script src="<?php echo public_url('user/home') ?>/js/main.js"></script>
-<link href="<?php echo public_url('user/home')?>/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo public_url('user/home') ?>/js/moment-2.4.0.js"></script>
+<script src="<?php echo public_url('user/home') ?>/js/bootstrap-datetimepicker.min.js"></script>
+<link href="<?php echo public_url('user/home')?>/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
 <script src="<?php echo public_url('user/home') ?>/js/bootstrap.min.js"></script>
 
-
+<SCRIPT LANGUAGE="JavaScript">
+                  function confirmAction() {
+                    return confirm("bạn có xác nhận gửi hàng không?")
+                  }
+                   function confirmAction1() {
+                    return confirm("bạn có xác nhận xóa không?")
+                  }
+                </SCRIPT>
 
 
 <div class="col-md-9" id="customer-orders" style="width: 100%">
@@ -18,9 +27,12 @@
         <h3 style="text-align: center;"><strong> </strong><?php echo $message?></h3>
       </div>
     <?php endif;?>
+  <div style="margin-left: 40%;margin-bottom: 3%">
+    <a  onclick="return confirmAction()" href="<?php echo user_url('profile/send_order/'.$order_id)?>" class="btn btn-success"> Gửi hàng</a>
+    </div>
     <form  action="" method="post" class="form-horizontal" style="margin-bottom: 3%">
   <!--    <input type="text" name ="test" value="<?php set_value('test') ?>"> 
-      <div><?php echo form_error('test') ?></div> -->
+  <div><?php echo form_error('test') ?></div> -->
 
   <div class="table-responsive">
     <table class="table table-striped">
@@ -66,10 +78,10 @@
            <input  type="text"  name="price_<?php echo $row->product_id?>" value="<?php echo number_format($row->price, 0, '.', ',') ?>"  />
            <?php } ?>
            <?php } ?>
-        <div><?php echo form_error('price_'. $row->product_id) ?></div>
-                
+           <div><?php echo form_error('price_'. $row->product_id) ?></div>
+
          </td>
-      
+
          <td class="cart_description">
            <?php echo '0'.$row->phone ?>
          </td>
@@ -80,25 +92,29 @@
          <td  class="cart_description"><?php echo mdate('%d-%m-%Y',$row->date_receive) ?></td>
          <td class="cart_description">
 
-          <?php if (isset($row->status)) {?>
+      
 
 
           <?php if (isset($row->status)) {?>
-          <span class="label label-warning"> <?php if($row->status==1){echo 'Đơn hàng mới';}?></span>
-          <span class="label label-danger"><?php if($row->status==4){echo "Đơn hàng bị hủy";}?></span> 
-          <span class="label label-info"> <?php if($row->status==2){echo "Đang đàm phán";}?></span>
-          <span class="label label-success"> <?php  if($row->status==3){echo "Đang xử lý";}
-            ?></span>
+        
+             
+                 <span style="color: #0dbbde" > <?php if($row->status==1){echo 'Đơn hàng mới';}?></span>
+                <span style="color: #428bca"><?php if($row->status==4){echo "Đã gửi hàng";}?></span>
+                <span style="color: #d80e0a"><?php if($row->status==7){echo "Đơn hàng bị hủy";}?></span>
+                <span style="color: #3bbf41" ><?php if($row->status==5){echo "Đã nhận hàng";}?></span>
+                <span style="color: #fe980f"><?php if($row->status==6){echo "Đã hoàn thành";}?></span>
+                <span style="color: #43c5e0" > <?php if($row->status==2){echo "Đang đàm phán";}?></span>
+                <span style="color: #4d6e75"> <?php  if($row->status==3){echo "Đang xử lý";}?></span>
 
             <?php } ?>
 
-            <?php } ?>
+         
           </td>
-             <td class="cart_description">
-                <a class="glyphicon glyphicon-trash" title="Xóa" href="<?php echo user_url('profile/del_order/'.$row->order_id.'/'.$row->product_id)?>">
-                
-              </a>
-             </td>
+          <td class="cart_description">
+            <a  onclick="return confirmAction()" class="glyphicon glyphicon-trash" title="Xóa" href="<?php echo user_url('profile/del_order/'.$row->order_id.'/'.$row->product_id)?>">
+
+            </a>
+          </td>
 
 
         </tr>
@@ -106,7 +122,7 @@
 
     </tbody>
   </table>
-    <button  style="margin-top: 1%" class="btn btn-info center-block btn-md">Gửi giá</button>
+  <button  style="margin-top: 1%" class="btn btn-info center-block btn-md">Gửi giá</button>
 </form>
 
 

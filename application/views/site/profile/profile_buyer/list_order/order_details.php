@@ -94,7 +94,7 @@
                         <?php } ?>
 
                         <?php if($row->price>0) { ?>
-                        <?php echo $row->price ?>
+                        <?php echo number_format($row->price , 0, '.', ',') ?>
                         <?php } ?>
                         <?php } ?>
                       </td>
@@ -102,12 +102,13 @@
 
 
                         <?php if (isset($row->status)) {?>
-                        <span class="label label-warning"> <?php if($row->status==1){echo 'Đơn hàng mới';}?></span>
-                        <span class="label label-success"><?php if($row->status==4){echo "Đã gửi hàng";}?></span>
-                        <span class="label label-danger"><?php if($row->status==6){echo "Đơn hàng bị hủy";}?></span>  
-                        <span class="label label-info"> <?php if($row->status==2){echo "Đang đàm phán";}?></span>
-                        <span class="label label-success"> <?php  if($row->status==3){echo "Đang xử lý";}
-                          ?></span>
+                      
+                 <span class="label label-warning"> <?php if($row->status==1){echo 'Đơn hàng mới';}?></span>
+                <span class="label label-success"><?php if($row->status==4){echo "Đã gửi hàng";}?></span>
+                <span class="label label-danger"><?php if($row->status==7){echo "Đơn hàng bị hủy";}?></span>  <span class="label label-success"><?php if($row->status==5){echo "Đã nhận hàng";}?></span>
+                 <span class="label label-success"><?php if($row->status==6){echo "Đã hoàn thành";}?></span>
+                <span class="label label-info"> <?php if($row->status==2){echo "Đang đàm phán";}?></span>
+                <span class="label label-success"> <?php  if($row->status==3){echo "Đang xử lý";}?></span>
 
                           <?php } ?>
                         </td>

@@ -111,12 +111,18 @@ Class MY_Controller extends CI_Controller
      if(!$login && $controller == 'cart')
 
      {
+        $product_id= $this->uri->segment(4);
+
+     $this->session->set_userdata('current_url', $product_id);
+
+           
          $this->session->set_flashdata('message', 'Ban phải đăng nhập mới thực hiện chức năng này'); 
          redirect(user_url('login'));
      }
       if(!$login && $controller == 'profile')
 
-        {
+    {
+
          $this->session->set_flashdata('message', 'Ban phải đăng nhập mới thực hiện chức năng này');
          redirect(user_url('login'));
      }

@@ -35,6 +35,12 @@ Class User extends MY_Controller
 				$this->session->unset_userdata('buyer_id');
 
 			}
+			if($this->session->userdata('current_url'))
+			{
+
+				$this->session->unset_userdata('current_url');
+
+			}
 
 			$this->session->unset_userdata('account_id');
 			$this->cart->destroy();

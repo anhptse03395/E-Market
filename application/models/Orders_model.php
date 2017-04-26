@@ -10,11 +10,12 @@ Class Orders_model extends MY_Model{
 
 	function join_count_total ($buyer_id){
 
-
+		$status = array(1, 2, 3,4);
 		$this->db->select('sum(price) as total_price,orders.id,orders.date_order as date_order,orders.description as description,count(order_id) as total');
 		$this->db->from('orders');
 		$this->db->join('order_details', 'order_details.order_id=orders.id','left');
 		$this->db->where('orders.buyer_id', $buyer_id);
+		$this->db->where_in('status', $status);
 		$this->db->group_by('orders.id');
 		$query = $this->db->get();
 		return $query->result();
@@ -22,11 +23,12 @@ Class Orders_model extends MY_Model{
 
 	function join_buyer_order ($buyer_id,$limit,$offset){
 
-
+		$status = array(1, 2, 3,4);
 		$this->db->select('sum(price*order_details.quantity) as total_price,orders.id as order_id,orders.date_order as date_order,orders.description as description,count(order_id) as total,address_receiver,name_receiver,date_receive,status');
 		$this->db->from('orders');
 		$this->db->join('order_details', 'order_details.order_id=orders.id','left');
 		$this->db->where('orders.buyer_id', $buyer_id);
+		$this->db->where_in('status', $status);
 		$this->db->group_by('orders.id');
 		$this->db->order_by('orders.id', 'desc');
 		$this->db->limit($limit, $offset);

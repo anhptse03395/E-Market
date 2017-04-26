@@ -184,6 +184,7 @@ Class Register extends MY_controller{
 				}
 
 	    		$account_id = $this->db->insert_id(); 
+	    		$expiration_date = now()+2571626;
 	    		$data_shop = array(
 	    			'shop_name' => $name,
 	    			'address'=>$address,
@@ -191,7 +192,7 @@ Class Register extends MY_controller{
 	    			'image_shop' => $image_link,
 	    			'created' => now(),
 	    			'account_id'=> $account_id,
-
+	    			'expiration_date'=>$expiration_date,
 	    			);
 
 

@@ -97,10 +97,7 @@
                     <p class="group inner list-group-item-text">
                         <?php echo $row->description ?></p>
                     <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">
-                                <?php $row->quantity ?></p>
-                        </div>
+                       
                         <div class="col-xs-12 col-md-6">
                             <a class="btn btn-success" href="<?php echo user_url('listproduct/product_detail/'.$row->id)?>">Xem chi tiet</a>
                         </div>

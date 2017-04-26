@@ -40,43 +40,65 @@ function index()
 
     	$password = md5($password);
 
+      $url = $this->session->userdata('current_url');
 
-    	$this->load->model('account_model');
-    	$where = array('phone' => $phone , 'password' => $password);
+      if($this->session->userdata('account_id')&&$this->input->post('password')&&$this->input->post('phone')){
 
-    	if($this->account_model->check_exists($where))
-    	{
+         $this->session->set_flashdata('message', 'Ban đã đăng nhập vui lòng thoát ra');
+                redirect(user_url('login'));
+      }
+
+      $this->load->model('account_model');
+      $where = array('phone' => $phone , 'password' => $password);
+
+      if($this->account_model->check_exists($where))
+      {
 
         $row = $this->account_model->join_permission($phone);
-      
+
+    
 
         if(intval($row->role_id)==2&&intval($row->active)==1){
 
           $this ->session ->set_userdata('account_id',$row->account_id) ;
           $this ->session ->set_userdata('permissions_ac',json_decode($row->permissions)) ;
           $this ->session ->set_userdata('buyer_id',$row->buyer_id) ;
+          if(isset($url)){
+            redirect(user_url('listproduct/product_detail/'.$url));
+          }
           redirect(base_url('user/profile/list_order_buyer'));
 
         }
         if(intval($row->role_id)==3&&intval($row->active)==1){
-          $this ->session ->set_userdata('account_id',$row->account_id) ;
-          $this ->session ->set_userdata('permissions_ac',json_decode($row->permissions)) ;
-          $this ->session ->set_userdata('shop_id',$row->shop_id) ;
-            redirect(user_url('profile/list_order_shop'));
-
+         $expiration = $row->expiration_date-now();
+         if($expiration <=0){
+          $data =array('role_id'=>4);
+          $this->account_model->update($row->account_id,$data);
         }
-        if(intval($row->role_id)!=3||intval($row->role_id)!=2){
-           $this->form_validation->set_message(__FUNCTION__,'Sai tên tài khoản hoặc mật khẩu');
-          return false;
 
-        }
-       
+        $this ->session ->set_userdata('account_id',$row->account_id) ;
+        $this ->session ->set_userdata('permissions_ac',json_decode($row->permissions)) ;
+        $this ->session ->set_userdata('shop_id',$row->shop_id) ;
+        redirect(user_url('profile/list_order_shop'));
 
-        return true;
       }
-      $this->form_validation->set_message(__FUNCTION__,'Sai tên tài khoản hoặc mật khẩu');
-      return false;
-    }
+      if(intval($row->role_id)==4&&intval($row->active)==1){
+        $this->form_validation->set_message(__FUNCTION__,'Tài khoản của bạn đã bị khóa');
+       return false;
+
+     }
+     if(intval($row->role_id)!=3||intval($row->role_id)!=2||intval($row->role_id)!=5){
+       $this->form_validation->set_message(__FUNCTION__,'Sai tên tài khoản hoặc mật khẩu');
+       return false;
+
+     }
 
 
-  }
+     return true;
+   }
+   $this->form_validation->set_message(__FUNCTION__,'Sai tên tài khoản hoặc mật khẩu');
+   return false;
+ }
+
+
+}

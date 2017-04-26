@@ -1,17 +1,11 @@
 <div class="table-responsive" style="margin-top: 5%">
 
-    <?php  $message = $this->session->flashdata('message');
-    ?>
-    <?php if(isset($message) && $message):?>
-        <div class="alert alert-success">
-            <h3 style="text-align: center;"><strong> </strong><?php echo $message?></h3>
-        </div>
-    <?php endif;?>
+  
     <div class="container">
         <div class="row">
             <div class="col-md-8">
                 <div class="well well-sm">
-                    <form action="<?php echo user_url('post') ?>"  method="post" enctype="multipart/form-data">
+                    <form action="<?php echo user_url('profile/addproduct') ?>"  method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -44,17 +38,17 @@
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-text-height"></span>
                                 </span>
                                         <input type="text" class="form-control"  placeholder=" Tên sản phẩm" name="p_product_name" value="<?php echo set_value('p_product_name')?>" required="required" /></div>
-                                    <div class="clear error" name="name_error"><?php echo form_error('p_product_name')?></div>
+                                    <div class="clear error" style="color: red" name="name_error"><?php echo form_error('p_product_name')?></div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="email">
-                                        Số lượng/Kg</label>
-                                    <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-hdd"></span>
-                                </span>
-                                        <input type="text" style="width: 50%" class="form-control"  placeholder="Số lượng/kg" name="p_number" value="<?php echo set_value('p_number')?>" required="required" /></div>
-                                    <div class="clear error" name="name_error"><?php echo form_error('p_number')?></div>
-                                </div>
+                             <!--    <div class="form-group">
+                                 <label for="email">
+                                     Số lượng/Kg</label>
+                                 <div class="input-group">
+                             <span class="input-group-addon"><span class="glyphicon glyphicon-hdd"></span>
+                             </span>
+                                     <input type="text" style="width: 50%" class="form-control"  placeholder="Số lượng/kg" name="p_number" value="<?php echo set_value('p_number')?>" required="required" /></div>
+                                 <div class="clear error" name="name_error"><?php echo form_error('p_number')?></div>
+                             </div> -->
 
                                 <div class="form-group">
                                     <label for="email">
@@ -62,7 +56,7 @@
                                     <div class="input-group">
                                 <span class="input-group-addon"><span class="	glyphicon glyphicon-picture"></span>
                                 </span>
-                                        <input type="file" class="form-control" name="image" id="image" size="10" required="required"  value="<?php echo set_value('image'); ?>" />
+                                        <input type="file" class="form-control" name="image" id="image" size="10"  value="<?php echo set_value('image'); ?>" />
                                     </div>
                                     <div class="clear error" name="image_error"></div>
                                 </div>
@@ -85,7 +79,7 @@
                                     <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span>
                                 </span>
-                                        <textarea type="text" class="form-control" rows="9" cols="25" name="p_content" required="required" placeholder="Nội Dung Đăng Bài"><?=set_value('p_content')?></textarea>
+                                        <textarea type="text" class="form-control" rows="9" cols="25" name="p_content" placeholder="Nội Dung Đăng Bài"><?=set_value('p_content')?></textarea>
 
                                     </div>
                                     <div class="clear error" name="name_error"><?php echo form_error('p_content')?></div>

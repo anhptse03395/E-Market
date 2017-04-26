@@ -7,7 +7,7 @@
    function join_permission ($phone){
 
 
-    $this->db->select('permissions,role_name,roles.id as role_id,accounts.id as account_id,shops.id as shop_id,buyers.id as buyer_id,active');
+    $this->db->select('permissions,role_name,roles.id as role_id,accounts.id as account_id,shops.id as shop_id,buyers.id as buyer_id,active,expiration_date');
     $this->db->from('accounts');
     $this->db->join('roles', 'accounts.role_id = roles.id','left');
 

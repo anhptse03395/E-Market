@@ -287,6 +287,7 @@ $config['total_rows'] = $total_rows;
             $input['where'] = array('category_id'=>$category_id);
       
             $total_rows= $this->product_model->get_total($input);
+            $this->data['total_rows'] = $total_rows;
              $limit = 20;
 
             if(!is_null($offset))

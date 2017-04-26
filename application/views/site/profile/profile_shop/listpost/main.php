@@ -4,6 +4,7 @@
 <script src="<?php echo public_url('user/home') ?>/js/bootstrap-datetimepicker.min.js"></script>
 <link href="<?php echo public_url('user/home')?>/css/bootstrap-datetimepicker.css" rel="stylesheet">
 
+<script src="<?php echo public_url('user/home') ?>/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
   $(function() {              
@@ -27,7 +28,13 @@
 
     <div class="col-md-12">
       <h4 style="color: #388494">Danh sách bài đăng của bạn</h4>
-    
+      <?php  $message = $this->session->flashdata('message');
+    ?>
+    <?php if(isset($message) && $message):?>
+        <div class="alert alert-success">
+            <h3 style="text-align: center;"><strong> </strong><?php echo $message?></h3>
+        </div>
+    <?php endif;?>
   
           <form id="eventForm" action="<?php echo user_url('profile/search_post') ?>" method="post" class="form-horizontal">
 
@@ -72,7 +79,7 @@
 
             </div>
           </div>
-  
+  </form>
   <a  href="<?php echo user_url('profile/addproduct') ?>" class="btn btn-success loading" style="margin-left:13% " >Thêm sản phẩm</a>
 
   <a href="<?php echo user_url('profile/search_post') ?>" class="btn btn-warning loading" style="margin-left:20% ">Xem tất cả</a>
