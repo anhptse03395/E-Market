@@ -1,8 +1,4 @@
-
-
 <?php 
-
-
 Class Orders_model extends MY_Model{
 
 	var $table ='orders';
@@ -10,7 +6,7 @@ Class Orders_model extends MY_Model{
 
 	function join_count_total ($buyer_id){
 
-		$status = array(1, 2, 3,4);
+		$status = array(1,2,3,4);
 		$this->db->select('sum(price) as total_price,orders.id,orders.date_order as date_order,orders.description as description,count(order_id) as total');
 		$this->db->from('orders');
 		$this->db->join('order_details', 'order_details.order_id=orders.id','left');
@@ -23,7 +19,7 @@ Class Orders_model extends MY_Model{
 
 	function join_buyer_order ($buyer_id,$limit,$offset){
 
-		$status = array(1, 2, 3,4);
+		$status = array(1,2,3,4);
 		$this->db->select('sum(price*order_details.quantity) as total_price,orders.id as order_id,orders.date_order as date_order,orders.description as description,count(order_id) as total,address_receiver,name_receiver,date_receive,status');
 		$this->db->from('orders');
 		$this->db->join('order_details', 'order_details.order_id=orders.id','left');
@@ -139,6 +135,17 @@ Class Orders_model extends MY_Model{
 			'id' => $order_id
 			);
 		$this->db->delete('orders', $data);
+	}
+
+	function invoice_shop($order_id){
+			$this->db->select('product_name,(price*quantity) as total_price,orders.id as order_id,orders.date_order as date_order,price,quantity');
+			$this->db->from('orders');
+			$this->db->join('order_details', 'order_details.order_id=orders.id','left');
+			$this->db->join('products', 'order_details.product_id=products.id','left');
+			$this->db->where('orders.id', $order_id);
+			$query = $this->db->get();
+			return $query->result();
+
 	}
 
 

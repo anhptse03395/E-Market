@@ -35,7 +35,7 @@ Class Product_model extends MY_Model
       foreach ($input['join'] as $table)
       {
         $this->db->join($table, "$this->table.shop_id = $table.id",'join');
-      }
+      } 
       $query = $this->db->get();
     }else{
       $query = $this->db->get($this->table);
@@ -62,9 +62,10 @@ Class Product_model extends MY_Model
   function join_detail ($id){
 
 
-    $this->db->select('products.id as product_id,product_name,shop_name,products.created as product_created, image_link,image_list,address,phone,description,shops.id as shop_id,category_id,market_id');
+    $this->db->select('products.id as product_id,product_name,shop_name,products.created as product_created, image_link,image_list,shops.address as address,phone,description,shops.id as shop_id,category_id,market_id,suppliers.id as supplier_id');
     $this->db->from('products');
     $this->db->join('shops', 'products.shop_id = shops.id','left');
+      $this->db->join('suppliers', 'products.supplier_id = suppliers.id','left');
     $this->db->join('accounts', 'accounts.id = shops.account_id','left');
     $this->db->where('products.id', $id);
 
@@ -103,5 +104,36 @@ Class Product_model extends MY_Model
     $query = $this->db->get();
     return $query->result();
   }
+
+  /*hàm của Đức*/
+    function  view_product(){
+
+        $this->db->select('products.id as product_id,shop_name,phone,description,product_name,image_link');
+        $this->db->from('products');
+        $this->db->join('shops', 'products.shop_id = shops.id','left');
+        $this->db->join('suppliers', 'products.supplier_id = suppliers.id','left');
+        $this->db->join('accounts','shops.account_id = accounts.id');
+        // $this->db->where('product_name like "%xà lách%"');
+        $this->db->order_by('product_id',"asc");
+
+        $query = $this->db->get();
+        return $query->result();
+      }
+
+        function  paging_product($limit,$offset){
+
+        $this->db->select('products.id as product_id,shop_name,phone,description,product_name,image_link');
+        $this->db->from('products');
+        $this->db->join('shops', 'products.shop_id = shops.id','left');
+        $this->db->join('suppliers', 'products.supplier_id = suppliers.id','left');
+        $this->db->join('accounts','shops.account_id = accounts.id');
+         //$this->db->where('product_name like "%xà lách%"');
+        $this->db->order_by('product_id',"asc");
+        $this->db->limit($limit,$offset);
+
+        $query = $this->db->get();
+        return $query->result();
+      }
+
 
 }

@@ -214,8 +214,10 @@ $config['total_rows'] = $total_rows;
             $this->load->model('categories_model');
             $this->load->model('market_place_model');
             $this->load->model('province_model');
+            $this->load->model('supplier_model');
 
             $product= $this->product_model->join_detail($id);
+        
 
             $market_id = $product->market_id;
 
@@ -230,6 +232,9 @@ $config['total_rows'] = $total_rows;
             $this->data['product'] = $product;
             $category = $this->categories_model->get_info($product->category_id);
             $this->data['category'] = $category;
+
+            $suppliers = $this->supplier_model->get_info($product->supplier_id);
+            $this->data['suppliers'] = $suppliers;
 
             $image_list = @json_decode($product->image_list);
             $this->data['image_list'] = $image_list;

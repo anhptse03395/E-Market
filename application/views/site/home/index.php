@@ -52,7 +52,7 @@
 
 
         <div class="text-vertical-center">
-            <h1 style="color: rgba(9, 33, 212, 0.62);text-align: ">Chào mừng bạn đến với E-market</h1>
+            <h1 style="color: rgba(43, 157, 255, 0.92);text-align: ">Chào mừng bạn đến với E-market</h1>
 
             <br>
             <a href="#container" class="btn btn-dark btn-lg">Khám phá chợ</a>

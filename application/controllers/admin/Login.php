@@ -27,14 +27,11 @@ Class Login extends MY_controller{
      */
     function check_login()
     {
-        $phone = $this->input->post('username');
+        $phone = $this->input->post('phone');
         
         $password = $this->input->post('password');
-
-
-
         $password = md5($password);
-
+       
 
         $this->load->model('account_model');
         $where = array('phone' => $phone , 'password' => $password);

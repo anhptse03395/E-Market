@@ -13,24 +13,25 @@
 
 		<form class="form" id="form" action="" method="post" enctype="multipart/form-data">
 			<fieldset>
+
 				<div class="formRow">
-					<label for="param_name" class="formLeft">Tên:<span class="req">*</span></label>
+					<label for="param_phone" class="formLeft">Tên người mua:<span class="req">*</span></label>
 					<div class="formRight">
-						<span class="oneTwo"><input type="text" _autocheck="true" id="param_name" value="<?php echo set_value('name')?>" name="name"></span>
-						<span class="autocheck" name="name_autocheck"></span>
-						<div class="clear error" name="name_error"><?php echo form_error('name')?></div>
+						<span class="oneTwo"><input type="text" _autocheck="true" id="param_phone" value="<?php echo set_value('buyer_name')?>" name="buyer_name"></span>
+						<span class="autocheck" name="phone_autocheck"></span>
+						<div class="clear error" name="phone_error"><?php echo form_error('buyer_name')?></div>
 					</div>
 					<div class="clear"></div>
-				</div>
+				</div>					
 				<div class="formRow">
-					<label for="param_email" class="formLeft">Email:<span class="req">*</span></label>
+					<label for="param_phone" class="formLeft">Chức năng:<span class="req">*</span></label>
 					<div class="formRight">
-						<span class="oneTwo"><input type="text" _autocheck="true" value="<?php echo set_value('email')?>" id="param_email" name="email"></span>
-						<span class="autocheck" name="email_autocheck"></span>
-						<div class="clear error" name="email_error"><?php echo form_error('email')?></div>
+						<span class="oneTwo"><input type="text" readonly="true" _autocheck="true" id="param_phone" value="Người Mua" name="role_id"></span>
+						<span class="autocheck" name="phone_autocheck"></span>
+						<div class="clear error" name="phone_error"><?php echo form_error('role_id')?></div>
 					</div>
 					<div class="clear"></div>
-				</div>
+				</div>								
 				<div class="formRow">
 					<label for="param_phone" class="formLeft">Phone:<span class="req">*</span></label>
 					<div class="formRight">
@@ -41,11 +42,20 @@
 					<div class="clear"></div>
 				</div>
 				<div class="formRow">
-					<label for="param_address" class="formLeft">Address:<span class="req">*</span></label>
+					<label for="param_phone" class="formLeft">Địa Chỉ:<span class="req">*</span></label>
 					<div class="formRight">
-						<span class="oneTwo"><input type="text" _autocheck="true" id="param_address" value="<?php echo set_value('address')?>" name="address"></span>
+						<span class="oneTwo"><input type="text" _autocheck="true" id="param_phone" value="<?php echo set_value('address')?>" name="address"></span>
+						<span class="autocheck" name="phone_autocheck"></span>
+						<div class="clear error" name="phone_error"><?php echo form_error('address')?></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="formRow">
+					<label for="param_address" class="formLeft">Trạng Thái:<span class="req">*</span></label>
+					<div class="formRight">
+						<span class="oneTwo"><input type="text" readonly="true" _autocheck="true" id="param_address" value="Đã Hoạt Động" name="active"></span>
 						<span class="autocheck" name="address_autocheck"></span>
-						<div class="clear error" name="address_error"><?php echo form_error('address')?></div>
+						<div class="clear error" name="address_error"><?php echo form_error('active')?></div>
 					</div>
 					<div class="clear"></div>
 				</div>

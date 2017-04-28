@@ -141,39 +141,49 @@ Class Profile extends MY_controller{
 
  function listpost(){
 
-   $this->load->library('form_validation');
-   $this->load->helper('form');
+     $this->load->library('form_validation');
+     $this->load->helper('form');
+
+     $this->data['temp1'] = 'site/profile/profile_shop/listpost/empty';
+     $this->data['temp'] = 'site/profile/profile_shop/listpost/main';
+     $this->load->view('site/profile/profile_shop/main', $this->data);
+
+ }
+
+ function list_shop_post(){
+    $this->load->library('form_validation');
+    $this->load->helper('form');
 
 
-   $id = $this->session->userdata('account_id');
-   $this->load->model('account_model');
-   $info= $this->account_model->join_shops($id);
+    $id = $this->session->userdata('account_id');
+    $this->load->model('account_model');
+    $info= $this->account_model->join_shops($id);
 
-   if(intval($info->role_id)==3){
+    if(intval($info->role_id)==3){
 
-    $shop_id= $info->shop_id;
-    $input = array();
-    if($id > 0)
-    {
-        $input['where']['shop_id'] = $shop_id;
+        $shop_id= $info->shop_id;
+        $input = array();
+        if($id > 0)
+        {
+            $input['where']['shop_id'] = $shop_id;
+        }
+        $name = $this->input->get('name');
+        if($name)
+        {
+            $input['like'] = array('name', $name);
+        }
+
+
     }
-    $name = $this->input->get('name');
-    if($name)
-    {
-        $input['like'] = array('name', $name);
-    }
 
 
-}
-
-
-$total_rows= $this->product_model->get_total($input);
+    $total_rows= $this->product_model->get_total($input);
 
             //load ra thu vien phan trang
-$this->load->library('pagination');
-$config = array();
+    $this->load->library('pagination');
+    $config = array();
             $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
-            $config['base_url']   = user_url('profile/listpost'); //link hien thi ra danh sach san pham
+            $config['base_url']   = user_url('profile/list_shop_post'); //link hien thi ra danh sach san pham
             $config['per_page']   = 5;//so luong san pham hien thi tren 1 trang
             $config['uri_segment'] = 4;//phan doan hien thi ra so trang tren url
             $config['next_link']   = 'Trang kế tiếp';
@@ -195,11 +205,12 @@ $config = array();
             $message = $this->session->flashdata('message');
             $this->data['message'] = $message;
 
-            $this->data['temp1'] = 'site/profile/profile_shop/listpost/empty';
+            $this->data['temp1'] = 'site/profile/profile_shop/listpost/table';
             $this->data['temp'] = 'site/profile/profile_shop/listpost/main';
             $this->load->view('site/profile/profile_shop/main', $this->data);
 
         }
+
 
 
         function search_post(){
@@ -400,7 +411,7 @@ $config = array();
              $this->form_validation->set_rules('p_phone', 'Số điện thoại', 'required|min_length[8]|numeric');*/
              $this->form_validation->set_rules('catalog', 'Danh Mục', 'required');
              /* $this->form_validation->set_rules('p_address', 'Địa chỉ', 'required|min_length[8]');*/
-             $this->form_validation->set_rules('p_product_name', 'Tên sản phẩm', 'required|min_length[8]|callback_check_name_product');
+             $this->form_validation->set_rules('p_product_name', 'Tên sản phẩm', 'required|min_length[2]|callback_check_name_product');
              $this->form_validation->set_rules('p_content', 'Nội dung', 'required|min_length[8]');
 
                     //nhập liệu chính xác
@@ -479,6 +490,7 @@ $config = array();
     {
         $id = $this->uri->rsegment('3');
         $product = $this->product_model->get_info($id);
+        
         if(!$product)
         {
             //tạo ra nội dung thông báo
@@ -513,7 +525,6 @@ $config = array();
         {
 
             $this->form_validation->set_rules('product_name', 'Tên', 'required');
-            $this->form_validation->set_rules('quantity', 'Số  lượng', 'required');
             $this->form_validation->set_rules('catalog', 'Thể loại', 'required');
             $this->form_validation->set_rules('description', 'Miêu tả', 'required');
 
@@ -522,7 +533,6 @@ $config = array();
                 //them vao csdl
                 $name        = $this->input->post('product_name');
                 $catalog_id  = $this->input->post('catalog');
-                $number = $this->input->post('quantity');
                 $description        = $this->input->post('description');
 
                 $this->load->library('upload_library');
@@ -542,7 +552,6 @@ $config = array();
                 //luu du lieu can them
                 $data = array(
                     'product_name'=> $name,
-                    'quantity'=>$number,
                     'category_id ' => $catalog_id,
                     'description'    =>$description,
                     );
@@ -565,7 +574,7 @@ $config = array();
                 }else{
                     $this->session->set_flashdata('message', 'Không cập nhật được');
                 }
-                redirect(user_url('profile/search_post'));
+                redirect(user_url('profile/list_shop_post'));
             }
         }
 
@@ -1067,6 +1076,8 @@ $config['total_rows'] = $total_rows;
        $shop_id = $this->session->userdata('shop_id');
        $order_id =$this->uri->segment(4);
        $this->data['order_id'] =$order_id;
+       $orders = $this->orders_model->get_info($order_id);
+       $this->data['orders'] =$orders;
 
        $list = $this->order_details_model->shop_detail_order($shop_id,$order_id);
        $this->data['list'] = $list;
@@ -1107,19 +1118,31 @@ $config['total_rows'] = $total_rows;
 function send_order(){
   $this->load->library('form_validation');
   $this->load->helper('form');
-
+  $this->load->model('buyer_model');
   $this->load->model('orders_model');
 
   $order_id = $this->uri->segment(4);
-  $data = array('status'=>4);
+  $orders = $this->orders_model->get_info($order_id);
+  $this->data['orders'] =$orders;
+  $buyers = $this->buyer_model->get_info($orders->buyer_id);
+  $this->data['buyers'] =$buyers;
 
-  $this->orders_model->update($order_id,$data);
+  $list_order = $this->orders_model->invoice_shop($order_id);
+  $this->data['list_order'] =$list_order;
+  if($this->input->post()){
+    $status = $this->input->post('status');
+    $data = array('status'=>$status);
+    $this->orders_model->update($order_id,$data);
 
-  $this->session->set_flashdata('message', 'Bạn đã gửi hàng cho người mua');
+    $this->session->set_flashdata('message', 'Bạn đã gửi hàng cho người mua');
+    redirect(user_url('profile/detail_order_shop/'.$order_id));
 
-  redirect(user_url('profile/detail_order_shop/'.$order_id));
+
+}
 
 
+$this->data['temp'] = 'site/profile/profile_shop/list_order/send_invoice';
+$this->load->view('site/profile/profile_shop/main', $this->data);
 
 }
 
@@ -1207,8 +1230,8 @@ function del()
 {
     $id = intval($this->uri->segment(4));
     $this->__delete($id);
-    $this->session->set_flashdata('message', 'Successs delete');
-    redirect(user_url('profile/listpost'));
+    $this->session->set_flashdata('message', 'Bạn đã xóa sản phẩm thành công');
+    redirect(user_url('profile/list_shop_post'));
 }
 
     // xoa nhieu san pham
@@ -1583,7 +1606,7 @@ function  manage_debt_buyer($offset = 0){
             $this->form_validation->set_message(__FUNCTION__, 'số tiền điền phải lớn hơn 0');
             return false;
         }if($debt<0){
-           $this->form_validation->set_message(__FUNCTION__, 'Số tiền trả vượt mức khoản nợ');
+           $this->form_validation->set_message(__FUNCTION__, 'Số tiền trả vượt quá số tiền đơn hàng');
            return false;
        }
        return true;

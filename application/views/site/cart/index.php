@@ -62,7 +62,7 @@
                                                 <img src="<?php echo base_url('upload/product/'.$row['image_link'])?>" alt="White Blouse Armani">
                                             </a>
                                         </td>
-                                        <td><a href="#"><?php echo $row['name'] ?></a>
+                                        <td><a href="#"><?php echo $row['name'].'('.$row['shop_name'].')' ?></a>
                                         </td>
                                         <td>
                                             <?php $qty = 'qty'.$row['id']
@@ -98,7 +98,7 @@
 
                           <div class="box-footer">
                             <div class="pull-left">
-                                <a href="<?php echo user_url('listproduct/search')?>" class="btn btn-info"><i class="fa fa-chevron-left"></i> Trở lại đặt hàng</a>
+                                <a href="<?php echo user_url('listproduct/search')?>" class="btn btn-info"><i class="fa fa-chevron-left"></i>Chọn mặt hàng khác</a>
                             </div>
                             
                               <div class="pull-right" style="margin-left: 10%">
@@ -106,7 +106,7 @@
                             </div>
 
                             <div class="pull-right " >
-                                <button class="btn btn-toolbar" type="submit"><i class="glyphicon glyphicon-calendar"></i>Thêm vào giỏ hàng</button>
+                                <button class="btn btn-toolbar" type="submit"><i class="glyphicon glyphicon-calendar"></i>Cập nhật giỏ hàng</button>
 
                             </div>
                           

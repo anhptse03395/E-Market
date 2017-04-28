@@ -398,6 +398,51 @@ class MY_Model extends CI_Model {
       }
       
     }
+
+    /*hàm của đức*/
+    protected function get_list_set_input_asc($input = array())
+    {
+      
+        // Thêm điều kiện cho câu truy vấn truyền qua biến $input['where'] 
+        //(vi du: $input['where'] = array('email' => 'hocphp@gmail.com'))
+      if ((isset($input['where'])) && $input['where'])
+      {
+        $this->db->where($input['where']);
+      }
+      
+        //tim kiem like
+        // $input['like'] = array('name' => 'abc');
+      if ((isset($input['like'])) && $input['like'])
+      {
+        $this->db->like($input['like'][0], $input['like'][1]); 
+      }
+      if ((isset($input['select'])) && $input['select'])
+      {
+        $this->db->select($input['select']); 
+      }
+      
+        // Thêm sắp xếp dữ liệu thông qua biến $input['order'] 
+        //(ví dụ $input['order'] = array('id','DESC'))
+      if (isset($input['order'][0]) && isset($input['order'][1]))
+      {
+        $this->db->order_by($input['order'][0], $input['order'][1]);
+      }
+      else
+      {
+            //mặc định sẽ sắp xếp theo id giảm dần 
+        $order = ($this->order == '') ? array($this->table.'.'.$this->key, 'asc') : $this->order;
+        $this->db->order_by($order[0], $order[1]);
+      }
+      
+        // Thêm điều kiện limit cho câu truy vấn thông qua biến $input['limit'] 
+        //(ví dụ $input['limit'] = array('10' ,'0')) 
+      if (isset($input['limit'][0]) && isset($input['limit'][1]))
+      {
+        $this->db->limit($input['limit'][0], $input['limit'][1]);
+      }
+      
+    }
+    
     
 
 

@@ -153,3 +153,43 @@
 		$data = array('start' => $time_start, 'end' => $time_end);
 		return $data;
 	}
+		/**
+	 * Lay khoang thoi gian bat dau va ket thuc (tinh ra giay) tu moc thoi gian co dinh
+	 * @param string 	$date  va $date2 (Neu date la %d-%m-%Y thi phai theo forma)
+	 * @return array($time_start, $time_end)
+	 */
+		function get_time_between_day_admin($date, $date1 = '')
+	{
+		// Neu khong ton tai date
+		if (!$date1)
+		{
+			$date1 = $date;
+		}
+
+		// Neu date la moc thoi gian co dinh (dạng ngày - tháng -năm)
+		//lay ngay bat dau
+		$time = explode('-', $date);
+		if(count($time) < 3)
+		{
+		   return FALSE;
+		}
+		$d = $time[0];//lay ngay bat dau
+		$m = $time[1];//lay thang
+		$y = $time[2];//lay nam
+		
+		//lay ngay ket thuc
+	    $time1 = explode('-', $date1);
+		if(count($time1) < 3)
+		{
+		   return FALSE;
+		}
+		$d1 = $time1[0];//lay ngay ket thuc
+		$m1 = $time1[1];//lay thang
+		$y1 = $time1[2];//lay nam
+		
+		$time_start = mktime(0, 0, 0, $m, $d, $y);//lay thoi gian bat dau tu ngay 
+		$time_end   = mktime(24, 0, 0, $m1, $d1, $y1);//thoi gian ket thuc den ngay
+		
+		$data = array('start' => $time_start, 'end' => $time_end);
+		return $data;
+	}

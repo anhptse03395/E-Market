@@ -159,15 +159,18 @@
 
             <div class="form-group" style="width: 50%;float: left;">
                 <div class="col-md-12"><strong>Họ tên người nhận</strong></div>
-                <div class="col-md-12"><input type="text" class="form-control" name="name_receiver" value="<?php echo set_value('name_receiver') ?>" /></div>
+                <div class="col-md-12"><input type="text" class="form-control" name="name_receiver" value="<?php echo $buyer->name_receiver ?>" /></div>
             </div>
             <div class="form-group" style="width: 50%;float: left; margin-left: 3% ">
                 <div class="col-md-12"><strong>Địa chỉ nhận hàng:</strong></div>
-                <div class="col-md-12"><input type="text" class="form-control" name="address_receiver" value="<?php echo set_value('address_receiver') ?>" /></div>
+                <div class="col-md-12"><input type="text" class="form-control" name="address_receiver" value="<?php echo $buyer->address_receiver ?>" /></div>
             </div>
             <div class="form-group" style="width: 50%;">
                 <div class="col-md-12"><strong>Số điện thoại:</strong></div>
-                <div class="col-md-12"><input type="text" class="form-control" name="phone_receiver" value="<?php echo set_value('phone_receiver') ?>" /></div>
+                <div class="col-md-12"><input type="text" class="form-control" name="phone_receiver" value="<?php if($buyer->phone_receiver!=0) echo '0'.$buyer->phone_receiver ?>" /></div>
+                <div class="clear error" style="color: red" name="name_error"><?php echo form_error('phone_receiver') ?></div>
+
+
             </div>
 
             <div class="form-group" style="width: 43%;margin-left: 0.8%">

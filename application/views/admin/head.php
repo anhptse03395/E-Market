@@ -13,7 +13,16 @@
 	var admin_url 	= '';
 	var base_url 	= '';
 	var public_url 	= '';
-</script>
+</script><!-- 
+<script>
+function togglecheckboxes(master,group){
+	var cbarray = document.getElementsByClassName(group);
+	for(var i = 0; i < cbarray.length; i++){
+		var cb = document.getElementById(cbarray[i].id);
+		cb.checked = master.checked;
+	}
+}
+</script> -->
 
 <script type="text/javascript" src="<?php echo public_url()?>/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo public_url()?>/js/jquery/jquery-ui.min.js"></script>

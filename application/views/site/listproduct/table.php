@@ -1,5 +1,5 @@
 
-<div style="margin-right: 10%"> Kết quả tìm kiếm :<?php echo $total_rows.' '.'sản phẩm' ?> </div>
+<div style="margin-right: 10%"> Kết quả tìm kiếm: <?php echo $total_rows.' '.'sản phẩm' ?> </div>
 	<div class="table-responsive cart_info">
 
 		<table class="table table-condensed">

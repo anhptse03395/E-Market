@@ -7,14 +7,8 @@
 		
 		<div class="horControlB menu_action">
 			<ul>
-				<li><a href="<?php echo admin_url('product/add')?>">
-					<img src="<?php echo public_url('admin')?>/images/icons/control/16/add.png">
-					<span>Thêm mới</span>
-				</a></li>
-				
 				<li><a href="<?php echo admin_url('product/index')?>">
-					<img src="<?php echo public_url('admin')?>/images/icons/control/16/list.png">
-					<span>Danh sách</span>
+					<input type="button" value="Danh sách"/>
 				</a></li>
 			</ul>
 		</div>

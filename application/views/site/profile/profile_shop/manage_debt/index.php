@@ -11,7 +11,7 @@
   <div class="box">
     <h3>Công nợ</h3>
     
-    <!-- <div class="text-center" style="margin-bottom: 10%"> <?php echo '<h4 style="color:blue">'.'Tổng số tiền khách hàng đã thanh toán' .' '.number_format($total_info->sum_paid, 0, '.', ',').' '.'nghìn đồng'.'</h4>' ?></div> -->
+    <!-- <div class="text-center" style="margin-bottom: 10%"> <?php echo '<h4 style="color:blue">'.'Tổng số tiền khách hàng đã thanh toán' .' '.number_format($total_info->sum_paid, 0, '.', ',').' '.' đồng'.'</h4>' ?></div> -->
 
 
     <form id="eventForm" action="<?php echo user_url('profile/search_debt_shop') ?>" method="post" class="form-horizontal">
@@ -56,7 +56,7 @@
   </div>
 </div>
 
-<div class="text-center" style=" margin-bottom: 2%;margin-top: 3%;margin-left: -5%"> <?php echo '<h4 style="color:green">'. 'Tổng số tiền khách hàng còn nợ' .' '.number_format($total_info->sum_debt, 0, '.', ',').' '.'nghìn đồng'.'</h4>'?></div>
+<div class="text-center" style=" margin-bottom: 2%;margin-top: 3%;margin-left: -5%"> <?php echo '<h4 style="color:green">'. 'Tổng số tiền khách hàng còn nợ' .' '.number_format($total_info->sum_debt, 0, '.', ',').' '.' đồng'.'</h4>'?></div>
 </form>
 
 

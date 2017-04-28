@@ -102,12 +102,12 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="email">Nội Dung</label>
+                                                <label for="description">Nội Dung</label>
                                                 <div class="input-group">
-                                                    <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span>
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span>
                                                 </span>
-                                                <textarea type="text" class="form-control" rows="9" cols="25" name="description"  placeholder="Nội Dung Đăng Bài" >
-                                                    <?php echo $product->description?>
+                                                <textarea style="" type="text" class="form-control" rows="8" cols="25" name="description" >
+                                                    <?php echo  $product->description?>
                                                 </textarea>
 
                                             </div>

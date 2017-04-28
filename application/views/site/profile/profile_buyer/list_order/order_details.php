@@ -1,10 +1,10 @@
+<script src="<?php echo public_url('user/home') ?>/js/main.js"></script>
+<script type="text/javascript" src="<?php echo public_url('user/home') ?>/js/moment-2.4.0.js"></script>
+<script src="<?php echo public_url('user/home') ?>/js/bootstrap-datetimepicker.min.js"></script>
+<link href="<?php echo public_url('user/home')?>/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<script src="<?php echo public_url('user/home') ?>/js/bootstrap.min.js"></script>
 
-<script src="<?php echo public_url('user') ?>/js/bootstrap.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/chart-master/Chart.js"></script>
-<script rel="stylesheet" type="text/css" href="<?php echo public_url('user/home')?>/js/bootstrap-datetimepicker.min.js"></script>
-<script rel="stylesheet" type="text/css" href="<?php echo public_url('user/home')?>/js/bootstrap-datetimepicker.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo public_url('user/home/css')?>/bootstrap-datetimepicker.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo public_url('user/home/css')?>/bootstrap-datetimepicker.css">
+
 <div class="container" style="width: 100%">
   <div class="row">
 
@@ -122,24 +122,23 @@
 
                   </table>
 
-                  <div class="form-group"  >
-                    <label class="col-xs-3 control-label">Xác nhận giá đơn hàng </label>
-                    <div class="input-group"> 
-                      <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
-                    </span>
-                    
+                <div class="form-group"  >
+                  <label class="col-xs-3 control-label">Xác nhận giá đơn hàng </label>
+                  <div class="input-group"> 
+                    <span class="input-group-addon"><span class=""></span>
+                  </span>
+                  
+                    <label class="btn btn-success ">
+                  <input type="radio" name="review_price" value="1"  onchange="this.form.submit();"  />
+                  Đồng ý
+                </label>
 
-                    <select style="width: 40%" onchange="this.form.submit();" name="review_price" class="form-control">
-                      <option value="">Chọn</option>
-                      <option value="1">Đồng ý</option>
-                      <option value="2">Hủy</option>
-
-
-                    </select>
-
-
-                  </div>
+                <label style="margin-left: 10%" class="btn btn-danger">
+                  <input type="radio" name="review_price" value="2"  onchange="this.form.submit();"  />
+                  Hủy bỏ
+                </label>
                 </div>
+              </div>
 
                 <div class="clearfix"></div>
 

@@ -17,13 +17,13 @@
 			<li class="home">
 		
 			<a href="<?php echo admin_url()?>" class="active" id="current">
-				<span>Bảng điều khiển</span>
+				<span>Thống kê dữ liệu</span>
 				<strong></strong>
 			</a>
 			
 						
 		</li>
-			<li class="tran">
+			<!-- <li class="tran">
 		
 			<a href="" class="exp inactive">
 				<span>Quản lý bán hàng</span>
@@ -41,11 +41,36 @@
 						</li>
 									</ul>
 						
+		</li> -->
+		<li class="account">
+		
+			<a href="" class="exp inactive">
+				<span>Tài khoản</span>
+				<strong>2</strong>
+			</a>
+			
+						<ul style="display: none;" class="sub">
+							<li>
+								<a href="<?php echo admin_url('admin')?>">
+								Ban quản trị							
+							</a>
+							</li>
+										
+							<li>
+								<a href="<?php echo admin_url('user')?>">
+								Người mua							</a>
+							</li>
+							<li>
+								<a href="<?php echo admin_url('seller')?>">
+								Người bán							</a>
+							</li>
+						</ul>
+						
 		</li>
 			<li class="product">
 		
 			<a href="" class="exp inactive">
-				<span>Sản phẩm</span>
+				<span>Hàng hóa</span>
 				<strong>2</strong>
 			</a>
 			    <ul style="display: none;" class="sub">
@@ -59,31 +84,34 @@
 								Danh mục							
 							</a>
 						</li>
+
 											
 									</ul>
 						
 		</li>
-			<li class="account">
+		</li>
+		<li class="product">
 		
 			<a href="" class="exp inactive">
-				<span>Tài khoản</span>
+				<span>Địa điểm</span>
 				<strong>2</strong>
 			</a>
-			
-						<ul style="display: none;" class="sub">
-							<li>
-							<a href="<?php echo admin_url('admin')?>">
-								Ban quản trị							
+			    <ul style="display: none;" class="sub">
+						<li>
+							<a href="<?php echo admin_url('market')?>">
+								Danh sách chợ							
 							</a>
 						</li>
-										
-											<li>
-							<a href="<?php echo admin_url('user')?>">
-								Thành viên							</a>
+						<li>
+							<a href="<?php echo admin_url('province')?>">
+								Danh sách tỉnh							
+							</a>
 						</li>
-									</ul>
+											
+				</ul>
 						
 		</li>
+			
 			<li class="support">
 		
 			<a href="" class="exp inactive">
@@ -93,16 +121,16 @@
 			
 							<ul style="display: none;"  class="sub">
 											<li>
-							<a href="<?php echo admin_url('support')?>">
-								Hỗ trợ							</a>
+							<a href="<?php echo admin_url('feedback')?>">
+								Phản hồi từ người dùng							</a>
 						</li>
 											<li>
-							<a href="<?php echo admin_url('contact')?>">
+<!-- 							<a href="<?php echo admin_url('contact')?>">
 								Liên hệ							</a>
 						</li>
-									</ul>
+									</ul> -->
 						
-		</li>
+		<!-- </li>
 			<li class="content">
 		
 			<a href="" class="exp inactive">
@@ -126,7 +154,7 @@
 										
 									</ul>
 						
-		</li>
+		</li> -->
 	
 </ul>
 			

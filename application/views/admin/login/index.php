@@ -11,10 +11,10 @@
 			</div>
 			
 			<form class="form" id="form" action="" method="post">
-				<fieldset>
+				<fieldset >
 					<div class="formRow">
 						<label for="param_username">Tên đăng nhập:</label>
-						<div class="loginInput"><input type="text" name="username" id="param_username"></div>
+						<div class="loginInput"><input type="text" name="phone" id="param_username"></div>
 						<div class="clear"></div>
 					</div>
 					

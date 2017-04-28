@@ -8,13 +8,13 @@
 <script src="<?php echo public_url('user/home') ?>/js/bootstrap.min.js"></script>
 
 <SCRIPT LANGUAGE="JavaScript">
-                  function confirmAction() {
-                    return confirm("bạn có xác nhận gửi hàng không?")
-                  }
-                   function confirmAction1() {
-                    return confirm("bạn có xác nhận xóa không?")
-                  }
-                </SCRIPT>
+  function confirmAction() {
+    return confirm("bạn có xác nhận xóa sản phẩm này không?")
+  }
+  function confirmAction1() {
+    return confirm("bạn có xác nhận gửi hàng  không?")
+  }
+</SCRIPT>
 
 
 <div class="col-md-9" id="customer-orders" style="width: 100%">
@@ -27,9 +27,7 @@
         <h3 style="text-align: center;"><strong> </strong><?php echo $message?></h3>
       </div>
     <?php endif;?>
-  <div style="margin-left: 40%;margin-bottom: 3%">
-    <a  onclick="return confirmAction()" href="<?php echo user_url('profile/send_order/'.$order_id)?>" class="btn btn-success"> Gửi hàng</a>
-    </div>
+
     <form  action="" method="post" class="form-horizontal" style="margin-bottom: 3%">
   <!--    <input type="text" name ="test" value="<?php set_value('test') ?>"> 
   <div><?php echo form_error('test') ?></div> -->
@@ -47,7 +45,9 @@
           <th class="description" style="color: blue">Ngày đặt hàng</th>
           <th class="description" style="color: blue">Ngày nhận hàng</th>
           <th class="description" style="color: blue">Trạng thái</th>
+          <?php if ($orders->status<=3) {?>
           <th class="description" style="color: blue">Xóa sản phẩm</th>
+          <?php } ?>
         </tr>
       </thead>
 
@@ -92,37 +92,59 @@
          <td  class="cart_description"><?php echo mdate('%d-%m-%Y',$row->date_receive) ?></td>
          <td class="cart_description">
 
-      
+
 
 
           <?php if (isset($row->status)) {?>
-        
-             
-                 <span style="color: #0dbbde" > <?php if($row->status==1){echo 'Đơn hàng mới';}?></span>
-                <span style="color: #428bca"><?php if($row->status==4){echo "Đã gửi hàng";}?></span>
-                <span style="color: #d80e0a"><?php if($row->status==7){echo "Đơn hàng bị hủy";}?></span>
-                <span style="color: #3bbf41" ><?php if($row->status==5){echo "Đã nhận hàng";}?></span>
-                <span style="color: #fe980f"><?php if($row->status==6){echo "Đã hoàn thành";}?></span>
-                <span style="color: #43c5e0" > <?php if($row->status==2){echo "Đang đàm phán";}?></span>
-                <span style="color: #4d6e75"> <?php  if($row->status==3){echo "Đang xử lý";}?></span>
-
-            <?php } ?>
-
-         
-          </td>
-          <td class="cart_description">
-            <a  onclick="return confirmAction()" class="glyphicon glyphicon-trash" title="Xóa" href="<?php echo user_url('profile/del_order/'.$row->order_id.'/'.$row->product_id)?>">
-
-            </a>
-          </td>
 
 
-        </tr>
-      <?php endforeach;?> 
 
-    </tbody>
-  </table>
-  <button  style="margin-top: 1%" class="btn btn-info center-block btn-md">Gửi giá</button>
+
+          <span style="color: #0dbbde" > <?php if($row->status==1){echo 'Đơn hàng mới';}?></span>
+          <span style="color: #428bca"><?php if($row->status==4){echo "Đã gửi hàng";}?></span>
+          <span style="color: #d80e0a"><?php if($row->status==7){echo "Đơn hàng bị hủy";}?></span>
+          <span style="color: #3bbf41" ><?php if($row->status==5){echo "Đã nhận hàng";}?></span>
+          <span style="color: #fe980f"><?php if($row->status==6){echo "Đã hoàn thành";}?></span>
+          <span style="color: #43c5e0" > <?php if($row->status==2){echo "Đang đàm phán";}?></span>
+          <span style="color: #4d6e75"> <?php  if($row->status==3){echo "Đang xử lý";}?></span>
+
+          <?php } ?>
+
+
+        </td>
+        <?php if ($row->status<=3) { ?>
+        <td class="cart_description">
+          <a  onclick="return confirmAction()" class="glyphicon glyphicon-trash" title="Xóa" href="<?php echo user_url('profile/del_order/'.$row->order_id.'/'.$row->product_id)?>">
+
+          </a>
+        </td>
+        <?php } ?>
+
+      </tr>
+    <?php endforeach;?> 
+
+  </tbody>
+</table>
+
+<div class="box-footer">
+ <?php if ($orders->status==3) {?>
+ <div class="pull-left" style="margin-left: 10%">
+  <a   href="<?php echo user_url('profile/send_order/'.$order_id)?>" class="btn btn-success"> Gửi hàng</a>
+</div>
+<?php } ?>
+<?php if ($orders->status<3) {?>
+
+<div class="pull-left " style="margin-left: 10%" >
+  <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-euro"></i>Gửi giá</button>
+
+</div>
+<?php } ?>
+
+</div>
+
+
+
+
 </form>
 
 
@@ -132,4 +154,3 @@
 
 
 <!-- Modal -->
-

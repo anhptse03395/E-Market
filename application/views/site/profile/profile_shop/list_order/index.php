@@ -77,9 +77,10 @@
           <select onchange="this.form.submit();" name="status" class="form-control">
             <option value="">Tất cả</option>
             <option value="1">Đơn hàng mới</option>
-            <option value="2">Đang xử lý</option>
-            <option value="3">Đã gửi hàng</option>
-            <option value="4">Đơn bị hủy</option>
+            <option value="2">Đang đàm phán</option>
+            <option value="3">Đang xử lý</option>
+            <option value="4">Đã gủi hàng</option>
+            <option value="7">Đơn bị hủy</option>
 
           </select>
         </div>

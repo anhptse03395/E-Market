@@ -7,38 +7,28 @@
 
 		<div class="title">
 			
-			<h6>Them moi thanh vien</h6>
+			<h6>Chỉnh sửa quản trị</h6>
 
 		</div>
 
 		<form class="form" id="form" action="" method="post" enctype="multipart/form-data">
 			<fieldset>
 				<div class="formRow">
-                	<label for="param_name" class="formLeft">Tên:<span class="req">*</span></label>
+                	<label for="param_address" class="formLeft">Địa Chỉ:<span class="req">*</span></label>
                 	<div class="formRight">
-                		<span class="oneTwo"><input type="text" _autocheck="true" id="param_name" value="<?php echo $info->name?>" name ="name"></span>
-                		<span class="autocheck" name="name_autocheck"></span>
-                		<div class="clear error" name="name_error"><?php echo form_error('name')?></div>
+                		<span class="oneTwo"><input type="text" _autocheck="true" id="param_address" value="<?php echo $info->address?>" name ="address"></span>
+                		<span class="autocheck" name="address_autocheck"></span>
+                		<div class="clear error" name="address_error"><?php echo form_error('address')?></div>
                 	</div>
                 	<div class="clear"></div>
                 </div>
-				<div class="formRow">
-					<label for="param_username" class="formLeft">Username:<span class="req">*</span></label>
-					<div class="formRight">
-						<span class="oneTwo"><input type="text" _autocheck="true" value="<?php echo $info->username ?>" id="param_username" name="username"></span>
-						<span class="autocheck" name="name_autocheck"></span>
-						<div class="clear error" name="name_error"><?php echo form_error('username')?></div>
-					</div>
-					<div class="clear"></div>
-				</div>
 
 
 
 				<div class="formRow">
 					<label for="param_name" class="formLeft" >PassWord:<span class="req">*</span></label>
-					<p> neu thay doi mat khau thi moi dien vao</p>
 					<div class="formRight">
-						<span class="oneTwo"><input type="password" _autocheck="true" id="param_password"  name="password"></span>
+						<span class="oneTwo"><input type="password" _autocheck="true" id="param_password"  name="password"></span><label>&nbsp;&nbsp;&nbsp;</label><label>(Nếu Thay Đổi Mật Khẩu Thì Điền Vào)</label>
 						<span name="name_autocheck" class="autocheck"></span>
 						<div class="clear error" name="name_error" ><?php echo form_error('password') ?></div>
 					</div>
@@ -67,9 +57,9 @@
 								}
 							?> 
 							<div>
-								<label><b><?php echo $controller?>:</b></label>
+								<label style="width: 80px"><b><?php echo $controller?>:</b></label>
 								<?php foreach ($action as $action):?>
-								<label><input type="checkbox" name="permissions[<?php echo $controller?>][]" value="<?php echo $action?>" <?php echo(in_array($action, $permissions_action)) ? 'checked' : ''?> /><?php echo $action?></label>
+								<label style="width: 80px"><input type="checkbox" name="permissions[<?php echo $controller?>][]" value="<?php echo $action?>" <?php echo(in_array($action, $permissions_action)) ? 'checked' : ''?> /><?php echo $action?></label>
 								<?php endforeach;?>
 								<div class="clear"></div>
 							</div>

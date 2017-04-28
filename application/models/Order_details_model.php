@@ -35,7 +35,7 @@ Class Order_details_model extends MY_Model{
 	}
 
 	function list_shop_order($shop_id){
-		$status = array(1, 2, 3);
+		$status = array(1, 2, 3,7);
 		$this->db->select('sum(price*order_details.quantity) as total_price,status, orders.id as order_id,orders.date_order as date_order,orders.description as description,buyer_name,phone,count(order_id) as total');
 		$this->db->from('order_details');
 		$this->db->join('orders','order_details.order_id=orders.id','left');
@@ -52,7 +52,7 @@ Class Order_details_model extends MY_Model{
 
 	}
 	function join_list_shop_order($shop_id,$limit,$offset){
-		$status = array(1, 2, 3);
+		$status = array(1, 2, 3,7);
 		$this->db->select('sum(price*order_details.quantity) as total_price,status,price,orders.id as order_id,orders.date_order as date_order,orders.description as description,buyer_name,phone,count(order_id) as total');
 		$this->db->from('order_details');
 		$this->db->join('orders','order_details.order_id=orders.id');
@@ -70,7 +70,7 @@ Class Order_details_model extends MY_Model{
 	}
 	function join_search($input = array(),$shop_id)
 	{
-		$status = array(1,2,3,4);
+		$status = array(1,2,3,4,7);
 		$this->get_list_set_input_orderdetail($input);
 		$this->db->select('sum(price*order_details.quantity) as total_price,status,price,orders.id as order_id,orders.date_order as date_order,orders.description as description,product_name,buyer_name,phone');
 		$this->db->from('order_details');

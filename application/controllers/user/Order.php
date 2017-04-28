@@ -76,6 +76,7 @@ Class Order extends MY_Controller
         //neu thanh vien da dang nhap thì lay thong tin cua thanh vien
     $account = 0;
     $buyer = '';
+    $this->load->model('buyer_model');
     if($this->session->userdata('account_id'))
     {
             //lay thong tin cua thanh vien
@@ -84,7 +85,9 @@ Class Order extends MY_Controller
       $buyer=$this->account_model->join_buyer($account);
 
     }
+    $buyer_id = $buyer->buyer_id;
     $this->data['buyer']  = $buyer;
+
 
 
     $this->load->library('form_validation');
@@ -100,22 +103,27 @@ Class Order extends MY_Controller
 
     $this->form_validation->set_rules('date_receive', 'Ngày đặt', 'callback_compareDate');
     $this->form_validation->set_rules('message', 'Ghi chú', 'required');
-          //  $this->form_validation->set_rules('payment', 'Cổng thanh toán', 'required');
+    $this->form_validation->set_rules('phone_receiver', 'Số điện thoại', 'required|min_length[8]|numeric');
+
+          //$this->form_validation->set_rules('payment', 'Cổng thanh toán', 'required');
 
             //nhập liệu chính xác
     if($this->form_validation->run())
     {
-
-
-
-      foreach ($shops as $shop ) {
-
        $date_rec =$this->input->post('date_receive');
        $date =DateTime::createFromFormat('d/m/Y', $date_rec);     
        $date= $date->format('Y-m-d');
        $date_receive = strtotime($date);
        $name_receiver =$this->input->post('name_receiver');
+       $phone_receiver =$this->input->post('phone_receiver');
        $address_receiver =$this->input->post('address_receiver');
+       $data_buyer = array('name_receiver'=>$name_receiver,
+                            'phone_receiver'=>$phone_receiver,
+                             'address_receiver'=>$address_receiver );
+       $this->buyer_model->update($buyer_id,$data_buyer);
+      foreach ($shops as $shop ) {
+
+      
        $data_order = array(
 
         'buyer_id'     => $buyer_id,
@@ -124,6 +132,7 @@ Class Order extends MY_Controller
                         'shop_id'    => $shop['shop_id'],
                         'date_receive' =>$date_receive,
                         'name_receiver' => $name_receiver,
+                        'phone_receiver'=>$phone_receiver,
                         'address_receiver'=>$address_receiver,
                         'status'   => 1,
                         );

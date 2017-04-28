@@ -35,7 +35,7 @@
  function join_buyer ($id){
 
 
-  $this->db->select('accounts.id as account_id,buyers.id as buyer_id,buyer_name,phone,address, phone as buyer_phone');
+  $this->db->select('accounts.id as account_id,buyers.id as buyer_id,buyer_name,phone,address, phone as buyer_phone,name_receiver,phone_receiver,address_receiver');
   $this->db->from('accounts');
 
   $this->db->join('buyers', 'buyers.account_id=accounts.id','left');
@@ -114,6 +114,20 @@ function join_buyer_feedback($id)
           $query = $this->db->get();
           return $query->row();
       }
+
+
+      /*hàm của đức*/
+      function  join_role(){
+
+        $this->db->select('accounts.id as account_id, role_name,accounts.phone as phone,address,name');
+        $this->db->from('accounts');
+        $this->db->join('roles', 'accounts.role_id = roles.id');
+        $this->db->join('admin', 'accounts.id = admin.account_id');
+        $this->db->where('roles.id <> 2 and roles.id <> 3');
+
+        $query = $this->db->get();
+        return $query->result();
+      } 
 
 }	
 ?>

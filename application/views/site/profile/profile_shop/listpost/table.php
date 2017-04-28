@@ -1,3 +1,11 @@
+   <SCRIPT LANGUAGE="JavaScript">
+  function confirmAction() {
+    return confirm("bạn có xác nhận xóa sản phẩm này không?")
+  }
+
+</SCRIPT>
+
+
    <div class="table-responsive" style="margin-top: 5%">
 
 
@@ -30,7 +38,7 @@
               <td> <a class="glyphicon glyphicon-wrench" title="Chỉnh sửa" href="<?php echo user_url('profile/edit_post/'.$row->id)?>">
             
             </a></td>
-              <td><a class="glyphicon glyphicon-trash" title="Xóa" href="<?php echo user_url('profile/del/'.$row->id)?>">
+              <td><a onclick="return confirmAction()" class="glyphicon glyphicon-trash" title="Xóa" href="<?php echo user_url('profile/del/'.$row->id)?>">
                 
               </a></td>
             </tr>

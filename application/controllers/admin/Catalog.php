@@ -1,10 +1,10 @@
-<?php
+<?php 
 Class Catalog extends MY_Controller
 {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('catalog_model');
+        $this->load->model('categories_model');
     }
     
     /*
@@ -12,14 +12,22 @@ Class Catalog extends MY_Controller
      */
     function index()
     {
-        $list = $this->catalog_model->get_list();
+        $input = array();
+
+        $list = $this->categories_model->join_category();
+    
+        
         $this->data['list'] = $list;
+        //pre($list);
+
+        $total = count($list);
+        $this->data['total'] = $total;
+        //pre($total);
         
         //lay nội dung của biến message
         $message = $this->session->flashdata('message');
         $this->data['message'] = $message;
         
-        //load view
         $this->data['temp'] = 'admin/catalog/index';
         $this->load->view('admin/main', $this->data);
     }
@@ -36,24 +44,22 @@ Class Catalog extends MY_Controller
         //neu ma co du lieu post len thi kiem tra
         if($this->input->post())
         {
-            $this->form_validation->set_rules('name', 'Tên', 'required');
+            $this->form_validation->set_rules('category_name', 'Tên Danh Mục', 'required');
             
             //nhập liệu chính xác
             if($this->form_validation->run())
             {
                 //them vao csdl
-                $name       = $this->input->post('name');
+                $category_name       = $this->input->post('category_name');
                 $parent_id  = $this->input->post('parent_id');
-                $sort_order = $this->input->post('sort_order');
                 
                 //luu du lieu can them
                 $data = array(
-                    'name'      => $name,
+                    'category_name'      => $category_name,
                     'parent_id' => $parent_id,
-                    'sort_order' => intval($sort_order)
                 );
                 //them moi vao csdl
-                if($this->catalog_model->create($data))
+                if($this->categories_model->create($data))
                 {
                     //tạo ra nội dung thông báo
                     $this->session->set_flashdata('message', 'Thêm mới dữ liệu thành công');
@@ -68,7 +74,7 @@ Class Catalog extends MY_Controller
         //lay danh sach danh muc cha
         $input = array();
         $input['where'] = array('parent_id' => 0);
-        $list = $this->catalog_model->get_list($input);
+        $list = $this->categories_model->get_list($input);
         $this->data['list']  = $list;
         
         $this->data['temp'] = 'admin/catalog/add';
@@ -86,8 +92,7 @@ Class Catalog extends MY_Controller
     
         //lay id danh mục
         $id = $this->uri->rsegment(3);
-        pre($id);
-        $info = $this->catalog_model->get_info($id);
+        $info = $this->categories_model->get_info($id);
         if(!$info)
         {
             //tạo ra nội dung thông báo
@@ -99,24 +104,22 @@ Class Catalog extends MY_Controller
         //neu ma co du lieu post len thi kiem tra
         if($this->input->post())
         {
-            $this->form_validation->set_rules('name', 'Tên', 'required');
+            $this->form_validation->set_rules('category_name', 'Tên Danh Mục', 'required');
     
             //nhập liệu chính xác
             if($this->form_validation->run())
             {
                 //them vao csdl
-                $name       = $this->input->post('name');
+                $category_name       = $this->input->post('category_name');
                 $parent_id  = $this->input->post('parent_id');
-                $sort_order = $this->input->post('sort_order');
     
                 //luu du lieu can them
                 $data = array(
-                    'name'      => $name,
+                    'category_name'      => $category_name,
                     'parent_id' => $parent_id,
-                    'sort_order' => intval($sort_order)
                 );
                 //them moi vao csdl
-                if($this->catalog_model->update($id, $data))
+                if($this->categories_model->update($id, $data))
                 {
                     //tạo ra nội dung thông báo
                     $this->session->set_flashdata('message', 'Cập nhật dữ liệu thành công');
@@ -129,9 +132,9 @@ Class Catalog extends MY_Controller
         }
     
         //lay danh sach danh muc cha
-        $input = array();
+        $input = array(); 
         $input['where'] = array('parent_id' => 0);
-        $list = $this->catalog_model->get_list($input);
+        $list = $this->categories_model->get_list($input);
         $this->data['list']  = $list;
     
         $this->data['temp'] = 'admin/catalog/edit';
@@ -145,7 +148,7 @@ Class Catalog extends MY_Controller
     {
         //lay id danh mục
         $id = $this->uri->rsegment(3);
-        $info = $this->catalog_model->get_info($id);
+        $info = $this->categories_model->get_info($id);
         if(!$info)
         {
             //tạo ra nội dung thông báo
@@ -153,7 +156,7 @@ Class Catalog extends MY_Controller
             redirect(admin_url('catalog'));
         }
         //xoa du lieu
-        $this->catalog_model->delete($id);
+        $this->categories_model->delete($id);
         //tạo ra nội dung thông báo
         $this->session->set_flashdata('message', 'Xóa dữ liệu thành công');
         redirect(admin_url('catalog'));

@@ -40,7 +40,7 @@ Class Invoices_model extends MY_Model{
 	function list_debt_shop($shop_id,$limit=0,$offset=0){
 
 
-		$query =	$this->db->query('SELECT * from ((SELECT t1.status, t1.order_id, t1.buyer_name,t1.shop_id, t1.total_price, t2.total_paid, t1.total_price - t2.total_paid AS debt
+		$query =	$this->db->query('SELECT * from (SELECT t1.status, t1.order_id, t1.buyer_name,t1.shop_id, t1.total_price, t2.total_paid, t1.total_price - t2.total_paid AS debt
 			FROM (SELECT o.id as order_id, o.status,o.shop_id ,COUNT(od.order_id) AS OrderDetail,b.buyer_name ,SUM(od.price * od.quantity) AS total_price
 			FROM orders o
 			JOIN order_details od ON o.id = od.order_id 
@@ -57,8 +57,11 @@ Class Invoices_model extends MY_Model{
 
 			WHERE  t1.status in (4,5)
 			and t1.shop_id ='.$shop_id.
-			') as T3)
-			limit '.$offset.','.$limit.'		
+			
+			') as T3
+			order by T3.status
+			limit '.$offset.','.$limit.'
+		
 			');
 
 
