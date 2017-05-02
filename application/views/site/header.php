@@ -59,7 +59,7 @@
 						<?php } ?>	
 
 						
-						<li><a href="<?php echo user_url('post') ?>"><i class="glyphicon glyphicon-pencil icon-success"></i> Bán sản phẩm</a></li>
+						<li><a href="<?php echo user_url('profile/addproduct') ?>"><i class="glyphicon glyphicon-pencil icon-success"></i> Bán sản phẩm</a></li>
 						<li><a href="<?php echo user_url('cart') ?>"><i class="fa fa-shopping-cart"> </i><?php if(isset($total_items))echo $total_items.'kg'?></a></li>
 						<?php if(isset($mes)) { ?>
 						<li><a href="<?php echo user_url('user/logout') ?>"><i class="glyphicon glyphicon-log-out"></i> Đăng xuất</a></li>

@@ -362,8 +362,11 @@ Class Profile extends MY_controller{
         /*Kiểm tra sự tồn tại của tên sản phẩm*/
 
         function check_name_product(){
+               $shop_id = $this->session->userdata('shop_id');
           $product_name = $this->input->post('p_product_name');
-          $where = array('product_name'=>$product_name);
+          $where = array('product_name'=>$product_name,
+                         'shop_id'      =>$shop_id 
+                         );
           if($this->product_model->check_exists($where)){
               $this->form_validation->set_message(__FUNCTION__,'Tên sản phẩm trùng với tên sản phẩm mà bạn đã đăng');
               return false;
@@ -388,6 +391,9 @@ Class Profile extends MY_controller{
 
         $this->load->model('supplier_model');
 
+        $supplier = $this->supplier_model->get_list();
+        $this->data['supplier'] = $supplier;    
+
         $this->load->library('form_validation');
         $this->load->helper('form');
         $this->load->model('shop_model');
@@ -410,7 +416,7 @@ Class Profile extends MY_controller{
              /*   $this->form_validation->set_rules('p_name', 'Tên', 'required|min_length[8]');
              $this->form_validation->set_rules('p_phone', 'Số điện thoại', 'required|min_length[8]|numeric');*/
              $this->form_validation->set_rules('catalog', 'Danh Mục', 'required');
-             /* $this->form_validation->set_rules('p_address', 'Địa chỉ', 'required|min_length[8]');*/
+              $this->form_validation->set_rules('image', 'hình ảnh', 'required|min_length[8]');
              $this->form_validation->set_rules('p_product_name', 'Tên sản phẩm', 'required|min_length[2]|callback_check_name_product');
              $this->form_validation->set_rules('p_content', 'Nội dung', 'required|min_length[8]');
 
@@ -818,6 +824,9 @@ $config['total_rows'] = $total_rows;
             $list= $this->order_details_model->list_order_detail($order_id);
             $this->data['list']=$list;
 
+            $orders = $this->orders_model->get_info($order_id);
+            $this->data['orders'] = $orders;
+
             if($this->input->post()){
 
                 $review_price = $this->input->post('review_price');
@@ -827,7 +836,7 @@ $config['total_rows'] = $total_rows;
                   $this->session->set_flashdata('message', 'Bạn đã đồng ý với thỏa thuận giá');
               }
               if($review_price!=''&& $review_price==2){
-                  $status =6;
+                  $status =7;
                   $this->orders_model->shop_put_status($order_id,$status);
                   $this->session->set_flashdata('message', 'Bạn đã hủy đơn hàng');    
               }

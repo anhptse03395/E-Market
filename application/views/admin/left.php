@@ -64,6 +64,10 @@
 								<a href="<?php echo admin_url('seller')?>">
 								Người bán							</a>
 							</li>
+							<li>
+								<a href="<?php echo admin_url('manage_fee')?>">
+								Quản lý phí							</a>
+							</li>
 						</ul>
 						
 		</li>

@@ -8,17 +8,33 @@
 		<div class="title">
 
 			<h6>Danh sách tỉnh</h6>
-			<div class="num f12">Tổng số: <b> <?php echo  $total ?></b></div>
+			<div class="num f12">Tổng số: <b> <?php echo  $total_rows ?></b></div>
 		</div>
 
 		<table cellpadding="0" cellspacing="0" width="100%" class="sTable mTable myTable withCheck" id="checkAll">
+
+			<thead class="filter"><tr><td colspan="9">
+				<form method="post" action="<?php echo admin_url('province/search')?>" class="list_filter form">
+					<table width="80%" cellspacing="0" cellpadding="0"><tbody>
+
+						<tr>							
+							<td style="width:40px;text-align: right" class="label"><label for="filter_id">Tên Tỉnh</label></td>
+							<td style="width:155px;" class="item"><input type="text" style="width:155px;" id="filter_iname" value="" name="local_name"></td>							 
+												
+							<td style="width:150px">
+								<input type="submit" value="Tìm Kiếm" class="button blueB">
+							</td>
+						</tr>
+					</tbody></table>
+				</form>
+			</td></tr></thead>
+
 			<thead>
 				<tr>
 					<td style="width:10px;"><img src="<?php echo public_url('admin') ?>/images/icons/tableArrows.png" /></td>
 					<td style="width:80px;">Mã số</td>
 					<td>Province Name</td>
 					<td>Quốc Gia</td>
-					<!-- <td>Chức vụ</td> -->
 					<td style="width:100px;">Hành động</td>
 				</tr>
 			</thead>

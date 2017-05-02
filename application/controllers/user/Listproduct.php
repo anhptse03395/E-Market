@@ -15,15 +15,15 @@ Class Listproduct extends MY_Controller
     function removeURL($strTitle)
     {
 
-       $strTitle=trim($strTitle);
-       $strTitle= preg_replace("/ {2,}/", " ", $strTitle);
-       return $strTitle;
-   }
+     $strTitle=trim($strTitle);
+     $strTitle= preg_replace("/ {2,}/", " ", $strTitle);
+     return $strTitle;
+ }
 
 
 
-   function index()
-   {
+ function index()
+ {
 
 
     $input = array() ;
@@ -90,71 +90,68 @@ Class Listproduct extends MY_Controller
 
 
 
-
-       $input = array();
-       $this->load->library('form_validation');
-       $this->load->helper('form');
+        $input = array();
+        $where =array();
+        $this->load->library('form_validation');
+        $this->load->helper('form');
         //neu co gui form tim kiem
-       if ($this->input->post()) {
-        $this->session->unset_userdata('id');
-        $this->session->unset_userdata('name');
-        $this->session->unset_userdata('catalog');
-        $input['where'] = array();
+        if ($this->input->post()) {
+            $this->session->unset_userdata('name');
+            $this->session->unset_userdata('catalog');
+            $input['where'] = array();
 
-        $this->session->set_userdata('id', $this->input->post('id'));
-        if ($this->session->userdata('id')) {
-            $input['where']['id'] = $this->session->userdata('id');
+            $name= $this->input->post('name');
+            $this->session->set_userdata('name',$this->removeURL($name));
+            if ($this->session->userdata('name')) {
+                $where['products.product_name like'] = $this->session->userdata('name');
 
-        }
-        $name= $this->input->post('name');
+                $product_name= $this->session->userdata('name');
+                $info['where']['product_name'] = $product_name;
+                $product= $this->product_model->get_list($info);
+                foreach ($product as $row) {
 
-        $this->session->set_userdata('name',$this->removeURL($name));
-        if ($this->session->userdata('name')) {
-            $input['like'] = array('product_name', $this->session->userdata('name'));
-            $product= $this->product_model->get_list($input);
+                  $data['impression'] = $row->impression + 1;
 
+                  $this->product_model->update($row->id,$data);  
+
+              }
+
+          }
+          $this->session->set_userdata('catalog', $this->input->post('catalog'));
+          if ($this->session->userdata('catalog')) {
+            $where['category_id'] = $this->session->userdata('catalog');
+
+            $catalog= $this->session->userdata('catalog');
+            $info['where']['category_id'] = $catalog;
+
+            $product= $this->product_model->get_list($info);
             foreach ($product as $row) {
-
               $data['impression'] = $row->impression + 1;
-
-              $this->product_model->update($row->id,$data);  
-
+              $this->product_model->update($row->id,$data);    
           }
 
       }
-      $this->session->set_userdata('catalog', $this->input->post('catalog'));
-      if ($this->session->userdata('catalog')) {
-        $input['where']['category_id'] = $this->session->userdata('catalog');
-        $product= $this->product_model->get_list($input);
-        foreach ($product as $row) {
-          $data['impression'] = $row->impression + 1;
-          $this->product_model->update($row->id,$data);    
-      }
-
   }
-}
         // cu tim theo session da gui trc do
-if (($this->session->userdata('id') || $this->session->userdata('name') || $this->session->userdata('catalog'))) {
-    $input['where'] = array();
-    if ($this->session->userdata('id')) {
-        $input['where']['id'] = $this->session->userdata('id');
+  if ( $this->session->userdata('name') || $this->session->userdata('catalog')) {
 
-    }
     $name=$this->session->userdata('name');
+     $this->session->set_userdata('name',$this->removeURL($name));
     if ($this->session->userdata('name')) {
-        $input['like'] = array('product_name', $this->removeURL($name));
+
+       $where['products.product_name like'] = $this->session->userdata('name');
 
 
     }
     if ($this->session->userdata('catalog')) {
-        $input['where']['category_id'] = $this->session->userdata('catalog');
+        $where['category_id'] = $this->session->userdata('catalog');
     }
 }
 
 
 ////////////////////////////////
-$input['join'] =  array('shops');
-$input['select']= "products.id as product_id,product_name,shop_name,products.created as product_created, image_link,image_list,image_shop,shops.id as shop_id,shops.created as shop_created";
+
+    $input['where'] =$where;
 
 $total_rows = count($this->product_model->join_shop($input));
 
@@ -184,7 +181,7 @@ $config['total_rows'] = $total_rows;
 
             $info = $this->product_model->join_shop_imp($input);
             $this->data['info'] =$info;
-         
+
             $this->load->model('categories_model');
 
             // dat la input_catalog de tranh bi trung voi input cua product
@@ -217,7 +214,7 @@ $config['total_rows'] = $total_rows;
             $this->load->model('supplier_model');
 
             $product= $this->product_model->join_detail($id);
-        
+
 
             $market_id = $product->market_id;
 
@@ -253,7 +250,7 @@ $config['total_rows'] = $total_rows;
             $shop_id = $this->uri->segment(4);
             $input = array();
             $input['where'] = array('shop_id'=>$shop_id);
-     
+
             $total_rows= $this->product_model->get_total($input);
             $limit =10;
 
@@ -290,10 +287,10 @@ $config['total_rows'] = $total_rows;
             $category_id = $this->uri->segment(4);
             $input = array();
             $input['where'] = array('category_id'=>$category_id);
-      
+
             $total_rows= $this->product_model->get_total($input);
             $this->data['total_rows'] = $total_rows;
-             $limit = 20;
+            $limit = 20;
 
             if(!is_null($offset))
             {

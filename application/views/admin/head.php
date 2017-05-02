@@ -23,6 +23,7 @@ function togglecheckboxes(master,group){
 	}
 }
 </script> -->
+<script type="text/javascript" src="<?php echo public_url('user/home') ?>/js/moment-2.4.0.js"></script>
 
 <script type="text/javascript" src="<?php echo public_url()?>/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo public_url()?>/js/jquery/jquery-ui.min.js"></script>

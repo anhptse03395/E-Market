@@ -317,7 +317,7 @@ Class User extends MY_Controller
     /*
      * Ham chinh sua thong tin nguoi dung
      */
-    function edit()
+    function view()
     {
         //lay id cua quan tri vien can chinh sua
         $account_id = $this->uri->rsegment('3');
@@ -380,7 +380,7 @@ Class User extends MY_Controller
             }
         }
         
-        $this->data['temp'] = 'admin/user/edit';
+        $this->data['temp'] = 'admin/user/view';
         $this->load->view('admin/main', $this->data);
     }
     
@@ -389,43 +389,59 @@ Class User extends MY_Controller
      */
     function delete()
     {
-        $account_id = $this->uri->rsegment('3');
-        $account_id = intval($account_id);
+        $buyer_id = $this->uri->rsegment('3');
+        $buyer_id = intval($buyer_id);
 
 
-        //lay thong tin cua quan tri vien
-        $info = $this->buyer_model->join_delete_buyer($account_id);
-        $accounts_id = $info->id;
-
-        
-        //pre($info);
-        $this->load->model('account_model');
-        
-        if(!$info)
-        {
-            $this->session->set_flashdata('message', 'Không tồn tại người dùng');
-            redirect(admin_url('user'));
-        }
-        //pre($info);
-        //thuc hiện xóa
-
-        $this->account_model->delete($accounts_id);
-
-        $buyer_id = $info->buyer_id;
-
-        if(!$info)
-        {
-            $this->session->set_flashdata('message', 'Không tồn quản người dùng');
-            redirect(admin_url('user'));
-        }
-
-        $this->buyer_model->delete($buyer_id);
+        $this->_del($buyer_id);
 
 
         
         $this->session->set_flashdata('message', 'Xóa dữ liệu thành công');
         redirect(admin_url('user'));
     }
+
+
+
+       private function _del($id, $rediect = true)
+    {   
+
+          $this->load->model('account_model');
+        $info = $this->buyer_model->get_info($id);
+
+        $account = $this->account_model->get_info($info->account_id);
+        if(!$info)
+        {
+            //tạo ra nội dung thông báo
+            $this->session->set_flashdata('message', 'không tồn tại cửa hàng  này');
+            if($rediect)
+            {
+                redirect(admin_url('user'));
+            }else{
+                return false;
+            }
+        }
+        
+        //kiem tra xem danh muc nay co san pham khong
+        $this->load->model('orders_model');
+        $order = $this->orders_model->get_info_rule(array('buyer_id' => $id), 'id');
+        if($order)
+        {
+            //tạo ra nội dung thông báo
+            $this->session->set_flashdata('message', 'người dùng '.$info->buyer_name.' có chứa đơn hàng,bạn cần xóa các đơn hàng trước khi xóa người dùng này');
+            if($rediect)
+            {
+                redirect(admin_url('user'));
+            }else{
+                return false;
+            }
+        }
+        
+      $this->account_model->delete($account->id);
+        $this->buyer_model->delete($id);
+        
+    }
+
     
 }
 

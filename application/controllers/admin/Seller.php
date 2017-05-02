@@ -3,7 +3,7 @@ Class Seller extends MY_Controller
 {
     function __construct()
     {
-    	 
+
 
         parent::__construct();
         $this->load->model('shop_model');
@@ -37,7 +37,7 @@ Class Seller extends MY_Controller
         $this->pagination->initialize($config);
         
         $list = $this->shop_model->paging_shop($limit,$offset);
-     
+
         $this->data['list'] = $list;
         
         $total = count($list);
@@ -53,88 +53,88 @@ Class Seller extends MY_Controller
     
     function search()
     {
-         $total_rows= count($this->shop_model->join_role());
+     $total_rows= count($this->shop_model->join_role());
 
 
-        $this->data['total_rows'] = $total_rows;
-         $input = array();
-        $this->load->library('form_validation');
-        $this->load->helper('form');
+     $this->data['total_rows'] = $total_rows;
+     $input = array();
+     $this->load->library('form_validation');
+     $this->load->helper('form');
         //neu co gui form tim kiem
-           
-         $where =array();
-        if ($this->input->post()) {
-            $this->session->unset_userdata('phone');
-            $this->session->unset_userdata('from_date');
-            $this->session->unset_userdata('end_date');
-            $this->session->unset_userdata('status');
 
-           
-              $this->session->set_userdata('phone', $this->input->post('phone'));
-
-            if ($this->session->userdata('phone')) {
-                $where['accounts.phone'] = $this->session->userdata('phone');
-
-            }
-              $this->session->set_userdata('status', $this->input->post('status'));
-
-            if ($this->session->userdata('status')) {
-                $where['accounts.active'] = $this->session->userdata('status');
-
-            }
-
-            $this->session->set_userdata('from_date', $this->input->post('from_date'));
-            $from_date =  $this->session->userdata('from_date');
-            $this->session->set_userdata('end_date', $this->input->post('end_date'));
-            $end_date= $this->session->userdata('end_date');
-            if ($from_date &&$end_date='') {
-                $time = get_time_between_day_admin($from_date,$end_date);
-            //nếu dữ liệu trả về hợp lệ
-                if(is_array($time))
-                {   
-                    $where['shops.created >='] = $time['start'];
-
-                }
-
-            }
-            if ($end_date &&$from_date='') {
-                $time = get_time_between_day_admin($end_date,$from_date);
-            //nếu dữ liệu trả về hợp lệ
-                if(is_array($time))
-                {   
-
-                    $where['shops.created <='] = $time['end'];
-                }
-
-            }
+     $where =array();
+     if ($this->input->post()) {
+        $this->session->unset_userdata('phone');
+        $this->session->unset_userdata('from_date');
+        $this->session->unset_userdata('end_date');
+        $this->session->unset_userdata('status');
 
 
-            if ($from_date && $end_date) {
-                $time = get_time_between_day($from_date,$end_date);
-            //nếu dữ liệu trả về hợp lệ
-                if(is_array($time))
-                {   
-                    $where['shops.created >='] = $time['start'];
-                    $where['shops.created <='] = $time['end'];
-                }
+        $this->session->set_userdata('phone', $this->input->post('phone'));
 
-            }
-                        
+        if ($this->session->userdata('phone')) {
+            $where['accounts.phone'] = $this->session->userdata('phone');
+
         }
-
-         if ($this->session->userdata('phone')) {
-                $where['accounts.phone'] = $this->session->userdata('phone');
-
-            }
-
+        $this->session->set_userdata('status', $this->input->post('status'));
 
         if ($this->session->userdata('status')) {
-                $where['accounts.active'] = $this->session->userdata('status');
+            $where['accounts.active'] = $this->session->userdata('status');
+
+        }
+
+        $this->session->set_userdata('from_date', $this->input->post('from_date'));
+        $from_date =  $this->session->userdata('from_date');
+        $this->session->set_userdata('end_date', $this->input->post('end_date'));
+        $end_date= $this->session->userdata('end_date');
+        if ($from_date &&$end_date='') {
+            $time = get_time_between_day_admin($from_date,$end_date);
+            //nếu dữ liệu trả về hợp lệ
+            if(is_array($time))
+            {   
+                $where['shops.created >='] = $time['start'];
+
+            }
+
+        }
+        if ($end_date &&$from_date='') {
+            $time = get_time_between_day_admin($end_date,$from_date);
+            //nếu dữ liệu trả về hợp lệ
+            if(is_array($time))
+            {   
+
+                $where['shops.created <='] = $time['end'];
+            }
 
         }
 
 
-       if ($this->session->userdata('from_date') && ($this->session->userdata('end_date'))) {
+        if ($from_date && $end_date) {
+            $time = get_time_between_day($from_date,$end_date);
+            //nếu dữ liệu trả về hợp lệ
+            if(is_array($time))
+            {   
+                $where['shops.created >='] = $time['start'];
+                $where['shops.created <='] = $time['end'];
+            }
+
+        }
+
+    }
+
+    if ($this->session->userdata('phone')) {
+        $where['accounts.phone'] = $this->session->userdata('phone');
+
+    }
+
+
+    if ($this->session->userdata('status')) {
+        $where['accounts.active'] = $this->session->userdata('status');
+
+    }
+
+
+    if ($this->session->userdata('from_date') && ($this->session->userdata('end_date'))) {
 
         $from_date= $this->session->userdata('from_date');
         $end_date= $this->session->userdata('end_date');
@@ -173,19 +173,19 @@ Class Seller extends MY_Controller
     }
 
         // cu tim theo session da gui trc do
-      
-        $input['where'] = $where;
-        
-        
+
+    $input['where'] = $where;
+
+
         //pre($from_date);
         // phân trang sau search
-        $total_row = count($this->shop_model->join_shops_admin($input));
+    $total_row = count($this->shop_model->join_shops_admin($input));
         //pre($total_rows);
 
                     // thu vien phan trang
-        $this->load->library('pagination');
-        $config = array();
-        $config['total_rows'] = $total_row;
+    $this->load->library('pagination');
+    $config = array();
+    $config['total_rows'] = $total_row;
         // neu ko search thi de link phan trang nhu binh thuong
         //if(!isset($id) || !isset($name) )
         //{
@@ -206,6 +206,7 @@ Class Seller extends MY_Controller
             $input['limit'] = array($config['per_page'], $segment);
 
             $list = $this->shop_model->join_shops_admin($input);
+
             //pre($info);
             $this->data['list'] =$list;
             //pre($list);
@@ -214,13 +215,13 @@ Class Seller extends MY_Controller
             
 
         // load filter list
-    
-        
+
+
         // gan thong bao loi de truyen vao view
-        $this->data['message'] = $this->session->flashdata('message');
-        $this->data['temp'] = 'admin/seller/index';
-        $this->load->view('admin/main', $this->data);
-    }
+            $this->data['message'] = $this->session->flashdata('message');
+            $this->data['temp'] = 'admin/seller/index';
+            $this->load->view('admin/main', $this->data);
+        }
     /*
      * Kiểm tra username đã tồn tại chưa
      */
@@ -255,14 +256,14 @@ Class Seller extends MY_Controller
 
         $province_id = $this->input->post('province');
         if($province_id){ 
-                $input['where']  = array('province_id' => $province_id);
-                $market_places = $this->market_place_model->get_list($input);
+            $input['where']  = array('province_id' => $province_id);
+            $market_places = $this->market_place_model->get_list($input);
 
 
-                $this->data['market_places'] = $market_places;
+            $this->data['market_places'] = $market_places;
 
 
-                    }
+        }
         //neu ma co du lieu post len thi kiem tra
         if($this->input->post())
         {
@@ -289,7 +290,7 @@ Class Seller extends MY_Controller
                     'password' => md5($password),
                     'active' => 1
                     
-                );
+                    );
                 $this->load->model('account_model');
                 $this->account_model->create($data);
 
@@ -306,11 +307,11 @@ Class Seller extends MY_Controller
                 $shop_name     = $this->input->post('shop_name');
                 $address     = $this->input->post('address');
                 $data_shop = array(
-                        'market_id' => $this->input->post('market_id'),
-                        'account_id' => $this->db->insert_id(),
-                        'shop_name'     => $shop_name,
-                        'address'    => $address
-                        );
+                    'market_id' => $this->input->post('market_id'),
+                    'account_id' => $this->db->insert_id(),
+                    'shop_name'     => $shop_name,
+                    'address'    => $address
+                    );
 
 
 
@@ -338,129 +339,127 @@ Class Seller extends MY_Controller
     /*
      * Ham chinh sua thong tin nguoi dung
      */
-    function edit()
+    function view()
     {
         //lay id cua quan tri vien can chinh sua
         $account_id = $this->uri->rsegment('3');
         
         $account_id = intval($account_id);
 
-        // pre($id);
-        
         $this->load->library('form_validation');
         $this->load->helper('form');
         
-        //lay thong cua quan trị viên
+
         $info  = $this->shop_model->join_edit_seller($account_id);
-        
-        
+
         $shop_id = $info->shop_id;
         if(!$info)
         {
             $this->session->set_flashdata('message', 'Không tồn tại quản trị viên');
             redirect(admin_url('seller'));
         }
+
         $this->data['info'] = $info;
         $this->load->model('market_place_model');
         $this->load->model('province_model');
-        $provinces = $this->province_model->get_list();
+        $this->load->model('account_model');
+
+        $market_places = $this->market_place_model->get_info($info->market_id);
+
+        $this->data['market_places'] = $market_places;
+
+        $provinces = $this->province_model->get_info($market_places->province_id);
         $this->data['provinces'] = $provinces;
 
-
-        $province_id = $this->input->post('province');
-        // if($province_id){ 
-        //         $input['where']  = array('province_id' => $province_id);
-        //         $market_places = $this->market_model->get_list($input);
-
-
-        //         $this->data['market_places'] = $market_places;
-
-
-        //             }
-        
-        
         if($this->input->post())
-        {
-            $this->form_validation->set_rules('shop_name', 'Tên', 'required');
-            $this->form_validation->set_rules('address', 'Address', 'required');
+        {       
 
-            if($this->form_validation->run())
-            {
-                //them vao csdl
-                $market_id = $this->input->post('market_id');
-                $shop_name     = $this->input->post('shop_name');
-                $address = $this->input->post('address');
-                $data = array(
-                    'market_id' => $market_id,
-                    'shop_name'     => $shop_name,
-                    'address' => $address,
-                );
-
-                //neu ma thay doi mat khau thi moi gan du lieu
-                // if($password)
-                // {
-                //     $data['password'] = md5($password);
-                // }
-                
-                if($this->shop_model->update($shop_id, $data))
-                {
-                    //tạo ra nội dung thông báo
-                    $this->session->set_flashdata('message', 'Cập nhật dữ liệu thành công');
-                }else{
-                    $this->session->set_flashdata('message', 'Không cập nhật được');
-                }
-                //chuyen tới trang danh sách quản trị viên
-                redirect(admin_url('seller'));
-            }
+            if($info->role_id==3){
+             $role_id = 4;
+         }else{
+            $role_id =3;
         }
+
+        $data = array(
+            'role_id' => $role_id,
+            );
+
+
         
-        $this->data['temp'] = 'admin/seller/edit';
-        $this->load->view('admin/main', $this->data);
-    }
-    
+        
+        if($role_id==4){
+            $this->account_model->update($account_id, $data);
+            $this->session->set_flashdata('message', 'Cấm thành công cửa hàng này');
+        }if($role_id==3){
+          $this->account_model->update($account_id, $data);
+          $this->session->set_flashdata('message', 'Mở lại cửa hàng thành công');
+      }
+
+      
+
+      redirect(admin_url('seller'));
+
+  }
+
+  $this->data['temp'] = 'admin/seller/view';
+  $this->load->view('admin/main', $this->data);
+}
+
     /*
      * Hàm xóa dữ liệu
      */
     function delete()
     {
-        $account_id = $this->uri->rsegment('3');
-        $account_id = intval($account_id);
-
-
-        //lay thong tin cua quan tri vien
-        $info = $this->shop_model->join_delete_seller($account_id);
-        $accounts_id = $info->id;
-
-        
-        //pre($info);
-        $this->load->model('account_model');
-        
-        if(!$info)
-        {
-            $this->session->set_flashdata('message', 'Không tồn tại quản người dùng');
-            redirect(admin_url('seller'));
-        }
-        //pre($info);
-        //thuc hiện xóa
-
-        $this->account_model->delete($accounts_id);
-
-        $shop_id = $info->shop_id;
-
-        if(!$info)
-        {
-            $this->session->set_flashdata('message', 'Không tồn tại quản người dùng');
-            redirect(admin_url('seller'));
-        }
-
-        $this->shop_model->delete($shop_id);
-
-
-        
+        $shop_id = $this->uri->rsegment('3');
+        $shop_id = intval($shop_id);
+        $this->_del($shop_id);
         $this->session->set_flashdata('message', 'Xóa dữ liệu thành công');
         redirect(admin_url('seller'));
     }
-    
+
+
+
+    private function _del($id, $rediect = true)
+    {   
+
+      $this->load->model('account_model');
+      $info = $this->shop_model->get_info($id);
+
+      $account = $this->account_model->get_info($info->account_id);
+      if(!$info)
+      {
+            //tạo ra nội dung thông báo
+        $this->session->set_flashdata('message', 'không tồn tại cửa hàng  này');
+        if($rediect)
+        {
+            redirect(admin_url('seller'));
+        }else{
+            return false;
+        }
+    }
+
+        //kiem tra xem danh muc nay co san pham khong
+    $this->load->model('orders_model');
+    $order = $this->orders_model->get_info_rule(array('shop_id' => $id), 'id');
+    if($order)
+    {
+            //tạo ra nội dung thông báo
+        $this->session->set_flashdata('message', 'cửa hàng '.$info->shop_name.' có chứa đơn hàng,bạn cần xóa các đơn hàng trước khi xóa cửa hàng này');
+        if($rediect)
+        {
+            redirect(admin_url('seller'));
+        }else{
+            return false;
+        }
+    }
+
+    $this->account_model->delete($account->id);
+    $this->shop_model->delete($id);
+
+}
+
+
+
 }
 
 

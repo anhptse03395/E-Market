@@ -148,18 +148,50 @@ Class Catalog extends MY_Controller
     {
         //lay id danh mục
         $id = $this->uri->rsegment(3);
+       
+        //xoa du lieu
+        $this->_del($id);
+        //tạo ra nội dung thông báo
+        $this->session->set_flashdata('message', 'Xóa dữ liệu thành công');
+        redirect(admin_url('catalog'));
+    }
+
+     private function _del($id, $rediect = true)
+    {
         $info = $this->categories_model->get_info($id);
         if(!$info)
         {
             //tạo ra nội dung thông báo
             $this->session->set_flashdata('message', 'không tồn tại danh mục này');
-            redirect(admin_url('catalog'));
+            if($rediect)
+            {
+                redirect(admin_url('catalog'));
+            }else{
+                return false;
+            }
         }
+        
+        //kiem tra xem danh muc nay co san pham khong
+        $this->load->model('product_model');
+        $product = $this->product_model->get_info_rule(array('category_id' => $id), 'id');
+        if($product)
+        {
+            //tạo ra nội dung thông báo
+            $this->session->set_flashdata('message', 'Danh mục '.$info->category_name.' có chứa sản phẩm,bạn cần xóa các sản phẩm trước khi xóa danh mục');
+            if($rediect)
+            {
+                redirect(admin_url('catalog'));
+            }else{
+                return false;
+            }
+        }
+        
         //xoa du lieu
         $this->categories_model->delete($id);
-        //tạo ra nội dung thông báo
-        $this->session->set_flashdata('message', 'Xóa dữ liệu thành công');
-        redirect(admin_url('catalog'));
+        
     }
+
+
+
 }
 

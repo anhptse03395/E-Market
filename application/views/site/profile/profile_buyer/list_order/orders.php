@@ -46,11 +46,11 @@
           </span>
           <select onchange="this.form.submit();" name="status" class="form-control">
            <option value="">Tất cả</option>
-           <option value="1">Đơn hàng mới</option>
-           <option value="2">Đang đàm phán</option>
-           <option value="3">Đang xử lý</option>
-           <option value="4">Đã gủi hàng</option>
-           <option value="7">Đơn bị hủy</option>
+           <option value="1" <?php echo ($this->input->post('status') == 1) ? 'selected' : ''?> >Đơn hàng mới</option>
+           <option value="2" <?php echo ($this->input->post('status') == 2) ? 'selected' : ''?>>Đang đàm phán</option>
+           <option value="3" <?php echo ($this->input->post('status') == 3) ? 'selected' : ''?>>Đang xử lý</option>
+           <option value="4" <?php echo ($this->input->post('status') == 4) ? 'selected' : ''?>>Đã gủi hàng</option>
+           <option value="7" <?php echo ($this->input->post('status') == 7) ? 'selected' : ''?>>Đơn bị hủy</option>
 
          </select>
        </div>

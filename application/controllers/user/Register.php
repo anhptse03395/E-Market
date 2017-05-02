@@ -107,6 +107,7 @@ Class Register extends MY_controller{
 	    	$this->load->model('country_model');
 	    	$this->load->model('province_model');
 	    	$this->load->model('market_place_model');
+	    	$this->load->model('fee_model');
 
 	    	$countries =$this->country_model->get_list();
 	    	$this->data['countries'] =$countries;
@@ -137,7 +138,7 @@ Class Register extends MY_controller{
 	    if($this->input->post())
 	    {
 	    	$this->form_validation->set_rules('r_name', 'Tên', 'required|min_length[2]');
-	    	$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[8]|numeric|callback_check_phone');
+	    	$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[10]|numeric|callback_check_phone|regex_match[/^[0-9]{10}$/]');
 
 	    	$this->form_validation->set_rules('r_address', 'Địa chỉ', 'required|min_length[5]');		
 	    	$this->form_validation->set_rules('r_password', 'Mật khẩu', 'required|min_length[6]');
@@ -192,13 +193,19 @@ Class Register extends MY_controller{
 	    			'image_shop' => $image_link,
 	    			'created' => now(),
 	    			'account_id'=> $account_id,
-	    			'expiration_date'=>$expiration_date,
+	    			
 	    			);
 
 
 	    		if($this->shop_model->create($data_shop))
-	    		{ 
-	    			
+	    		{ 	
+	    			$shop_id = $this->db->insert_id();
+	    			$data_fee = array('shop_id'=>$shop_id,
+	    							'expiration_date'=>$expiration_date
+	    							);	
+	    			$this->fee_model->create($data_fee);
+
+
 	    			redirect(user_url('register/activate')); 
 	    		
 	    		}else{
@@ -230,7 +237,7 @@ Class Register extends MY_controller{
 		if($this->input->post())
 		{
 			$this->form_validation->set_rules('r_name', 'Tên', 'required|min_length[2]');
-			$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[8]|numeric|callback_check_phone');
+			$this->form_validation->set_rules('r_phone', 'Số điện thoại', 'required|min_length[10]|numeric|callback_check_phone|regex_match[/^[0-9]{10}$/]');
 			$this->form_validation->set_rules('r_address', 'Địa chỉ', 'required|min_length[5]');		
 			$this->form_validation->set_rules('r_password', 'Mật khẩu', 'required|min_length[6]');
 			$this->form_validation->set_rules('r_confirm', 'Nhập lại mật khẩu', 'matches[r_password]');

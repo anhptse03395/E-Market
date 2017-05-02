@@ -25,7 +25,7 @@
 							?>
 						</td>
 						<td class="cart_description">
-							<a href="<?php echo user_url('listproduct/product_detail/'.$row->product_id)?>"><img  height="70" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
+							<a href="<?php echo user_url('listproduct/product_detail/'.$row->product_id)?>"><img  height="70" width="100" src="<?php echo base_url('upload/product/'.$row->image_link)?>" alt=""></a>
 							<p style="color: green"> <?php echo $row->shop_name.' ' ;
 								echo '</br>'.'<h6>'.'ngày đăng'.' :'. mdate('%d-%m-%Y',$row->product_created).'</h6>' ;
 

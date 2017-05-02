@@ -32,6 +32,7 @@ Class Order extends MY_Controller
        $date =DateTime::createFromFormat('d/m/Y', $date_rec);     
        $date= $date->format('Y-m-d');
        $date_receive = strtotime($date);
+    
        $date_now = now();
       if ($date_receive >= $date_now)
         return True;

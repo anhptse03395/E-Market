@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * flash: Administrator
- * Date: 29-Dec-16
- * Time: 8:08 PM
- */
 class Product extends MY_Controller
 {
 
@@ -30,6 +24,7 @@ class Product extends MY_Controller
  {
         //kiem tra co loc du lieu hay ko
     $input = array();
+
     $id = intval($this->input->post('id'));
     $input['where'] = array();
     if ($id > 0) {
@@ -46,6 +41,7 @@ class Product extends MY_Controller
         //sau khi loc thi tong so du lieu thay doi, dan toi so trang bi thay doi theo
 
     $total_rows= count($this->product_model->view_product());
+    $this->data['total_rows'] = $total_rows;
 
 
         $this->data['total_rows'] = $total_rows;
@@ -58,11 +54,7 @@ class Product extends MY_Controller
         $this->load->library('pagination');
         $config = array();
         $config['total_rows'] = $this->data['total_rows'];
-        // neu ko search thi de link phan trang nhu binh thuong
-        // if(!isset($id) || !isset($name) || !isset($catalog_id) )
-        //{
         $config['base_url'] = admin_url('product/index'); // link hien thi du lieu  
-        // }
         $config['per_page'] = $limit;
         //$config['uri_segment'] = 4;
        
@@ -70,10 +62,6 @@ class Product extends MY_Controller
         $config['prev_link']   = 'Trang trước';
         //khoi tao cac cau hinh phan trang
         $this->pagination->initialize($config);
-
-        //$segment = intval($this->uri->segment(4));
-
-        //$input['limit'] = array($config['per_page'], $segment);
         $list = $this->product_model->paging_product($limit,$offset);
 
         $this->data['list'] = $list;
@@ -95,24 +83,21 @@ class Product extends MY_Controller
         $this->load->view('admin/main', $this->data);
     }
 
-    function search($offset = null)
+    function search()
     {
          $input = array();
+         
+         $where = array();
+         $product_id = $this->session->userdata('product_id');
         $this->load->library('form_validation');
         $this->load->helper('form');
         //neu co gui form tim kiem
         if ($this->input->post()) {
-            $this->session->unset_userdata('id');
             $this->session->unset_userdata('name');
             $this->session->unset_userdata('catalog');
+            $this->session->unset_userdata('phone');
             $input['where'] = array();
             
-            $this->session->set_userdata('id', $this->input->post('id'));
-            if ($this->session->userdata('id')) {
-                $input['where']['id'] = $this->session->userdata('id');
-               
-
-            }
             $name= $this->input->post('name');
 
             $this->session->set_userdata('name',$this->removeURL($name));
@@ -125,14 +110,56 @@ class Product extends MY_Controller
                 $input['where']['category_id'] = $this->session->userdata('catalog');
                     
             }
-        }
-        // cu tim theo session da gui trc do
-        if (($this->session->userdata('id') || $this->session->userdata('name') || $this->session->userdata('catalog'))) {
-            $input['where'] = array();
-            if ($this->session->userdata('id')) {
-                $input['where']['id'] = $this->session->userdata('id');
+            $phone =$this->input->post('phone');
+            // }
+            $this->session->set_userdata('phone', $this->input->post('phone'));
+            if ($this->session->userdata('phone')) {
+                $input['where']['phone'] = $this->session->userdata('phone');
+                    //pre($input);
+
+                    
+            }
+            $this->session->set_userdata('from_date', $this->input->post('from_date'));
+            $from_date =  $this->session->userdata('from_date');
+            $this->session->set_userdata('end_date', $this->input->post('end_date'));
+            $end_date= $this->session->userdata('end_date');
+            if ($from_date &&$end_date='') {
+                $time = get_time_between_day_admin($from_date,$end_date);
+            //nếu dữ liệu trả về hợp lệ
+                if(is_array($time))
+                {   
+                    $where['products.created >='] = $time['start'];
+
+                }
 
             }
+            if ($end_date &&$from_date='') {
+                $time = get_time_between_day_admin($end_date,$from_date);
+            //nếu dữ liệu trả về hợp lệ
+                if(is_array($time))
+                {   
+
+                    $where['products.created <='] = $time['end'];
+                }
+
+            }
+
+
+            if ($from_date && $end_date) {
+                $time = get_time_between_day($from_date,$end_date);
+            //nếu dữ liệu trả về hợp lệ
+                if(is_array($time))
+                {   
+                    $where['products.created >='] = $time['start'];
+                    $where['products.created <='] = $time['end'];
+                }
+
+            }
+               
+        }
+        // cu tim theo session da gui trc do
+        if (($this->session->userdata('name') || $this->session->userdata('phone') || $this->session->userdata('catalog'))) {
+            $input['where'] = array();
                 $name=$this->session->userdata('name');
             if ($this->session->userdata('name')) {
                 $input['like'] = array('product_name', $this->removeURL($name));
@@ -142,55 +169,100 @@ class Product extends MY_Controller
             if ($this->session->userdata('catalog')) {
                 $input['where']['category_id'] = $this->session->userdata('catalog');
             }
+            if ($this->session->userdata('phone')) {
+                $input['where']['phone']= $this->session->userdata('phone');
+                //pre($input);
+            }
+            //$input['where'] = $where;
         }
+        if ($this->session->userdata('from_date') && ($this->session->userdata('end_date'))) {
+
+        $from_date= $this->session->userdata('from_date');
+        $end_date= $this->session->userdata('end_date');
+        $time = get_time_between_day_admin($from_date,$end_date);
+        if(is_array($time))
+        {   
+            $where['products.created >='] = $time['start'];
+            $where['products.created <='] = $time['end'];
+        }
+        $input['where'] = $where;
+    }
+
+    if ($this->session->userdata('from_date') && ($this->session->userdata('end_date'))=='') {
+
+        $from_date= $this->session->userdata('from_date');
+        $end_date= $this->session->userdata('end_date');
+        $time = get_time_between_day_admin($from_date,$end_date);
+        if(is_array($time))
+        {   
+            $where['products.created  >='] = $time['start'];
+
+        }
+        $input['where'] = $where;
+    }
+    if ($this->session->userdata('from_date')=='' && ($this->session->userdata('end_date'))) {
+
+        $from_date= $this->session->userdata('from_date');
+        $end_date= $this->session->userdata('end_date');
+        $time = get_time_between_day_admin($end_date,$from_date);
+        if(is_array($time))
+        {   
+
+            $where['products.created <='] = $time['end'];
+        }
+        $input['where'] = $where;
+    }
 
 
 ////////////////////////////////
-        $total_rows = $this->product_model->view_product();
-        $this->data['total_rows'] = $total_rows;
-        if($offset != null){
-            $offset = $this->uri->segment(4);
+                //$input['where'] = $where;
+                $total_rows = count($this->product_model->search_product($input));
+                $this->data['total_rows'] = $total_rows;
+                //pre($total_rows);
 
-        }
-        $limit = 10;
-        // thu vien phan trang
-        $this->load->library('pagination');
-        $config = array();
-        $config['total_rows'] = $this->data['total_rows'];
-        // neu ko search thi de link phan trang nhu binh thuong
-        // if(!isset($id) || !isset($name) || !isset($catalog_id) )
-        //{
-        $config['base_url'] = admin_url('product/search'); // link hien thi du lieu
-        // }
-        $config['per_page'] = 6;
-        $config['uri_segment'] = 4;
-       // $config['use_page_numbers'] = TRUE;
-        $config['next_link']   = 'Trang kế tiếp';
-        $config['prev_link']   = 'Trang trước';
-        //khoi tao cac cau hinh phan trang
-        $this->pagination->initialize($config);
 
-        $segment = intval($this->uri->segment(4));
+                        // thu vien phan trang
+                $this->load->library('pagination');
+                $config = array();
+                $config['total_rows'] = $total_rows;
+            // neu ko search thi de link phan trang nhu binh thuong
+            // if(!isset($id) || !isset($name) || !isset($catalog_id) )
+            //{
+                $config['base_url'] = admin_url('product/search'); // link hien thi du lieu
+                // }
+                $config['per_page'] = 7;
+                $config['uri_segment'] = 4;
+               // $config['use_page_numbers'] = TRUE;
+                $config['next_link']   = 'Trang kế tiếp';
+                $config['prev_link']   = 'Trang trước';
+                $config['first_link'] = 'Trang đầu';
+                $config['last_link'] = 'Trang cuối';
+                    //khoi tao cac cau hinh phan trang
+                $this->pagination->initialize($config);
 
-        $input['limit'] = array($config['per_page'], $segment);
+                $segment = intval($this->uri->segment(4));
 
-        $this->data['list'] = $this->product_model->paging_product($limit,$offset);
+                $input['limit'] = array($config['per_page'], $segment);
 
-        // load filter list
-        $this->load->model('categories_model');
-        // dat la input_catalog de tranh bi trung voi input cua product
-        $input_catalog['where'] = array('parent_id' => 0);
-        $catalogs = $this->categories_model->get_list($input_catalog);
-        foreach ($catalogs as $row) {
-            $input_catalog['where'] = array('parent_id' => $row->id);
-            $subs = $this->categories_model->get_list($input_catalog);
-            $row->subs = $subs;
-        }
-        $this->data['catalogs'] = $catalogs;
-        // gan thong bao loi de truyen vao view
-        $this->data['message'] = $this->session->flashdata('message');
-        $this->data['temp'] = 'admin/product/index';
-        $this->load->view('admin/main', $this->data);
+                $list = $this->product_model->search_product($input);
+                $this->data['list'] =$list;
+                //echo $this->db->last_query();
+
+            // load filter list
+            $this->load->model('categories_model');
+            // dat la input_catalog de tranh bi trung voi input cua product
+            $input_catalog['where'] = array('parent_id' => 0);
+            $catalogs = $this->categories_model->get_list($input_catalog);
+            foreach ($catalogs as $row) {
+                $input_catalog['where'] = array('parent_id' => $row->id);
+                $subs = $this->categories_model->get_list($input_catalog);
+                $row->subs = $subs;
+            }
+            $this->data['catalogs'] = $catalogs;
+            // gan thong bao loi de truyen vao view
+            $this->data['message'] = $this->session->flashdata('message');
+            $this->data['temp'] = 'admin/product/index';
+            $this->load->view('admin/main', $this->data);
     }
 
     

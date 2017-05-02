@@ -1,11 +1,12 @@
 <?php
 $config = array(
 	'admin' => array('index', 'add', 'edit', 'delete'),
-	'user' => array('index','search','add', 'edit', 'delete'),
-	'market' => array('index', 'add', 'edit', 'delete'),
-	'product' => array('index','search','del', 'del_all', '__delete'),
-	'province' => array('index', 'add', 'edit', 'delete'),
-	'seller' => array('index', 'add', 'edit', 'delete'),
-	'catalog' => array('index', 'add', 'edit', 'delete', 'delete all'),
-	'feedback' => array('index'),
+	'user' => array('index','search','add', 'view', 'delete'),
+	'market' => array('index','search','add', 'edit', 'delete'),
+	'product' => array('index','search','del'),
+	'province' => array('index', 'add', 'edit', 'delete','search'),
+	'seller' => array('index','search', 'add', 'view', 'delete'),
+	'catalog' => array('index', 'add', 'edit', 'delete'),
+	'feedback' => array('index','search','edit','delete'),
+	'manage_fee' => array('index','search','add', 'edit', 'delete'),
 );

@@ -1,4 +1,4 @@
-<?php
+[ơ<?php
 Class Admin extends MY_Controller
 {
     function __construct()

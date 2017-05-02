@@ -34,7 +34,7 @@
 					</td>
 					
 					<td class="textC webStatsLink">
-						<?php echo number_format($total_shop + $total_buyer + $total_admin)?>
+						<?php echo number_format($total_account)?>
 					</td>
 				</tr>
 				<tr>
@@ -63,7 +63,7 @@
 				<tr>
 					<td>
 						<div class="left">Tổng số sản phẩm đã đăng</div>
-						<div class="right f11"><a href="<?php echo admin_url('product') ?>">Chi tiết</a></div>
+						<div class="right f11"><a href="<?php echo admin_url('product')?>">Chi tiết</a></div>
 					</td>
 					
 					<td class="textC webStatsLink">

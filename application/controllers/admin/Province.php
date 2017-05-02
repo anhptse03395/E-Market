@@ -8,6 +8,13 @@ Class Province extends MY_Controller
         parent::__construct();
         $this->load->model('province_model');
     }
+    function removeURL($strTitle)
+    {
+
+       $strTitle=trim($strTitle);
+       $strTitle= preg_replace("/ {2,}/", " ", $strTitle);
+       return $strTitle;
+   }
     
     /*
      * Lay danh sach admin
@@ -25,6 +32,7 @@ Class Province extends MY_Controller
 
         $total_rows = count($this->province_model->join_country_admin($input));
 
+        $this->data['total_rows'] = $total_rows;
 
         //load ra thu vien phan trang
         $this->load->library('pagination');
@@ -48,8 +56,7 @@ Class Province extends MY_Controller
         $this->data['list'] =$list;
         //$this->data['list'] = $list;
 
-        $total = count($list);
-        $this->data['total'] = $total;
+        
         
         //lay nội dung của biến message
         $message = $this->session->flashdata('message');
@@ -59,38 +66,89 @@ Class Province extends MY_Controller
         $this->load->view('admin/main', $this->data);
     }
     
-    /*
-     * Kiểm tra username đã tồn tại chưa
-     */
-    // function check_username()
-    // {
-    //     $action = $this->uri->rsegment(2);
-    //     $email = $this->input->post('username');
-    //     $where = array('username' => $username);
 
-        
-    //     $check = 'true';
-    //     if($action == 'edit'){
-    //         $info = $this->data['info']; //lay thong tin quan tri vien muon sua
-    //         if($info->username == $username){
-    //             $check = false;
-    //         }
-    //     }
-        
 
-    //     //kiêm tra xem username đã tồn tại chưa
-    //     if($check && $this->accounts_model->check_exists($where))
-    //     {
-    //         //trả về thông báo lỗi
-    //         $this->form_validation->set_message(__FUNCTION__, 'Tài khoản đã tồn tại');
-    //         return false;
-    //     }
-    //     return true;
-    // }
+    function search()
+    {
+         $input = array();
+        $this->load->library('form_validation');
+        $this->load->helper('form');
+        //neu co gui form tim kiem
+         $input['where'] = array();
+        if ($this->input->post()) {
+            $this->session->unset_userdata('local_name');
+           
+            
+
+            $local_name= $this->input->post('local_name');
+
+            $this->session->set_userdata('local_name',$this->removeURL($local_name));
+            if ($this->session->userdata('local_name')) {
+                $input['like'] = array('local_name', $this->session->userdata('local_name'));
+            }
+            
+        }
+        // cu tim theo session da gui trc do
+        if ($this->session->userdata('local_name')) {
+            $input['where'] = array();
+            
+                $local_name =$this->session->userdata('local_name');
+            if ($this->session->userdata('local_name')) {
+                $input['like'] = array('local_name', $this->removeURL($local_name));
+            }
+        }
+          
+        
+        
+        // phân trang sau search
+        //$input = array();
+        $input['select']="local_name,country_name,provinces.id as province_id";
+        $input['join'] = array('countries');
+        $total_rows = count($this->province_model->join_country_admin($input));
+        $this->data['total_rows'] =$total_rows;
+        //pre($total_rows);
+
+                    // thu vien phan trang
+        $this->load->library('pagination');
+        $config = array();
+        $config['total_rows'] = $total_rows;
+        // neu ko search thi de link phan trang nhu binh thuong
+        //if(!isset($id) || !isset($name) )
+        //{
+            $config['base_url'] = admin_url('province/search'); // link hien thi du lieu
+            // }
+            $config['per_page'] = 20;
+            $config['uri_segment'] = 4;
+           // $config['use_page_numbers'] = TRUE;
+            $config['next_link']   = 'Trang kế tiếp';
+            $config['prev_link']   = 'Trang trước';
+            $config['first_link'] = 'Trang đầu';
+            $config['last_link'] = 'Trang cuối';
+                //khoi tao cac cau hinh phan trang
+            $this->pagination->initialize($config);
+
+            $segment = intval($this->uri->segment(4));
+
+            $input['limit'] = array($config['per_page'], $segment);
+
+            $list = $this->province_model->join_country_admin($input);
+            //pre($info);
+            $this->data['list'] =$list;
+            //pre($list);
+           
+
+            
+
+        // load filter list
     
-    /*
-     * Thêm mới quản trị viên
-     */
+        
+        // gan thong bao loi de truyen vao view
+        $this->data['message'] = $this->session->flashdata('message');
+        $this->data['temp'] = 'admin/provinces/index';
+        $this->load->view('admin/main', $this->data);
+    }
+
+
     function add()
     {
         

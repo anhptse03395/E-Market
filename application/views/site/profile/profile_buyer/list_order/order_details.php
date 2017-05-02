@@ -5,6 +5,15 @@
 <script src="<?php echo public_url('user/home') ?>/js/bootstrap.min.js"></script>
 
 
+<SCRIPT LANGUAGE="JavaScript">
+  function confirmAction() {
+    return confirm("bạn đồng ý với giao dịch này?")
+  }
+  function confirmAction1() {
+    return confirm("bạn có xác nhận hủy bỏ  không?")
+  }
+</SCRIPT>
+
 <div class="container" style="width: 100%">
   <div class="row">
 
@@ -18,31 +27,6 @@
         </ul>
       </div>
 
-        <!--     <form id="eventForm" action="<?php echo user_url('profile/search_order_buyer') ?>" method="post" class="form-horizontal">
-            <div class="form-group" style="width: 60%;margin-left: 10%">
-              <label class="col-xs-3 control-label">Trạng thái </label>
-              <div class="input-group"> 
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
-              </span>
-              <select  name="status" class="form-control">
-                <option value="">chọn</option>
-                <option value="2">Đã gửi hàng</option>
-                <option value="1">Đang xử lý</option>
-                <option value="3">Đơn hàng bị hủy</option>
-        
-            </select>
-        </div>
-                </div>
-        
-               
-        
-        
-                <div class="form-group">
-        <div class="col-xs-6 col-xs-offset-4">
-            <button type="submit" class="btn btn-default">Tìm kiếm</button>
-        </div>
-                </div>
-              </form> -->
               <form id="eventForm" action="" method="post" class="form-horizontal" style="margin-bottom: 3%">
 
                 <div class="table-responsive">
@@ -121,7 +105,7 @@
                     </tbody>
 
                   </table>
-
+                <?php if ($orders->status==2) {?>
                 <div class="form-group"  >
                   <label class="col-xs-3 control-label">Xác nhận giá đơn hàng </label>
                   <div class="input-group"> 
@@ -129,16 +113,17 @@
                   </span>
                   
                     <label class="btn btn-success ">
-                  <input type="radio" name="review_price" value="1"  onchange="this.form.submit();"  />
+                  <input type="radio" name="review_price" value="1" onclick="return confirmAction()" onchange="this.form.submit();"    />
                   Đồng ý
                 </label>
 
-                <label style="margin-left: 10%" class="btn btn-danger">
-                  <input type="radio" name="review_price" value="2"  onchange="this.form.submit();"  />
+                <label style="margin-left: 10%" class="btn btn-danger"  >
+                  <input type="radio" name="review_price" value="2"  onclick="return confirmAction1()" onchange="this.form.submit();"  />
                   Hủy bỏ
                 </label>
                 </div>
               </div>
+              <?php } ?>
 
                 <div class="clearfix"></div>
 

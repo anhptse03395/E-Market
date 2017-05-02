@@ -47,8 +47,8 @@
           </span>
           <select onchange="this.form.submit();" name="status" class="form-control">
             <option value="">Tất cả</option>
-            <option value="1">Đơn hàng còn nợ</option>
-            <option value="2">Đơn hàng trả xong</option>
+            <option value="5" <?php echo ($this->input->post('status') == 5) ? 'selected' : ''?> >Đơn hàng còn nợ</option>
+            <option value="6" <?php echo ($this->input->post('status') == 6) ? 'selected' : ''?> >Đơn hàng trả xong</option>
 
 
           </select>

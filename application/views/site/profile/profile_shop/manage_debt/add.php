@@ -78,7 +78,7 @@
 
     <tr>
         <td class="text-center" >Số tiền thanh toán lần này</td>
-        <td><input type="text" name ="paid" value="<?php echo set_value('paid') ?>" ></td>
+        <td><input type="text"   name ="paid" value="<?php echo set_value('paid') ?>" ></td>
         <td class="text-center" style="color: red">  <?php echo form_error('paid') ?> </td>
     </tr>
 
@@ -105,5 +105,3 @@
 
 
 </form>
-
-
