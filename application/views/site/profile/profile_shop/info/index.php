@@ -11,27 +11,9 @@
     <?php if(isset($message) && $message):?>
       <div class="alert alert-info">
         <h3 style="text-align: center;"><strong> </strong><?php echo $message?></h3>
-         <a href="" data-toggle="modal" data-target="#myModal"> Vui lòng nạp tiền theo hướng dẫn ở đây</a>
+         <h3 class="text-center"><a href="<?php echo user_url('contact') ?>" > Vui lòng nạp tiền theo hướng dẫn ở đây</a></h3>
         
-<div id="myModal" class="modal" >
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
 
     </div>
 <?php endif;?>

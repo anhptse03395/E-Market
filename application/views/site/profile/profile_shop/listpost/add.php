@@ -56,15 +56,7 @@
                                     <input type="text" class="form-control"  placeholder=" Tên sản phẩm" name="p_product_name" value="<?php echo set_value('p_product_name')?>"  /></div>
                                     <div class="clear error" style="color: red" name="name_error"><?php echo form_error('p_product_name')?></div>
                                 </div>
-                             <!--    <div class="form-group">
-                                 <label for="email">
-                                     Số lượng/Kg</label>
-                                 <div class="input-group">
-                             <span class="input-group-addon"><span class="glyphicon glyphicon-hdd"></span>
-                             </span>
-                                     <input type="text" style="width: 50%" class="form-control"  placeholder="Số lượng/kg" name="p_number" value="<?php echo set_value('p_number')?>" required="required" /></div>
-                                 <div class="clear error" name="name_error"><?php echo form_error('p_number')?></div>
-                             </div> -->
+                          
 
                              <div class="form-group">
                                 <label for="email">
@@ -72,7 +64,10 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="	glyphicon glyphicon-picture"></span>
                                     </span>
-                                    <input type="file" class="form-control" name="image" id="image" size="10"  value="<?php echo set_value('image'); ?>" oninvalid="this.setCustomValidity('Ảnh cần điền vào')"  />
+                                   
+                                    <input  type="file" class="form-control" name="image" id="image" size="10" 
+                                    required title ="First Name is Required" />
+                                    
                                 </div>
 
                               <div class="clear error" style="color: red" name="name_error"><?php echo form_error('image')?></div>
@@ -84,7 +79,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-th-list"></span>
                                     </span>
-                                    <input type="file" class="form-control" multiple="" name="image_list[]" id="image_list" size="40"></div>
+                                    <input type="file" class="form-control" multiple="" name="image_list[]" id="image_list" size="40" ></div>
                                     <div class="clear error" name="image_list_error"></div>
                                 </div>
 

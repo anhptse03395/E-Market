@@ -283,13 +283,13 @@ Class Manage_Fee extends MY_Controller
                     'expiration_date'=>$expiration_date
                 );
 
-                //neu ma thay doi mat khau thi moi gan du lieu
-                // if($password)
-                // {
-                //     $data['password'] = md5($password);
-                // }
+                $role_id =3;
+
+                $data_account = array('role_id'=>$role_id);
                 
                 $this->fee_model->update_fee($shop_id, $data);
+
+                $this->account_model->update($info->account_id,$data_account);
 
                 $this->session->set_flashdata('message', 'Cập nhật dữ liệu thành công');
 

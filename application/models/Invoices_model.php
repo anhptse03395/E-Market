@@ -112,6 +112,11 @@ Class Invoices_model extends MY_Model{
 			$string = $sql."where T3.order_id = ".$order_id." and T3.status =".$status."  ";
 			
 		}
+		if(isset($status)&&$status &&isset($buyer_name)&&$buyer_name ){
+
+			$string = $sql."where T3.status = ".$status." and T3.buyer_name like '%".$buyer_name."%' ";
+			
+		}
 
 		if(isset($order_id)&&$order_id &&isset($buyer_name)&&$buyer_name&&isset($status)&&$status ){
 
@@ -170,6 +175,12 @@ Class Invoices_model extends MY_Model{
 			$string = $sql."where T3.order_id = ".$order_id." and T3.status like '%".$status."%' ";
 			
 		}
+		if(isset($status)&&$status &&isset($buyer_name)&&$buyer_name ){
+
+			$string = $sql."where T3.status = ".$status." and T3.buyer_name like '%".$buyer_name."%' ";
+			
+		}
+
 
 		if(isset($order_id)&&$order_id &&isset($buyer_name)&&$buyer_name&&isset($status)&&$status ){
 
@@ -362,7 +373,12 @@ Class Invoices_model extends MY_Model{
 		}
 		if(isset($order_id)&&$order_id &&isset($status)&&$status ){
 
-			$string = $sql."where T3.order_id = ".$order_id." and T3.status like '%".$status."%' ";
+			$string = $sql."where T3.order_id = ".$order_id." and T3.status = ".$status."";
+			
+		}
+		if(isset($status)&&$status &&isset($shop_name)&&$shop_name ){
+
+			$string = $sql."where T3.status = ".$status." and T3.shop_name like '%".$shop_name."%' ";
 			
 		}
 
@@ -420,7 +436,12 @@ Class Invoices_model extends MY_Model{
 		}
 		if(isset($order_id)&&$order_id &&isset($status)&&$status ){
 
-			$string = $sql."where T3.order_id = ".$order_id." and T3.status like '%".$status."%' ";
+			$string = $sql."where T3.order_id = ".$order_id." and T3.status = ".$status."";
+			
+		}
+		if(isset($status)&&$status &&isset($shop_name)&&$shop_name ){
+
+			$string = $sql."where T3.status = ".$status." and T3.shop_name like '%".$shop_name."%' ";
 			
 		}
 

@@ -231,7 +231,7 @@ Class Profile extends MY_controller{
             $this->session->unset_userdata('from_date');
             $this->session->unset_userdata('end_date');
 
-
+            
             $this->session->set_userdata('product_name', $this->input->post('product_name'));
 
             if ($this->session->userdata('product_name')) {
@@ -349,7 +349,6 @@ Class Profile extends MY_controller{
 
             $list = $this->product_model->search_listpost($input,$shop_id);
             $this->data['list'] = $list;
-
             $message = $this->session->flashdata('message');
             $this->data['message'] = $message;
 
@@ -362,12 +361,12 @@ Class Profile extends MY_controller{
         /*Kiểm tra sự tồn tại của tên sản phẩm*/
 
         function check_name_product(){
-               $shop_id = $this->session->userdata('shop_id');
-          $product_name = $this->input->post('p_product_name');
-          $where = array('product_name'=>$product_name,
-                         'shop_id'      =>$shop_id 
-                         );
-          if($this->product_model->check_exists($where)){
+           $shop_id = $this->session->userdata('shop_id');
+           $product_name = $this->input->post('p_product_name');
+           $where = array('product_name'=>$product_name,
+             'shop_id'      =>$shop_id 
+             );
+           if($this->product_model->check_exists($where)){
               $this->form_validation->set_message(__FUNCTION__,'Tên sản phẩm trùng với tên sản phẩm mà bạn đã đăng');
               return false;
           }
@@ -413,204 +412,200 @@ Class Profile extends MY_controller{
 
         {
 
-             /*   $this->form_validation->set_rules('p_name', 'Tên', 'required|min_length[8]');
-             $this->form_validation->set_rules('p_phone', 'Số điện thoại', 'required|min_length[8]|numeric');*/
-             $this->form_validation->set_rules('catalog', 'Danh Mục', 'required');
-              $this->form_validation->set_rules('image', 'hình ảnh', 'required|min_length[8]');
-             $this->form_validation->set_rules('p_product_name', 'Tên sản phẩm', 'required|min_length[2]|callback_check_name_product');
-             $this->form_validation->set_rules('p_content', 'Nội dung', 'required|min_length[8]');
 
-                    //nhập liệu chính xác
-             if($this->form_validation->run())
-             {
+         $this->form_validation->set_rules('catalog', 'Danh Mục', 'required');
+         $this->form_validation->set_rules('p_product_name', 'Tên sản phẩm', 'required|min_length[2]|callback_check_name_product');
+         $this->form_validation->set_rules('p_content', 'Nội dung', 'required|min_length[8]');
+
+                   
+         if($this->form_validation->run())
+         {
                         //them vao csdl
 
-                $name     = $this->input->post('p_name');
-                $address = $this->input->post('p_address');
-                $phone = $this->input->post('p_phone');
-                $number = $this->input->post('p_number');
-                $product_name = $this->input->post('p_product_name');
-                $content =$this->input->post('p_content');
-                $catalog_id = $this->input->post('catalog');
 
-                $shop_id = $this->session->userdata('shop_id');
+            $product_name = $this->input->post('p_product_name');
+            $content =$this->input->post('p_content');
+            $catalog_id = $this->input->post('catalog');
+
+            $shop_id = $this->session->userdata('shop_id');
+            $supplier_id = $this->input->post('supplier');
 
 
 
-                $this->load->library('upload_library');
-                $upload_path = './upload/product';
-                $upload_data = $this->upload_library->upload($upload_path, 'image');
-                $image_link = '';
-                if(isset($upload_data['file_name']))
-                {
-                    $image_link = $upload_data['file_name'];
-                }
-
-
-                $image_list = array();
-                $image_list = $this->upload_library->upload_file($upload_path, 'image_list');
-                $image_list = json_encode($image_list);
-
-                $data = array(
-
-                    'product_name' =>  $product_name,
-                    'supplier_id' =>1,
-                    'category_id'=>$catalog_id,
-                    'shop_id'=> $shop_id,
-                    'image_link' => $image_link,
-                    'image_list' => $image_list,
-                    'description'=> $content,
-                    'impression' => 1,
-                    'created' => now(),
-                    );
-
-                if($this->product_model->create($data))
-                {
-                            //tạo ra nội dung thông báo
-                    $this->session->set_flashdata('message', 'Bài đăng thành công');
-                }else{
-                    $this->session->set_flashdata('message', 'Không đăng bài được ');
-                }
-                        //chuyen tới trang danh sách quản trị viên
-                redirect(user_url('profile/listpost'));
+            $this->load->library('upload_library');
+            $upload_path = './upload/product';
+            $upload_data = $this->upload_library->upload($upload_path, 'image');
+            $image_link = '';
+            if(isset($upload_data['file_name']))
+            {
+                $image_link = $upload_data['file_name'];
             }
 
 
+            $image_list = array();
+            $image_list = $this->upload_library->upload_file($upload_path, 'image_list');
+            $image_list = json_encode($image_list);
+
+            $data = array(
+
+                'product_name' =>  $product_name,
+                'supplier_id' => $supplier_id,
+                'category_id'=>$catalog_id,
+                'shop_id'=> $shop_id,
+                'image_link' => $image_link,
+                'image_list' => $image_list,
+                'description'=> $content,
+                'impression' => 1,
+                'created' => now(),
+                );
+
+            if($this->product_model->create($data))
+            {
+                            //tạo ra nội dung thông báo
+                $this->session->set_flashdata('message', 'Bài đăng thành công');
+            }else{
+                $this->session->set_flashdata('message', 'Không đăng bài được ');
+            }
+                        //chuyen tới trang danh sách quản trị viên
+            redirect(user_url('profile/listpost'));
         }
-        $message = $this->session->flashdata('message');
-        $this->data['message'] = $message;
-
-        $this->data['temp1'] = 'site/profile/profile_shop/listpost/add';
-        $this->data['temp'] = 'site/profile/profile_shop/listpost/main';
-        $this->load->view('site/profile/profile_shop/main', $this->data);
-
-
-
 
 
     }
+    $message = $this->session->flashdata('message');
+    $this->data['message'] = $message;
+
+    $this->data['temp1'] = 'site/profile/profile_shop/listpost/add';
+    $this->data['temp'] = 'site/profile/profile_shop/listpost/main';
+    $this->load->view('site/profile/profile_shop/main', $this->data);
 
 
 
-    function edit_post()
+
+
+}
+
+
+
+function edit_post()
+{
+    $id = $this->uri->rsegment('3');
+    $product = $this->product_model->get_info($id);
+
+    if(!$product)
     {
-        $id = $this->uri->rsegment('3');
-        $product = $this->product_model->get_info($id);
-        
-        if(!$product)
-        {
             //tạo ra nội dung thông báo
-            $this->session->set_flashdata('message', 'Không tồn tại sản phẩm này');
-        }
-        $this->data['product'] = $product;
+        $this->session->set_flashdata('message', 'Không tồn tại sản phẩm này');
+    }
+    $this->data['product'] = $product;
 
 
 
 
-        $this->load->model('categories_model');
-        $input = array();
-        $input['where'] = array('parent_id' => 0);
-        $catalogs = $this->categories_model->get_list($input);
-        foreach ($catalogs as $row)
-        {
-            $input['where'] = array('parent_id' => $row->id);
-            $subs = $this->categories_model->get_list($input);
-            $row->subs = $subs;
-        }
-        $this->data['catalogs'] = $catalogs;
+    $this->load->model('categories_model');
+    $input = array();
+    $input['where'] = array('parent_id' => 0);
+    $catalogs = $this->categories_model->get_list($input);
+    foreach ($catalogs as $row)
+    {
+        $input['where'] = array('parent_id' => $row->id);
+        $subs = $this->categories_model->get_list($input);
+        $row->subs = $subs;
+    }
+    $this->data['catalogs'] = $catalogs;
 
         //lay danh sach danh muc san pham
 
 
         //load thư viện validate dữ liệu
-        $this->load->library('form_validation');
-        $this->load->helper('form');
+    $this->load->library('form_validation');
+    $this->load->helper('form');
 
         //neu ma co du lieu post len thi kiem tra
-        if($this->input->post())
+    if($this->input->post())
+    {
+
+        $this->form_validation->set_rules('product_name', 'Tên', 'required');
+        $this->form_validation->set_rules('catalog', 'Thể loại', 'required');
+        $this->form_validation->set_rules('description', 'Miêu tả', 'required');
+
+        if($this->form_validation->run())
         {
-
-            $this->form_validation->set_rules('product_name', 'Tên', 'required');
-            $this->form_validation->set_rules('catalog', 'Thể loại', 'required');
-            $this->form_validation->set_rules('description', 'Miêu tả', 'required');
-
-            if($this->form_validation->run())
-            {
                 //them vao csdl
-                $name        = $this->input->post('product_name');
-                $catalog_id  = $this->input->post('catalog');
-                $description        = $this->input->post('description');
+            $name        = $this->input->post('product_name');
+            $catalog_id  = $this->input->post('catalog');
+            $description        = $this->input->post('description');
 
-                $this->load->library('upload_library');
-                $upload_path = './upload/product';
-                $upload_data = $this->upload_library->upload($upload_path, 'image');
-                $image_link = '';
-                if(isset($upload_data['file_name']))
-                {
-                    $image_link = $upload_data['file_name'];
-                }
+            $this->load->library('upload_library');
+            $upload_path = './upload/product';
+            $upload_data = $this->upload_library->upload($upload_path, 'image');
+            $image_link = '';
+            if(isset($upload_data['file_name']))
+            {
+                $image_link = $upload_data['file_name'];
+            }
 
                 //upload cac anh kem theo
-                $image_list = array();
-                $image_list = $this->upload_library->upload_file($upload_path, 'image_list');
-                $image_list_json = json_encode($image_list);
+            $image_list = array();
+            $image_list = $this->upload_library->upload_file($upload_path, 'image_list');
+            $image_list_json = json_encode($image_list);
 
                 //luu du lieu can them
-                $data = array(
-                    'product_name'=> $name,
-                    'category_id ' => $catalog_id,
-                    'description'    =>$description,
-                    );
+            $data = array(
+                'product_name'=> $name,
+                'category_id ' => $catalog_id,
+                'description'    =>$description,
+                );
 
-                if($image_link != '')
-                {
-                    $data['image_link'] = $image_link;
-                }
+            if($image_link != '')
+            {
+                $data['image_link'] = $image_link;
+            }
 
-                if(!empty($image_list))
-                {
-                    $data['image_list'] = $image_list_json;
-                }
+            if(!empty($image_list))
+            {
+                $data['image_list'] = $image_list_json;
+            }
 
                 //them moi vao csdl
-                if($this->product_model->update($product->id, $data))
-                {
+            if($this->product_model->update($product->id, $data))
+            {
                     //tạo ra nội dung thông báo
-                    $this->session->set_flashdata('message', 'Cập nhật dữ liệu thành công');
-                }else{
-                    $this->session->set_flashdata('message', 'Không cập nhật được');
-                }
-                redirect(user_url('profile/list_shop_post'));
+                $this->session->set_flashdata('message', 'Cập nhật dữ liệu thành công');
+            }else{
+                $this->session->set_flashdata('message', 'Không cập nhật được');
             }
+            redirect(user_url('profile/list_shop_post'));
         }
-
-        $this->data['temp'] = 'site/profile/profile_shop/edit_post/index';
-        $this->load->view('site/profile/profile_shop/main', $this->data);
-
     }
 
+    $this->data['temp'] = 'site/profile/profile_shop/edit_post/index';
+    $this->load->view('site/profile/profile_shop/main', $this->data);
 
-    /*nguoi mua xem đơn hàng*/
-    function  list_order_buyer($offset = NULL){
-
-       $this->load->library('form_validation');
-
-       $this->load->helper('form');
-
-       $buyer_id = $this->session->userdata('buyer_id');
-
-       $this->load->model('orders_model');
-
-       $total_rows= count($this->orders_model->join_count_total($buyer_id));
-       $limit = 7;
-       if(!is_null($offset))
-       {
-        $offset = $this->uri->segment(4);
-    }
+}
 
 
-    $this->load->library('pagination');
-    $config = array();
+/*nguoi mua xem đơn hàng*/
+function  list_order_buyer($offset = NULL){
+
+   $this->load->library('form_validation');
+
+   $this->load->helper('form');
+
+   $buyer_id = $this->session->userdata('buyer_id');
+
+   $this->load->model('orders_model');
+
+   $total_rows= count($this->orders_model->join_count_total($buyer_id));
+   $limit = 7;
+   if(!is_null($offset))
+   {
+    $offset = $this->uri->segment(4);
+}
+
+
+$this->load->library('pagination');
+$config = array();
         $config['total_rows'] =$total_rows;//tong tat ca cac san pham tren website
         $config['base_url']   = user_url('profile/list_order_buyer'); //link hien thi ra danh sach san pham
         $config['per_page']   = $limit;//so luong san pham hien thi tren 1 trang
@@ -1383,9 +1378,11 @@ function  manage_debt_buyer($offset = 0){
       $shop_name='';
       $status ='';
       if($this->input->post()){
+         $this->session->unset_userdata('shop_name');
+         $this->session->unset_userdata('order_id');
+         $this->form_validation->set_rules('order_id', 'mã đơn hàng', 'numeric');
+         if($this->form_validation->run()){
 
-          $this->session->unset_userdata('shop_name');
-          $this->session->unset_userdata('order_id');
 
           $this->session->set_userdata('shop_name', $this->input->post('shop_name'));
 
@@ -1407,24 +1404,26 @@ function  manage_debt_buyer($offset = 0){
 
              $order_id =$this->session->userdata('order_id');
          }
-
-     }
-     if ($this->session->userdata('status')) {
-
-         $status =$this->session->userdata('status');
      }
 
-     if ($this->session->userdata('shop_name')) {
 
-         $shop_name =$this->session->userdata('shop_name');
-     }
-     if ($this->session->userdata('order_id')) {
+ }
+ if ($this->session->userdata('status')) {
 
-         $order_id =$this->session->userdata('order_id');
-     }
+     $status =$this->session->userdata('status');
+ }
 
-     $total_rows = count($this->invoices_model->count_search_debt_buyer($buyer_id,$order_id,$shop_name,$status));
-     $limit = 7;
+ if ($this->session->userdata('shop_name')) {
+
+     $shop_name =$this->session->userdata('shop_name');
+ }
+ if ($this->session->userdata('order_id')) {
+
+     $order_id =$this->session->userdata('order_id');
+ }
+
+ $total_rows = count($this->invoices_model->count_search_debt_buyer($buyer_id,$order_id,$shop_name,$status));
+ $limit = 7;
    /*  echo $this->db->last_query();
    pre($total_rows);*/
    $this->load->library('pagination');
@@ -1512,30 +1511,35 @@ function  manage_debt_buyer($offset = 0){
       $buyer_name='';
       $status='';
       if($this->input->post()){
-
           $this->session->unset_userdata('buyer_name');
           $this->session->unset_userdata('order_id');
           $this->session->unset_userdata('status');
+          $this->form_validation->set_rules('order_id', 'mã đơn hàng', 'numeric');
+          if($this->form_validation->run()){
 
-          $this->session->set_userdata('buyer_name', $this->input->post('buyer_name'));
+             $this->session->set_userdata('buyer_name', $this->input->post('buyer_name'));
 
-          if ($this->session->userdata('buyer_name')) {
+             if ($this->session->userdata('buyer_name')) {
 
-             $buyer_name =$this->session->userdata('buyer_name');
+                 $buyer_name =$this->session->userdata('buyer_name');
+             }
+
+             $this->session->set_userdata('status', $this->input->post('status'));
+
+             if ($this->session->userdata('status')) {
+
+                 $status =$this->session->userdata('status');
+             }
+             $this->session->set_userdata('order_id', $this->input->post('order_id'));
+
+             if ($this->session->userdata('order_id')) {
+
+                 $order_id =$this->session->userdata('order_id');
+             }
          }
 
-         $this->session->set_userdata('status', $this->input->post('status'));
 
-         if ($this->session->userdata('status')) {
 
-             $status =$this->session->userdata('status');
-         }
-         $this->session->set_userdata('order_id', $this->input->post('order_id'));
-
-         if ($this->session->userdata('order_id')) {
-
-             $order_id =$this->session->userdata('order_id');
-         }
 
      }
      if ($this->session->userdata('buyer_name')) {
