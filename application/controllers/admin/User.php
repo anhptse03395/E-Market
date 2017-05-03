@@ -16,6 +16,23 @@ Class User extends MY_Controller
        $strTitle= preg_replace("/ {2,}/", " ", $strTitle);
        return $strTitle;
    }
+
+
+    function check_phone()
+    {
+        $phone = $this->input->post('phone');
+        $where = array('phone' => $phone);
+        $this->load->model('account_model');
+        //kiêm tra xem username đã tồn tại chưa
+        if($this->account_model->check_exists($where))
+        {
+            //trả về thông báo lỗi
+            $this->form_validation->set_message(__FUNCTION__, 'Số điện thoại đã được đăng kí');
+            return false;
+        }
+        return true;
+    }
+    
     
     /*
      * Lay danh sach admin
@@ -251,9 +268,9 @@ Class User extends MY_Controller
         //neu ma co du lieu post len thi kiem tra
         if($this->input->post())
         {
-            $this->form_validation->set_rules('phone', 'Phone', 'required');
-            $this->form_validation->set_rules('buyer_name', 'Tên', 'required');
-            $this->form_validation->set_rules('address', 'Địa Chỉ', 'required');
+           $this->form_validation->set_rules('phone', 'Phone', 'required|min_length[10]|numeric|callback_check_phone|regex_match[/^[0-9]{10}$/]');
+            $this->form_validation->set_rules('buyer_name', 'Tên', 'required|min_length[2]');
+            $this->form_validation->set_rules('address', 'Địa Chỉ', 'required|min_length[5]');
             $this->form_validation->set_rules('password', 'Mật khẩu', 'required|min_length[6]');
             $this->form_validation->set_rules('re_password', 'Nhập lại mật khẩu', 'matches[password]');
             

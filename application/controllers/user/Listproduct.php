@@ -88,8 +88,6 @@ Class Listproduct extends MY_Controller
     function search()
     {
 
-
-
         $input = array();
         $where =array();
         $this->load->library('form_validation');
@@ -98,15 +96,17 @@ Class Listproduct extends MY_Controller
         if ($this->input->post()) {
             $this->session->unset_userdata('name');
             $this->session->unset_userdata('catalog');
-            $input['where'] = array();
-
+        
             $name= $this->input->post('name');
             $this->session->set_userdata('name',$this->removeURL($name));
             if ($this->session->userdata('name')) {
-                $where['products.product_name like'] = $this->session->userdata('name');
+                $where['products.product_name like '] = '%'.$this->session->userdata('name').'%';
 
                 $product_name= $this->session->userdata('name');
-                $info['where']['product_name'] = $product_name;
+                    $info =array();
+                    $proviso =array();
+                $proviso['products.product_name like'] = '%'.$product_name.'%';
+                $info['where']= $proviso;
                 $product= $this->product_model->get_list($info);
                 foreach ($product as $row) {
 
@@ -139,7 +139,7 @@ Class Listproduct extends MY_Controller
      $this->session->set_userdata('name',$this->removeURL($name));
     if ($this->session->userdata('name')) {
 
-       $where['products.product_name like'] = $this->session->userdata('name');
+       $where['products.product_name like'] = '%'.$this->session->userdata('name').'%';
 
 
     }

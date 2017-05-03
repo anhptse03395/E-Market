@@ -15,7 +15,7 @@
                 <div class="formRow">
                   <label for="param_name" class="formLeft">Tên:<span class="req">*</span></label>
                   <div class="formRight">
-                    <span class="oneTwo"><input type="text" _autocheck="true" id="param_name" value="<?php echo $info->category_name?>" name="category_name"></span>
+                    <span class="oneTwo"><input style="border: 2px ridge" type="text" _autocheck="true" id="param_name" value="<?php echo $info->category_name?>" name="category_name"></span>
                     <span class="autocheck" name="name_autocheck"></span>
                     <div class="clear error" name="name_error"><?php echo form_error('category_name')?></div>
                   </div>

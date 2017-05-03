@@ -191,6 +191,7 @@ Class Feedback extends MY_Controller
             $input['limit'] = array($config['per_page'], $segment);
             $list = $this->feedback_model->search_feedback($input);
             $this->data['list'] =$list;
+            echo $this->db->last_query();
 
 
             
@@ -236,31 +237,24 @@ Class Feedback extends MY_Controller
 
       function delete()
     {
-        $feedback_id = $this->uri->rsegment('3');
-        $feedback_id = intval($feedback_id);
-
-
+        $id = $this->uri->rsegment('3');
+        $id = intval($id);
         //lay thong tin cua quan tri vien
-        $info = $this->feedback_model->feedback_info($feedback_id);
-        //$feedback_id = $info->feedback_id;
+        $info = $this->feedback_model->get_info($id);
+        $feedback_id = $info->id;
 
-        
-        pre($info);
-        
+        //pre($feedback_id);
         if(!$info)
         {
-            $this->session->set_flashdata('message', 'Không tồn tại người dùng');
+            $this->session->set_flashdata('message', 'Không tồn tại phản hồi');
             redirect(admin_url('feedback'));
         }
-        //pre($info);
         //thuc hiện xóa
-
         $this->feedback_model->delete($feedback_id);
         
         $this->session->set_flashdata('message', 'Xóa dữ liệu thành công');
         redirect(admin_url('feedback'));
     }
-    
 }
 
 

@@ -70,7 +70,7 @@ function index()
         if(intval($row->role_id)==3&&intval($row->active)==1){
          $expiration = $row->expiration_date-now();
          if($expiration <=0){
-          $data =array('role_id'=>4);
+          $data =array('role_id'=>13);
           $this->account_model->update($row->account_id,$data);
         }
 
@@ -81,11 +81,20 @@ function index()
 
       }
       if(intval($row->role_id)==4&&intval($row->active)==1){
-        $this->session->set_userdata('expire','Tài khoản của bạn đã bị khóa do hết hạn sử dụng');
+        $this->session->set_userdata('expire','Tài khoản của bạn đã bị cấm ');
          $this ->session ->set_userdata('account_id',$row->account_id) ;
         $this ->session ->set_userdata('permissions_ac',json_decode($row->permissions)) ;
-        $this ->session ->set_userdata('shop_id',$row->shop_id) ;
+        $this ->session ->set_userdata('shop_id',$row->shop_id);
         redirect(user_url('profile/shop'));
+
+     }
+     if(intval($row->role_id)==13&&intval($row->active)==1){
+       $this->session->set_userdata('expire','Tài khoản của bạn đã bị khóa do hết hạn sử dụng');
+         $this ->session ->set_userdata('account_id',$row->account_id) ;
+        $this ->session ->set_userdata('permissions_ac',json_decode($row->permissions)) ;
+        $this ->session ->set_userdata('shop_id',$row->shop_id);
+        redirect(user_url('profile/shop'));
+
 
      }
      if(intval($row->role_id)!=3||intval($row->role_id)!=2||intval($row->role_id)!=5){

@@ -60,7 +60,7 @@
                                                 <img src="<?php echo base_url('upload/product/'.$row['image_link'])?>" alt="White Blouse Armani">
                                             </a>
                                         </td>
-                                        <td><a href="#"><?php echo $row['name'].'('.$row['shop_name'].')' ?></a>
+                                        <td><a href="#"><?php echo $row['name'].' '.'('.$row['shop_name'].')' ?></a>
                                         </td>
                                         <td>
                                             <?php $qty = 'qty'.$row['id']

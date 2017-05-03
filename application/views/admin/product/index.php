@@ -25,13 +25,13 @@
 
 						<tr>
 							<td style="width:155px;text-align: right;" class="label"><label for="filter_id">Số Điện Thoại</label></td>
-							<td style="width:155px;" class="item"><input type="text" id="filter_iname" value="<?php echo set_value('phone') ?>" name="phone"></td>
+							<td style="width:155px;" class="item"><input style="border: 2px ridge" type="text" id="filter_iname" value="<?php echo set_value('phone') ?>" name="phone"></td>
 							
 							<td class="col-xs-3 control-label" style="text-align: right;">Từ ngày</td>
 
 					                <td style="width:155px;" class="col-xs-5 date" >
 								          <div class="input-group input-append date" id="datePicker">
-								            <input  type="text" value=""  class="datePicker" name="from_date" />
+								            <input  style="border: 2px ridge" type="text" value=""  class="datePicker" name="from_date" />
 								            <!-- <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span> -->
 								          </div>
 
@@ -40,12 +40,12 @@
 						<tr>
 							
 							<td style="width:40px;" class="label"><label for="filter_id">Tên</label></td>
-							<td style="width:155px;" class="item"><input type="text" style="width:155px;" id="filter_iname" value="<?php echo set_value('name')?>" name="name"></td>
+							<td style="width:155px;" class="item"><input style="border: 2px ridge" type="text" style="width:155px;" id="filter_iname" value="<?php echo set_value('name')?>" name="name"></td>
 
 							<td class="col-xs-3 control-label" style="text-align: right;">Đến ngày</td>
 
 
-					                <td style="width:155px;"><input  type="text" class="datePicker" value=""  name="end_date"  /></td>
+					                <td style="width:155px;"><input style="border: 2px ridge" type="text" class="datePicker" value=""  name="end_date"  /></td>
 							
 							<td style="width:60px;" class="label"><label for="filter_status">Thể loại</label></td>
 							<td class="item">
@@ -68,8 +68,7 @@
 						</tr>
 
 							
-						<tr>			
-									<td></td>					
+						<tr>								
 									<td style="width:150px;text-align: center;">
 									<input type="submit" value="Tìm Kiếm" class="button blueB"></td>
 																				

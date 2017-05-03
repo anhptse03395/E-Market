@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="pageTitle">
 			<h5>Cửa hàng</h5>
-			<span>Danh sách shop sắp hết hạn</span>
+			<span></span>
 		</div>
 		
 		<div class="horControlB menu_action">

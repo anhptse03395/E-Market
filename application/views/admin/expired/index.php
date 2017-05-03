@@ -19,7 +19,7 @@
 
 						<tr>
 							<td style="width:80px;text-align:right;" class="label"><label for="filter_id">Số Điện Thoại</label></td>
-							<td style="width:155px;" class="item"><input type="text" id="filter_iname" value="" name="phone"></td>
+							<td style="width:155px;" class="item"><input style="border: 2px ridge" type="text" id="filter_iname" value="" name="phone"></td>
 
 							
 						<!-- 	<td class="label" style="width:150px;">Trạng thái<label for="filter_type"  > </label></td>
@@ -38,11 +38,11 @@
 
 						<tr>
 							<td class="label" style="width:150px; text-align: right; "><label for="filter_created"></label>Từ ngày</td>
-							<td class="item"><input name="from_date" value="" id="filter_created" type="text" class="datepicker" /></td>
+							<td class="item"><input style="border: 2px ridge" name="from_date" value="" id="filter_created" type="text" class="datepicker" /></td>
 
 
 							<td class="label" style="width:150px;" ><label for="filter_created_to"> Đến ngày</label></td>
-							<td class="item" style="width:150px;" ><input name="end_date" value="" type="text" class="datepicker" /></td>
+							<td class="item" style="width:150px;" ><input style="border: 2px ridge" name="end_date" value="" type="text" class="datepicker" /></td>
 						</tr>
 						<tr>
 							

@@ -40,7 +40,7 @@
                 <div class="formRow">
                 	<label for="param_name" style="text-align: center;" class="formLeft">Ngày thanh toán<span class="req"></span></label>
                 	<div class="formRight">
-                		<span class="oneTwo"><input name="filing_date" value="" id="filter_created" type="text" class="datepicker" /></span>
+                		<span class="oneTwo"><input style="border: 2px ridge" name="filing_date" value="" id="filter_created" type="text" class="datepicker" /></span>
                 		<span class="autocheck" name="name_autocheck"></span>
                 		<div class="clear error" name="name_error"><?php echo form_error('shop_name')?></div>
                 	</div>

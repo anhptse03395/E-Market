@@ -18,7 +18,15 @@
     </div>
 <?php endif;?>
 
-       <table class="table table-user-information" style="width: 100%">
+<?php  $message1 = $this->session->flashdata('message');
+    ?>
+    <?php if(isset($message1) && $message1):?>
+      <div class="alert alert-info">
+        <h3 style="text-align: center;"><strong> </strong><?php echo $message1?></h3>
+      </div>
+    <?php endif;?>
+
+       <table class="table table-user-information"  style="width: 40%;">
         <tbody>
             <tr>
                 <td >Tên của bạn:</td>

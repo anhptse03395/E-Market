@@ -17,17 +17,16 @@
 					<table width="80%" cellspacing="0" cellpadding="0"><tbody>
 
 						<tr>							
-							<td style="width:40px;text-align: right" class="label"><label for="filter_id">Tên chợ</label></td>
-							<td style="width:155px;" class="item"><input type="text" style="width:155px;" id="filter_iname" value="" name="market_name"></td>
+							<td style="width:40px;text-align: right;" class="label"><label for="filter_id"><b>Tên chợ</b></label></td>
+							<td style="width:155px;" class="item"><input style="width:125px; border: 2px ridge" type="text" style="width:155px;" id="filter_iname" value="" name="market_name"></td>
 
-							<td style="width:40px;text-align: right" class="label"><label for="filter_id">Tên Tỉnh</label></td>
-							<td style="width:155px;" class="item"><input type="text" style="width:155px;" id="filter_iname" value="" name="local_name"></td>
+							<td style="width:40px;text-align: right" class="label"><label for="filter_id"><b>Tên Tỉnh</b></label></td>
+							<td style="width:155px;" class="item"><input style="width:125px; border: 2px ridge" type="text" style="width:155px;" id="filter_iname" value="" name="local_name"></td>
 
 							 
 												
 							<td style="width:150px">
 								<input type="submit" value="Tìm Kiếm" class="button blueB">
-								<input type="reset" onclick="window.location.href = '<?php echo admin_url('market')?>'; " value="Reset" class="basic">
 							</td>
 						</tr>
 					</tbody></table>

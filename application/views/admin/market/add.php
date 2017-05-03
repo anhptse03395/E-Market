@@ -32,7 +32,7 @@
 				<div class="formRow">
 					<label for="param_email" class="formLeft">Tên chợ:<span class="req">*</span></label>
 					<div class="formRight">
-						<span class="oneTwo"><input type="text" _autocheck="true" value="<?php echo set_value('market_name')?>" id="param_email" name="market_name"></span>
+						<span class="oneTwo"><input style="border: 2px ridge" type="text" _autocheck="true" value="<?php echo set_value('market_name')?>" id="param_email" name="market_name"></span>
 						<span class="autocheck" name="email_autocheck"></span>
 						<div class="clear error" name="email_error"><?php echo form_error('market_name')?></div>
 					</div>

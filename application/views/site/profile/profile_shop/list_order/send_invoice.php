@@ -44,9 +44,9 @@
         <td><?php echo $orders->address_receiver ?></td>
       </tr>
     </tbody>
-  </table>
+  </table >
 
-  <table id="mytable" class="table table-bordred table-striped">
+  <table style="margin-left: 5%" id="mytable" class="table table-bordred table-striped">
 
    <thead>
      <td class="description" style="color: blue">Tên sản phẩm</td>
@@ -88,7 +88,7 @@
 </table>
 
 <div class="text-right" style="margin-right: 18%"> Tổng số tiền: <?php echo number_format($total, 0, '.', ',').' '. 'đồng'?> </div>
-<div class="text-left">Số tiền cần thu <input type="text" name="need_money"></div>
+<div style="margin-left: 6%" class="text-left">Số tiền cần thu <input type="text" name="need_money" value="<?php echo number_format($total/2, 0, '.', ',')?>">Đồng</div>
 
 <div class="form-group" style="margin-top: 10%" >
                   <label class="col-xs-3 control-label"></label>

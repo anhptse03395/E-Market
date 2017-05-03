@@ -7,7 +7,7 @@
 
 		<div class="title">
 
-			<h6>Danh sach Admin</h6>
+			<h6>Danh sách Admin</h6>
 			<div class="num f12">Tổng số: <b> <?php echo  $total ?></b></div>
 		</div>
 
@@ -16,8 +16,8 @@
 				<tr>
 					<td style="width:10px;"><img src="<?php echo public_url('admin') ?>/images/icons/tableArrows.png" /></td>
 					<td style="width:80px;">Mã số</td>
-					<td>Phone</td>
-					<td>Address</td>
+					<td>Số điện thoại</td>
+					<td>Địa chỉ</td>
 					<td>Chức vụ</td>
 					<td style="width:100px;">Hành động</td>
 				</tr>

@@ -44,84 +44,21 @@
 
                         <?php } ?>  
 
- 
 
+ 
+ <div id="find-product" style="font-size:large;">
+          <a href="<?php echo user_url('listproduct') ?>"><i class="glyphicon glyphicon-zoom-out"></i> Tìm kiếm sản phẩm</a>
+    </div>
     <header id="top" class="header">
         <div class="text-vertical-center">
-            <h1 style="color: rgba(43, 157, 255, 0.92);text-align: ">Chào mừng bạn đến với E-market</h1>
+            <h1 style="color:#4CAF50;text-align: ">Chào mừng bạn đến với hệ thống chợ đầu mối E-market</h1>
             <br>
             <a href="#container" class="btn btn-dark btn-lg">Khám phá chợ</a>
         </div>
     </header>
 
-
-<div class="container">
-        <div class="row">
-            <div class="main_portfolio_content">
-                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text" style="margin: " >
-                    <img src="<?php echo public_url('user/images/home/rau.jpg') ?>" alt="" />
-                    <div class="portfolio_images_overlay text-center">
-                        <h6>Rau</h6>
-
-                        <a href="<?php echo user_url('listproduct/list_category/16') ?>" class="btn btn-primary">Xem</a>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
-                    <img src="<?php echo public_url('user/images/home/qua.jpg') ?>" alt="" />
-                    <div class="portfolio_images_overlay text-center">
-                        <h6>Quả</h6>
-                        
-                        <a href="<?php echo user_url('listproduct/list_category/5') ?>" class="btn btn-primary">Xem</a>
-                    </div>                              
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
-                    <img src="<?php echo public_url('user/images/home/cu.jpg') ?>" alt="" />
-                    <div class="portfolio_images_overlay text-center">
-                        <h6>Củ</h6>
-
-                        <a href="<?php echo user_url('listproduct/list_category/13') ?>" class="btn btn-primary">Xem</a>
-                    </div>                              
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
-                    <img src="<?php echo public_url('user/images/home/thit.jpg') ?>" alt="" />
-                    <div class="portfolio_images_overlay text-center">
-                        <h6>Thịt</h6>
-
-                        <a href="<?php echo user_url('listproduct/list_category/10') ?>" class="btn btn-primary">Xem</a>
-                    </div>                              
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
-                    <img src="<?php echo public_url('user/images/home/ca.jpg') ?>" alt="" />
-                    <div class="portfolio_images_overlay text-center">
-                        <h6>Cá</h6>
-
-                        <a href="<?php echo user_url('listproduct/list_category/9') ?>" class="btn btn-primary">Xem</a>
-                    </div>                              
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text" >
-                    <img src="<?php echo public_url('user/images/home/luongthuc.jpg') ?>" alt="" />
-                    <div class="portfolio_images_overlay text-center">
-                        <h6>Lương thực</h6>
-
-                        <a href="<?php echo user_url('listproduct/list_category/12') ?>" class="btn btn-primary">Xem</a>
-                    </div>                              
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text" >
-                    <img src="<?php echo public_url('user/images/home/dokho.jpg') ?>" alt="" />
-                    <div class="portfolio_images_overlay text-center">
-                        <h6>Đồ khô</h6>
-
-                        <a href="<?php echo user_url('listproduct/list_category/1') ?>" class="btn btn-primary">Xem</a>
-                    </div>                              
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div  id ="container" class="container" style="margin-left: 20%">
-        <h1 style="color: rgba(26, 42, 88, 0.78)">Lựa chọn địa điểm muốn xem</h1>
+<div  id ="container" class="container" style="margin-left: 20%">
+        <h1 style="color: rgba(26, 42, 88, 0.78)">Chọn chợ muốn xem</h1>
         <div class="row">
 
             <form action="<?php echo base_url('home/index') ?>" method="post">
@@ -222,6 +159,74 @@
     <?php  }?> 
 </div>
 
+
+
+
+
+
+
+<div class="container">
+        <div class="row">
+            <div class="main_portfolio_content">
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text" style="margin: " >
+                    <img src="<?php echo public_url('user/images/home/rau.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Rau</h6>
+
+                        <a href="<?php echo user_url('listproduct/list_category/16') ?>" class="btn btn-primary">Xem</a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
+                    <img src="<?php echo public_url('user/images/home/qua.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Quả</h6>
+                        
+                        <a href="<?php echo user_url('listproduct/list_category/5') ?>" class="btn btn-primary">Xem</a>
+                    </div>                              
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
+                    <img src="<?php echo public_url('user/images/home/cu.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Củ</h6>
+
+                        <a href="<?php echo user_url('listproduct/list_category/13') ?>" class="btn btn-primary">Xem</a>
+                    </div>                              
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
+                    <img src="<?php echo public_url('user/images/home/thit.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Thịt</h6>
+
+                        <a href="<?php echo user_url('listproduct/list_category/10') ?>" class="btn btn-primary">Xem</a>
+                    </div>                              
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text">
+                    <img src="<?php echo public_url('user/images/home/ca.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Cá</h6>
+
+                        <a href="<?php echo user_url('listproduct/list_category/9') ?>" class="btn btn-primary">Xem</a>
+                    </div>                              
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text" >
+                    <img src="<?php echo public_url('user/images/home/luongthuc.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Lương thực</h6>
+
+                        <a href="<?php echo user_url('listproduct/list_category/12') ?>" class="btn btn-primary">Xem</a>
+                    </div>                              
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 single_portfolio_text" >
+                    <img src="<?php echo public_url('user/images/home/dokho.jpg') ?>" alt="" />
+                    <div class="portfolio_images_overlay text-center">
+                        <h6>Đồ khô</h6>
+
+                        <a href="<?php echo user_url('listproduct/list_category/1') ?>" class="btn btn-primary">Xem</a>
+                    </div>                              
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

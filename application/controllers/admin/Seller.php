@@ -12,6 +12,22 @@ Class Seller extends MY_Controller
     /*
      * Lay danh sach admin
      */
+
+    function check_phone()
+    {
+        $phone = $this->input->post('phone');
+        $where = array('phone' => $phone);
+        $this->load->model('account_model');
+        //kiêm tra xem username đã tồn tại chưa
+        if($this->account_model->check_exists($where))
+        {
+            //trả về thông báo lỗi
+            $this->form_validation->set_message(__FUNCTION__, 'Số điện thoại đã được đăng kí');
+            return false;
+        }
+        return true;
+    }
+    
     function index($offset = null) 
     {
 
@@ -68,6 +84,7 @@ Class Seller extends MY_Controller
         $this->session->unset_userdata('from_date');
         $this->session->unset_userdata('end_date');
         $this->session->unset_userdata('status');
+        $this->session->unset_userdata('role_id');
 
 
         $this->session->set_userdata('phone', $this->input->post('phone'));
@@ -80,6 +97,12 @@ Class Seller extends MY_Controller
 
         if ($this->session->userdata('status')) {
             $where['accounts.active'] = $this->session->userdata('status');
+
+        }
+        $this->session->set_userdata('role_id', $this->input->post('role_id'));
+
+        if ($this->session->userdata('role_id')) {
+            $where['accounts.role_id'] = $this->session->userdata('role_id');
 
         }
 
@@ -130,6 +153,10 @@ Class Seller extends MY_Controller
 
     if ($this->session->userdata('status')) {
         $where['accounts.active'] = $this->session->userdata('status');
+
+    }
+    if ($this->session->userdata('role_id')) {
+        $where['accounts.role_id'] = $this->session->userdata('role_id');
 
     }
 
@@ -207,9 +234,7 @@ Class Seller extends MY_Controller
 
             $list = $this->shop_model->join_shops_admin($input);
 
-            //pre($info);
             $this->data['list'] =$list;
-            //pre($list);
             //echo $this->db->last_query();
 
             
@@ -267,9 +292,9 @@ Class Seller extends MY_Controller
         //neu ma co du lieu post len thi kiem tra
         if($this->input->post())
         {
-            $this->form_validation->set_rules('phone', 'Phone', 'required');
-            $this->form_validation->set_rules('shop_name', 'Tên', 'required');
-            $this->form_validation->set_rules('address', 'Địa Chỉ', 'required');
+            $this->form_validation->set_rules('phone', 'Phone', 'required|min_length[10]|numeric|callback_check_phone|regex_match[/^[0-9]{10}$/]');
+            $this->form_validation->set_rules('shop_name', 'Tên', 'required|min_length[2]');
+            $this->form_validation->set_rules('address', 'Địa Chỉ', 'required|min_length[5]');
             $this->form_validation->set_rules('password', 'Mật khẩu', 'required|min_length[6]');
             $this->form_validation->set_rules('re_password', 'Nhập lại mật khẩu', 'matches[password]');
             

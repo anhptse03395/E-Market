@@ -10,13 +10,6 @@
 	<div class="widget">
 	
 		<div class="title">
-			<span class="titleIcon">
-			<div class="checker" id="uniform-titleCheck">
-    			<span>
-    			   <input type="checkbox" name="titleCheck" id="titleCheck" style="opacity: 0;">
-    			</span>
-			</div>
-			</span>
 			<h6>Danh sách danh mục sản phẩm</h6>
 		 	<div class="num f12">Tổng số: <b><?php echo count($list)?></b></div>
 		</div>
@@ -25,7 +18,6 @@
 
 			<thead>
 				<tr>
-					<td style="width:10px;"><img src="<?php echo public_url('admin') ?>/images/icons/tableArrows.png" /></td>
 					<td style="width:80px;">Mã số</td>
 					<td>Tên Danh Mục</td>
 					<td>Hạng</td>
@@ -45,7 +37,6 @@
 			</tfoot>
 			<?php foreach ($list as $row):  ?>
 				<tr>
-					<td><input type="checkbox" name="id[]" value="<?php echo $row->category_id ?>" /></td>
 
 					<td class="textC"><?php echo $row->category_id ?></td>
 
