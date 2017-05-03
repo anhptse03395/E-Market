@@ -65,8 +65,8 @@
                                         <span class="input-group-addon"><span class="	glyphicon glyphicon-picture"></span>
                                     </span>
                                    
-                                    <input  type="file" class="form-control" name="image" id="image" size="10" 
-                                    required title ="First Name is Required" />
+                                    <input  type="file" class="form-control" name="image" size="10" required="required"
+                                 />
                                     
                                 </div>
 
@@ -110,3 +110,20 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    var elements = document.getElementsByTagName("INPUT");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].oninvalid = function(e) {
+            e.target.setCustomValidity("");
+            if (!e.target.validity.valid) {
+                e.target.setCustomValidity("Hình ảnh bắt buộc phải có");
+            }
+        };
+        elements[i].oninput = function(e) {
+            e.target.setCustomValidity("");
+        };
+    }
+})
+
+    </script>

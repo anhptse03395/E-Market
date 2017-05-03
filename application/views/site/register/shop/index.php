@@ -102,7 +102,7 @@
 								<div class="input-group"> 
 									<span class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span>
 								</span>
-								<select  name="market_place" class="form-control"  onchange="this.form.submit();">
+								<select  name="market_place" class="form-control"  >
 									<option value="">Chọn</option>
 									<?php if($market_places) :?>
 										<?php foreach ($market_places as $row) :?>
@@ -177,3 +177,21 @@
 
 	</body>
 	</html>
+
+	    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    var elements = document.getElementsByTagName("INPUT");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].oninvalid = function(e) {
+            e.target.setCustomValidity("");
+            if (!e.target.validity.valid) {
+                e.target.setCustomValidity("Hình ảnh bắt buộc phải có");
+            }
+        };
+        elements[i].oninput = function(e) {
+            e.target.setCustomValidity("");
+        };
+    }
+})
+
+    </script>
